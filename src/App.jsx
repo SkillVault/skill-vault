@@ -1,6 +1,8 @@
-
-import './App.css'
-import { useState , useEffect } from 'react'
+import LoginPage from "./pages/loginpage/LoginPage";
+import LandingPage from "./pages/landingPage";
+import {RouterProvider, createBrowserRouter,
+  // Navigate,
+} from "react-router-dom";
 
 function App() {
   const router = createBrowserRouter([
@@ -10,7 +12,7 @@ function App() {
     },
     {
       path: "landing",
-      element: <LandingPage11 />,
+      element: <LandingPage />,
     },
     {
       path: "login",
@@ -20,21 +22,9 @@ function App() {
   ]);
   return (
     <>
-      <div className="header">
-    <input onChange = {(e)=> setUserData({...userData, "name": e.target.value} )} type="text" placeholder='Enter name of you'/>
-    <input onChange = {(e)=> setUserData({...userData, "lname": e.target.value} )} type="text" placeholder='Enter last name of you'/>
-
-      <input type="number" onChange = {(e)=>setUserData({...userData, "age": e.target.value} )}    placeholder='Enetr age'/>
-      <button > Submit</button>
-
-      <p>
-        {
-          userData.submit && <>{userData.name} {userData.lname} is {userData.age} years old</>
-        }
-      </p>
-      </div>
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
