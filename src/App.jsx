@@ -4,8 +4,6 @@ import {RouterProvider, createBrowserRouter,
   // Navigate,
 } from "react-router-dom";
 
-// this is our first react project
-
 function App() {
   const router = createBrowserRouter([
     // this is our first react project
@@ -15,7 +13,7 @@ function App() {
     },
     {
       path: "landing",
-      element: <LandingPage />,
+      element: <LandingPage11 />,
     },
     {
       path: "login",
@@ -29,7 +27,6 @@ function App() {
       <RouterProvider router={router} />
     </>
   );
-  // this is our first react project
 }
 
 export default App;
