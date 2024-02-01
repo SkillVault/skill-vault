@@ -1,0 +1,15 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #212121;
+}
+.container {
+
+  height: 50vh;
+  width: 40vw;
+  background-color: rgb(43, 42, 42);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

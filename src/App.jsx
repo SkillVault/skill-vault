@@ -1,8 +1,9 @@
-import LandingPage from "./components/landingPage";
+import LoginPage from "./pages/LoginPage";
+
 function App() {
   return (
     <div>
-      <LandingPage />
+      <LoginPage />
     </div>
   );
 }
