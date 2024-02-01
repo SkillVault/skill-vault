@@ -1,9 +1,12 @@
 import React from "react";
-import "./landingNav.css";
+import "./LandingNav.css";
 
 const LandingNavbar = () => {
   return (
     <nav className="navbar">
+      <div className="logo-container">
+        <img src="./src/assets/logo.png" alt="Logo" className="logo" />
+      </div>
       <ul className="nav-list">
         <li className="nav-item">
           <a href="/" className="nav-link">
