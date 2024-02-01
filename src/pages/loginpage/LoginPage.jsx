@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 import "./LoginPage.css";
 function LoginPage() {
+  const navigate = useNavigate();
   return (
     <div className="login-container">
       <div className="container">
@@ -16,7 +18,7 @@ function LoginPage() {
           <div className="line"></div>
         </div>
         
-        <button className="googleLoginBtn">Sign in with google</button>
+        <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
       
 
       </div>
