@@ -3,23 +3,21 @@ import './App.css'
 import { useState , useEffect } from 'react'
 
 function App() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState(10);
-
-  const [submit, setSubmit] = useState(false);
-  const [userData, setUserData] = useState({
-    name:"" ,
-    lname:"" ,
-    age: 0 ,
-    submit: false
-  });
-
-  useEffect(()=>{
-    console.log("Data")
-    if(userData.age>40){
-      setUserData({...userData, submit:true})
-    }
-  },[userData.age])
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <LandingPage />,
+    },
+    {
+      path: "landing",
+      element: <LandingPage11 />,
+    },
+    {
+      path: "login",
+      element: <LoginPage />,
+    },
+  
+  ]);
   return (
     <>
       <div className="header">
