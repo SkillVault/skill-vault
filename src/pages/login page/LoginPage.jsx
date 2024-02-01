@@ -1,4 +1,6 @@
 import React from "react";
+
+
 import "./LoginPage.css";
 function LoginPage() {
   return (
@@ -13,7 +15,9 @@ function LoginPage() {
           <text>Or</text>
           <div className="line"></div>
         </div>
+        
         <button className="googleLoginBtn">Sign in with google</button>
+      
 
       </div>
     </div>
