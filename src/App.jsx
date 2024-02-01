@@ -7,6 +7,10 @@ import {RouterProvider, createBrowserRouter,
 function App() {
   const router = createBrowserRouter([
     {
+      path: "/",
+      element: <LandingPage />,
+    },
+    {
       path: "landing",
       element: <LandingPage />,
     },
@@ -14,6 +18,7 @@ function App() {
       path: "login",
       element: <LoginPage />,
     },
+  
   ]);
   return (
     <>
