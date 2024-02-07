@@ -12,7 +12,7 @@ function App() {
     },
     {
       path: "landing",
-      element: <LandingPage11 />,
+      element: <LandingPage />,
     },
     {
       path: "login",
