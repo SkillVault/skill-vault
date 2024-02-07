@@ -6,6 +6,7 @@ import {RouterProvider, createBrowserRouter,
 
 function App() {
   const router = createBrowserRouter([
+    // this is our first react project
     {
       path: "/",
       element: <LandingPage />,
@@ -17,6 +18,7 @@ function App() {
     {
       path: "login",
       element: <LoginPage />,
+      // this is our first react project
     },
   
   ]);
