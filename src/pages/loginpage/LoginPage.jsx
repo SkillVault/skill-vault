@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 
 
 import "./LoginPage.css";
@@ -18,7 +19,15 @@ function LoginPage() {
           <div className="line"></div>
         </div>
         
-        <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
+        <GoogleLogin
+         clientId="109725098981-becg76b1emp5dnji0n1tla3j43743lgn.apps.googleusercontent.com"
+  onSuccess={credentialResponse => {
+    console.log(credentialResponse);
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/>;
       
 
       </div>
