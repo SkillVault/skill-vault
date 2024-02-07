@@ -1,13 +1,13 @@
 import React from "react";
 import "./JobSeach.css";
+import Dashboard from "../components/Dashboard";
 import Dropdown from 'react-bootstrap/Dropdown';
-
 import { MagnifyingGlass } from "phosphor-react";
 
 const JobSeach = () => {
   return (
     <div className="job-search-container">
-      <div></div>
+      <Dashboard/>
       <div className="search-bar">
       <div className="search-container">
           <MagnifyingGlass size={22} />
