@@ -5,7 +5,7 @@
 .search-bar {
  
   display: flex;
-  background-color: #212121;
+  background-color: #1b1a1e; /* Adjust background color */
   height: 70px;
   justify-content: flex-end;
 

@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   height: 100vh; /* Full screen height */
-  width: 250px; /* Adjust width as needed */
+  width: 270px; /* Adjust width as needed */
   background-color: #1b1a1e; /* Adjust background color */
   padding: 20px;
   overflow-y: auto; /* Enable scrolling for long content */
