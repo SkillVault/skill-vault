@@ -15,7 +15,7 @@ function App() {
     // <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
     {
       path: "/",
-      element: <LandingPage />,
+      element: <LandingPage/>,
     },
     {
       path: "landing",
@@ -34,10 +34,10 @@ function App() {
   
   ]);
   return (
-    // <>
-    //   <RouterProvider router={router} />
-    // </>
-    <Homepage />
+    <>
+      <RouterProvider router={router} />
+    </>
+  
   );
   // this is our first react project
 }
