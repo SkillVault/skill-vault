@@ -1,5 +1,7 @@
 import LoginPage from "./pages/loginpage/LoginPage";
-import LandingPage from "./pages/landingPage";
+import LandingPage from "./pages/landingpage/LandingPage";
+import JobSearch from "./pages/JobSeach";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {RouterProvider, createBrowserRouter,
   // Navigate,
 } from "react-router-dom";
@@ -13,7 +15,7 @@ function App() {
     // <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
     {
       path: "/",
-      element: <LandingPage />,
+      element: <JobSearch/>,
     },
     {
       path: "landing",
@@ -24,12 +26,18 @@ function App() {
       element: <LoginPage />,
       // this is our first react project
     },
+    {
+      path: "jobsearch",
+      element: <JobSearch />,
+      // this is our first react project
+    },
   
   ]);
   return (
     <>
       <RouterProvider router={router} />
     </>
+  
   );
   // this is our first react project
 }

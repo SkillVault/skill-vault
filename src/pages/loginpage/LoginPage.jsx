@@ -1,9 +1,8 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
-
-
 import "./LoginPage.css";
+
 function LoginPage() {
   const navigate = useNavigate();
   return (
