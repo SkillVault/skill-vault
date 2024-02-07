@@ -1,5 +1,6 @@
 import React from "react";
 import "./Dashboard.css";
+import { FileX } from "phosphor-react";
 
 const Dashboard = () => {
   return (
