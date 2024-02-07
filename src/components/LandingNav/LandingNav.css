@@ -1,16 +1,12 @@
 .navbar {
-  background-color: rgba(204, 194, 213, 0);
+  background-color: rgba(28, 28, 28, 0);
   display: flex;
   height: 76px;
   justify-content: flex-end;
   align-items: center;
+  position: relative;
+  z-index: 1;
   backdrop-filter: blur(8px);
-  position: relative; /* Ensure it's positioned within the content-container */
-  z-index: 1; /* Place it above other elements within the container 
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%; */
 }
 
 .nav-list {
