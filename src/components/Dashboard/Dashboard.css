@@ -1,0 +1,42 @@
+.dashboard {
+  position: fixed; /* Keep it fixed on the screen */
+  top: 0;
+  left: 0;
+  height: 100vh; /* Full screen height */
+  width: 250px; /* Adjust width as needed */
+  background-color: #1b1a1e; /* Adjust background color */
+  padding: 20px;
+  overflow-y: auto; /* Enable scrolling for long content */
+}
+
+.dashboard-link {
+  list-style: none;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  /* background-color: #ababab; */
+  transition: box-shadow 0.2s ease-in-out;
+  margin-bottom: 16px;
+}
+
+.dashboard-link a:hover {
+  /* background-color: #fff; */
+  color: #ffffff;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.dashboard-link a {
+  text-decoration: none;
+  color: #7c7c7c;
+  font-family: Arial, sans-serif;
+}
+
+.dash-icon {
+  height: 20px;
+  width: 20px;
+  padding: 4px;
+  margin-right: 8px;
+  background-color: white;
+  border-radius: 50px;
+}
