@@ -1,5 +1,5 @@
 import LoginPage from "./pages/loginpage/LoginPage";
-import LandingPage from "./pages/landingpage/LandingPage";
+import LandingPage from "./pages/landingPage";
 import JobSearch from "./pages/JobSeach";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {RouterProvider, createBrowserRouter,
@@ -34,10 +34,10 @@ function App() {
   
   ]);
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  
+    // <>
+    //   <RouterProvider router={router} />
+    // </>
+    <Homepage />
   );
   // this is our first react project
 }
