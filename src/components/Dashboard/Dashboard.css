@@ -1,12 +1,12 @@
 .dashboard {
-  position: fixed; /* Keep it fixed on the screen */
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100vh; /* Full screen height */
-  width: 250px; /* Adjust width as needed */
-  background-color: #1b1a1e; /* Adjust background color */
+  height: 100vh;
+  width: 200px;
+  background-color: #1b1a1e;
   padding: 20px;
-  overflow-y: auto; /* Enable scrolling for long content */
+  overflow-y: auto;
 }
 
 .dashboard-link {
@@ -21,7 +21,6 @@
 }
 
 .dashboard-link a:hover {
-  /* background-color: #fff; */
   color: #ffffff;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }

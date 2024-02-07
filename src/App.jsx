@@ -24,10 +24,10 @@ function App() {
     },
   ]);
   return (
-    // <>
-    //   <RouterProvider router={router} />
-    // </>
-    <Homepage />
+    <>
+      <RouterProvider router={router} />
+    </>
+    // <Homepage />
   );
 }
 
