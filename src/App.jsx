@@ -22,12 +22,15 @@ function App() {
       path: "login",
       element: <LoginPage />,
     },
+    {
+      path: "homepage",
+      element: <Homepage />,
+    },
   ]);
   return (
     <>
       <RouterProvider router={router} />
     </>
-    // <Homepage />
   );
 }
 
