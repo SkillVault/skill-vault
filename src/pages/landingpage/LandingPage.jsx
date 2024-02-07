@@ -1,12 +1,19 @@
 import React from "react";
-import LandingNavbar from "../components/LandingNav";
+import LandingNavbar from "../../components/LandingNav/LandingNav";
 import "./LandingPage.css";
 
 const LandingPage = () => (
   <div className="landing-page">
     <div className="content-container">
       <LandingNavbar />
-      <h1 style={{ fontSize: "75px", fontFamily: "Verdana, sans-serif" }}>
+      <h1
+        style={{
+          fontSize: "75px",
+          fontFamily: "Verdana, sans-serif",
+          paddingTop: "72px",
+          marginTop: "0",
+        }}
+      >
         Skill Vault
       </h1>
       <h1 style={{ color: "#54249b", fontSize: "60px" }}>
