@@ -34,10 +34,10 @@ function App() {
   
   ]);
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  
+    // <>
+    //   <RouterProvider router={router} />
+    // </>
+    <Homepage />
   );
   // this is our first react project
 }
