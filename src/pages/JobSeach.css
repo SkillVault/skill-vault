@@ -1,0 +1,71 @@
+.job-search-container {
+  min-height: 100vh; /* Ensure the page fills the viewport height */
+}
+
+.search-bar {
+ 
+  display: flex;
+  background-color: #212121;
+  height: 70px;
+  justify-content: flex-end;
+
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  margin: 15px;
+  padding-left: 10px;
+  width: 500px;
+  border-radius: 10px;
+  gap: 10px;
+}
+
+.search-bar input {
+  height: 30px;
+  width: 400px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.search-container button {
+  text-decoration: none;
+  color: #fff;
+  height: 30px;
+  width: 70px;
+  margin-right: 5px;
+  border-radius: 10px;
+  background-color: #54249b;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.search-container button:hover {
+  box-shadow: 0 0 2px 2px rgb(206, 183, 255);
+}
+
+.job-search-container input::placeholder {
+  color: rgba(255, 255, 255, 0.551);
+}
+
+.drop-down-container {
+    display: flex;
+    width: 470px;
+    gap: 20px;
+    padding: 30px;
+    align-items: center;
+    color: white;
+}
+
+#dropdown-basic {
+  background-color: #54249b;
+  border-radius: 50px;
+}
+
+.drop-down-main {
+
+    display: flex;
+    justify-content: center;
+}
