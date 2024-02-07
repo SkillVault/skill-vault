@@ -1,5 +1,6 @@
 import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingPage";
+import JobSearch from  "./pages/JobSeach";
 import {RouterProvider, createBrowserRouter,
   // Navigate,
 } from "react-router-dom";
@@ -11,7 +12,7 @@ function App() {
     // this is our first react project
     {
       path: "/",
-      element: <LandingPage />,
+      element: <JobSearch/>,
     },
     {
       path: "landing",
