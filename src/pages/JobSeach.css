@@ -5,7 +5,7 @@
 .search-bar {
  
   display: flex;
-  background-color: #212121;
+  background-color: #303030;
   height: 70px;
   justify-content: flex-end;
 
@@ -60,8 +60,13 @@
 }
 
 #dropdown-basic {
-  background-color: #54249b;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
   border-radius: 50px;
+  background-color: #54249b;
+  transition: box-shadow 0.2s ease-in-out;
+  border: 0;
 }
 
 .drop-down-main {
