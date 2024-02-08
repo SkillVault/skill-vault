@@ -1,10 +1,12 @@
 import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingpage/LandingPage";
 import JobSearch from  "./pages/JobSeach";
-import {RouterProvider, createBrowserRouter,
+import {RouterProvider, createBrowserRouter
+
   // Navigate,
 } from "react-router-dom";
 import { SignIn } from "phosphor-react";
+import Homepage from "./pages/homepage/Homepage";
 
 // this is our first react project
 

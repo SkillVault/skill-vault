@@ -12,7 +12,9 @@ function LoginPage() {
         <img src="./src/assets/logo.png" />
         <input type="email" id="userEmail" placeholder="email address" />
         <input type="password" id="userPassword" placeholder="password" />
-        <button className="loginBtn">Login</button>
+        <button className="loginBtn" onClick={
+          () => {navigate('/homepage')}
+        }>Login</button>
         <div className="singleLine">
           <div className="line"></div>
           <text>Or</text>
@@ -21,6 +23,7 @@ function LoginPage() {
         <GoogleLogin
           clientId="109725098981-becg76b1emp5dnji0n1tla3j43743lgn.apps.googleusercontent.com"
           onSuccess={(credentialResponse) => {
+            navigate('/homepage');
             console.log(credentialResponse);
           }}
           onError={() => {
