@@ -4,6 +4,7 @@ import JobSearch from  "./pages/JobSeach";
 import {RouterProvider, createBrowserRouter,
   // Navigate,
 } from "react-router-dom";
+import { SignIn } from "phosphor-react";
 
 // this is our first react project
 
@@ -14,7 +15,7 @@ function App() {
     // <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
     {
       path: "/",
-      element: <JobSearch/>,
+      element: <LandingPage />,
     },
     {
       path: "landing",

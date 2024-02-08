@@ -6,14 +6,7 @@ const LandingPage = () => (
   <div className="landing-page">
     <div className="content-container">
       <LandingNavbar />
-      <h1
-        style={{
-          fontSize: "75px",
-          fontFamily: "Verdana, sans-serif",
-          paddingTop: "72px",
-          marginTop: "0",
-        }}
-      >
+      <h1 style={{ fontSize: "75px", fontFamily: "Verdana, sans-serif" }}>
         Skill Vault
       </h1>
       <h1 style={{ color: "#54249b", fontSize: "60px" }}>
