@@ -31,13 +31,15 @@ function App() {
       element: <JobSearch />,
       // this is our first react project
     },
-  
+    {
+      path: "homepage",
+      element: <Homepage />,
+    },
   ]);
   return (
     <>
       <RouterProvider router={router} />
     </>
-   
   );
   // this is our first react project
 }

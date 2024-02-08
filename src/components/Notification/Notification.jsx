@@ -57,7 +57,6 @@ const Notification = () => {
     },
   ]);
 
-  // Simulate retrieving data from a database (replace with your actual API call)
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("https://api.example.com/notifications");
