@@ -18,7 +18,7 @@ const LandingPage = () => (
         className="background-image"
       />
       <div className="details-card">
-        <p style={{ maxWidth: "400px", minWidth: "300px", fontSize: "21px" }}>
+        <p style={{  }}>
           Skill Vault is more than just a platform, it's your personalized
           roadmap to mastering the skills you need to achieve your career goals.
           Whether you're a seasoned professional looking to upskill or a budding
