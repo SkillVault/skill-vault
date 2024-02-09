@@ -6,16 +6,18 @@ import {RouterProvider, createBrowserRouter,
   // Navigate,
 } from "react-router-dom";
 
+import SpeechtoText from "./speech";
+
 // this is our first react project
 
 function App() {
   const router = createBrowserRouter([
     // this is our first react project
 
-    // <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
+    <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
     {
       path: "/",
-      element: <JobSearch/>,
+      element: <LandingPage />,
     },
     {
       path: "landing",
