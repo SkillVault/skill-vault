@@ -16,7 +16,7 @@ function App() {
   const router = createBrowserRouter([
     // this is our first react project
 
-    <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
+    <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>,
     {
       path: "/",
       element: <LandingPage />,
