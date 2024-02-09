@@ -6,7 +6,7 @@ import {RouterProvider, createBrowserRouter,
   // Navigate,
 } from "react-router-dom";
 
-import SpeechtoText from "./speech";
+
 
 // this is our first react project
 
