@@ -1,10 +1,12 @@
 import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingpage/LandingPage";
-import JobSearch from "./pages/JobSeach";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {RouterProvider, createBrowserRouter,
+import JobSearch from  "./pages/JobSeach";
+import {RouterProvider, createBrowserRouter
+
   // Navigate,
 } from "react-router-dom";
+import { SignIn } from "phosphor-react";
+import Homepage from "./pages/homepage/Homepage";
 
 
 
@@ -33,13 +35,15 @@ function App() {
       element: <JobSearch />,
       // this is our first react project
     },
-  
+    {
+      path: "homepage",
+      element: <Homepage />,
+    },
   ]);
   return (
     <>
       <RouterProvider router={router} />
     </>
-  
   );
   // this is our first react project
 }

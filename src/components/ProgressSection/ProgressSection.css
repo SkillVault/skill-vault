@@ -4,7 +4,7 @@
   background-color: #f6f2fb;
   border-radius: 5px;
   padding-top: 0px;
-
+  
 }
 
 .notification-section h2 {
@@ -13,14 +13,17 @@
   font-weight: bold;
 }
 
-.notification-cards {
+.notification-cards,
+.interview-cards {
+  /* Added .interview-cards for clarity */
   display: flex;
   flex-wrap: wrap;
-  /* gap: 20px; */
-  justify-content: space-evenly;
+  gap: 20px;
 }
 
-.notification-card {
+.notification-card,
+.interview-card {
+  /* Added .interview-card for clarity */
   width: 250px;
   background-color: #d3c2ff;
   padding: 15px;
@@ -28,18 +31,24 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.notification-card h4 {
+.notification-card h4,
+.interview-card h4 {
+  /* Added .interview-card for clarity */
   margin-bottom: 5px;
   font-size: 16px;
   font-weight: bold;
 }
 
-.notification-card p {
+.notification-card p,
+.interview-card p {
+  /* Added .interview-card for clarity */
   margin-bottom: 10px;
   font-size: 14px;
 }
 
-.notification-card button {
+.notification-card button,
+.interview-card button {
+  /* Added .interview-card for clarity */
   background-color: #54249b;
   transition: box-shadow 0.2s ease-in-out;
   color: #fff;
@@ -49,18 +58,24 @@
   cursor: pointer;
 }
 
-.no-notifications {
+.no-notifications,
+.no-interviews {
+  /* Added .no-interviews for clarity */
   display: flex;
   align-items: center;
   justify-content: center;
   height: 200px;
 }
 
-.no-notifications-content {
+.no-notifications-content,
+.no-interviews-content {
+  /* Added .no-interviews-content for clarity */
   text-align: center;
 }
 
-.no-notifications-content p {
+.no-notifications-content p,
+.no-interviews-content p {
+  /* Added .no-interviews-content for clarity */
   font-size: 16px;
   font-weight: bold;
 }
@@ -77,7 +92,9 @@
   cursor: pointer;
 }
 
-.notification-card button:hover {
+.notification-card button:hover,
+.interview-card button:hover {
+  /* Added .interview-card for clarity */
   box-shadow: 0 0 2px 2px rgb(255, 255, 255);
 }
 

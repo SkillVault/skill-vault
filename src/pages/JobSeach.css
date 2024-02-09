@@ -1,16 +1,23 @@
 .job-search-container {
   min-height: 100vh; /* Ensure the page fills the viewport height */
-}
-
-.search-bar {
- 
   display: flex;
-  background-color: #1b1a1e; /* Adjust background color */
+}
+.job-search-page {
+  width: 100vw;
+}
+.search-bar {
+  display: flex;
+  background-color: #1b1a1e;
   height: 70px;
   justify-content: flex-end;
-
 }
-
+.sidebar {
+  width: 20%; /* Adjust as needed */
+  background-color: #f0f0f0;
+  /* padding: 20px; */
+  /* height: 100%; Fixed height if sidebar content fills viewport */
+  height: 100%;
+}
 .search-container {
   display: flex;
   align-items: center;
@@ -51,21 +58,25 @@
 }
 
 .drop-down-container {
-    display: flex;
-    width: 470px;
-    gap: 20px;
-    padding: 30px;
-    align-items: center;
-    color: white;
+  display: flex;
+  width: 470px;
+  gap: 20px;
+  padding: 30px;
+  align-items: center;
+  color: white;
 }
 
 #dropdown-basic {
-  background-color: #54249b;
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
   border-radius: 50px;
+  background-color: #54249b;
+  transition: box-shadow 0.2s ease-in-out;
+  border: 0;
 }
 
 .drop-down-main {
-
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
