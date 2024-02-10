@@ -1,6 +1,7 @@
 import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingpage/LandingPage";
 import JobSearch from  "./pages/JobSeach";
+import ProfilePage from "./pages/profilepage/ProfilePage";
 import {RouterProvider, createBrowserRouter
 
   // Navigate,
@@ -19,7 +20,7 @@ function App() {
     <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>,
     {
       path: "/",
-      element: <LandingPage />,
+      element: < LandingPage />,
     },
     {
       path: "landing",
@@ -38,6 +39,10 @@ function App() {
     {
       path: "homepage",
       element: <Homepage />,
+    },
+    {
+      path: "profilepage",
+      element: <ProfilePage />,
     },
   ]);
   return (
