@@ -90,7 +90,8 @@ const ProfilePage = () => {
             </div>
           </div>
           <div className='card2'>
-            hii
+            <img src="./src/assets/logo.png" />
+            <p>Skills</p>
           </div>
         </div>
       </main>
