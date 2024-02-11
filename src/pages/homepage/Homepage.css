@@ -1,29 +1,28 @@
 /* styles.css */
 .homepage-container {
-    display: flex;
-  }
-  
-  .sidebar {
-    width: 20%; /* Adjust as needed */
-    background-color: #f0f0f0;
-    padding: 20px;
-    height: 100vh; /* Fixed height if sidebar content fills viewport */
-  }
-  
-  .main-content {
-    flex: 1; /* Remaining space */
-    padding: 20px;
-    display: flex;
-    flex-direction: column; /* Stack components vertically */
-  }
-  
-  .slider-container,
-  .notification-container {
-    flex: 1; /* Share remaining space proportionally */
-  }
-  
-  /* Media queries for responsive adjustments */
-  @media (max-width: 768px) {
-    /* Adapt layout for smaller screens */
-  }
-  
+  display: flex;
+}
+
+.sidebar {
+  width: 20%; /* Adjust as needed */
+  background-color: #f0f0f0;
+  /* padding: 20px; */
+  /* height: 100%; Fixed height if sidebar content fills viewport */
+}
+
+.main-content {
+  flex: 1; /* Remaining space */
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column; /* Stack components vertically */
+}
+
+.slider-container,
+.notification-container {
+  flex: 1; /* Share remaining space proportionally */
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 768px) {
+  /* Adapt layout for smaller screens */
+}

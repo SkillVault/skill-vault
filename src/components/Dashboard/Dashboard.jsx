@@ -1,69 +1,82 @@
 import React from "react";
 import "./Dashboard.css";
+import { googleLogout } from '@react-oauth/google';
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   return (
     <nav className="dashboard">
       <ul className="dashboard-links">
         <li className="dashboard-link">
-          <a href="/candidate/home">
+          <Link to="/homepage">
             <img
               src="./src/assets/home.png"
               alt="home-icon"
               className="dash-icon"
             />
             Home
-          </a>
+          </Link>
         </li>
         <li className="dashboard-link">
-          <a href="/candidate/search">
+          <Link to="/jobsearch"> 
             <img
               src="./src/assets/search.png"
               alt="search-icon"
               className="dash-icon"
             />
             Search
-          </a>
+          </Link>
         </li>
         <li className="dashboard-link">
-          <a href="/candidate/mock-interview">
+          <Link to="/candidate/mock-interview">
             <img
               src="./src/assets/interview.png"
               alt="interview-icon"
               className="dash-icon"
             />
             Mock Interview
-          </a>
+          </Link>
         </li>
         <li className="dashboard-link">
-          <a href="/candidate/profile">
+        <Link to="/profilepage"> 
             <img
               src="./src/assets/profile.png"
               alt="profile-icon"
               className="dash-icon"
             />
             Profile
-          </a>
+          </Link>
         </li>
         <li className="dashboard-link">
-          <a href="/candidate/settings">
+          <Link to="/candidate/settings">
             <img
               src="./src/assets/settings.png"
               alt="settings-icon"
               className="dash-icon"
             />
             Account Settings
-          </a>
+          </Link>
         </li>
         <li className="dashboard-link">
-          <a href="/logout">
+          <Link
+            onClick={async () => {
+              console.log("Logout clicked");
+              try {
+                await googleLogout();
+                console.log("Logout successful");
+              } catch (error) {
+                console.error("Logout failed:", error);
+              }
+            }}
+            to="/landing"
+          >
             <img
               src="./src/assets/logout.png"
               alt="logout-icon"
               className="dash-icon"
             />
             Logout
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

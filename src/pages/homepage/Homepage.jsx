@@ -2,6 +2,8 @@ import React from 'react';
 import Dashboard from '../../components/Dashboard/Dashboard';
 import Slider from '../../components/Slider/Slider';
 import Notification from '../../components/Notification/Notification';
+import ProgressSection from '../../components/ProgressSection/ProgressSection';
+import './Homepage.css'
 
 const Homepage = () => {
     return (
@@ -12,9 +14,9 @@ const Homepage = () => {
         <main className="main-content">
           <Slider />
           <Notification />
+          <ProgressSection />
         </main>
       </div>
     );
   };
-
 export default Homepage;

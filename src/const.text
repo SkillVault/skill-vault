@@ -1,0 +1,4 @@
+npm install react-bootstrap bootstrap
+npm install phosphor-react
+npm install @react-oauth/google@latest
+npm install --save react-router-dom
