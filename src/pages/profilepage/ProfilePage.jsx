@@ -16,7 +16,7 @@ const ProfilePage = () => {
           <img src="./src/assets/slider1.png" />
         </div>
         <div className='edit'>
-          {/* <p>Hello Bibin this is your profile page</p> */}
+          <h2>Hello Bibin this is your profile page</h2>
           <button className='edit-button'>Edit Profile</button>
         </div>
         <div className='cards'>
