@@ -2,3 +2,16 @@ npm install react-bootstrap bootstrap
 npm install phosphor-react
 npm install @react-oauth/google@latest
 npm install --save react-router-dom
+
+
+Back end 
+
+npm install axios
+uvicorn main.py:app --reload  
+install mongodb connect
+cntrl shift p then connect mongodb with connection string
+from cntrl shift p then create playground
+python -m pip install "pymongo[srv]"  
+pip install fastapi
+pip install uvicorn
+ uvicorn Backend.route.main:app --reload
