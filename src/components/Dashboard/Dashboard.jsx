@@ -1,13 +1,12 @@
 import React from "react";
 import "./Dashboard.css";
-import { FileX } from "phosphor-react";
 
 const Dashboard = () => {
   return (
     <nav className="dashboard">
       <ul className="dashboard-links">
         <li className="dashboard-link">
-          <a href="/candidate/home">
+          <a href="/homepage">
             <img
               src="./src/assets/home.png"
               alt="home-icon"
@@ -57,7 +56,7 @@ const Dashboard = () => {
           </a>
         </li>
         <li className="dashboard-link">
-          <a href="/logout">
+          <a href="/login">
             <img
               src="./src/assets/logout.png"
               alt="logout-icon"

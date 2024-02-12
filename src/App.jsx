@@ -1,6 +1,7 @@
 import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingpage/LandingPage";
 import Homepage from "./pages/homepage/Homepage";
+import ContactPage from "./pages/contactpage/contactpage";
 
 import {
   RouterProvider,
@@ -8,13 +9,8 @@ import {
   // Navigate,
 } from "react-router-dom";
 
-// this is our first react project
-
 function App() {
   const router = createBrowserRouter([
-    // this is our first react project
-
-    // <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
     {
       path: "/", // Define a route for the root path
       element: <LandingPage />, // Render LandingPage at the root
@@ -31,13 +27,16 @@ function App() {
       path: "homepage",
       element: <Homepage />,
     },
+    {
+      path: "contact",
+      element: <ContactPage />
+    }
   ]);
   return (
     <>
       <RouterProvider router={router} />
     </>
   );
-  // this is our first react project
 }
 
 export default App;
