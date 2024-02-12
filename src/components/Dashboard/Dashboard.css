@@ -2,15 +2,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
-  width: 230px;
+  height: 100%;
+  width: 300px;
   background-color: #1b1a1e;
   padding: 20px;
   overflow-y: auto;
   padding-left: 0px;
 }
-
-
 
 .dashboard-link {
   list-style: none;
@@ -42,7 +40,6 @@
   border-radius: 50px;
 }
 
-
-ul.dashboard-link{
+ul.dashboard-link {
   padding-left: 0px;
 }

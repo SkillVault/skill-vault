@@ -1,19 +1,24 @@
 import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingpage/LandingPage";
-import Homepage from "./pages/homepage/Homepage";
-import ContactPage from "./pages/contactpage/contactpage";
+import JobSearch from  "./pages/JobSeach";
+import ProfilePage from "./pages/profilepage/ProfilePage";
+import {RouterProvider, createBrowserRouter
 
-import {
-  RouterProvider,
-  createBrowserRouter,
   // Navigate,
 } from "react-router-dom";
+import { SignIn } from "phosphor-react";
+import Homepage from "./pages/homepage/Homepage";
+
+
 
 function App() {
   const router = createBrowserRouter([
+    // this is our first react project
+
+    <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>,
     {
-      path: "/", // Define a route for the root path
-      element: <LandingPage />, // Render LandingPage at the root
+      path: "/",
+      element: < LandingPage />,
     },
     {
       path: "landing",
@@ -24,13 +29,18 @@ function App() {
       element: <LoginPage />,
     },
     {
+      path: "jobsearch",
+      element: <JobSearch />,
+      // this is our first react project
+    },
+    {
       path: "homepage",
       element: <Homepage />,
     },
     {
-      path: "contact",
-      element: <ContactPage />
-    }
+      path: "profilepage",
+      element: <ProfilePage />,
+    },
   ]);
   return (
     <>

@@ -4,24 +4,25 @@
   background-color: #f6f2fb;
   border-radius: 5px;
   padding-top: 0px;
-  margin-left: 250px;
+
 }
 
 .notification-section h2 {
   margin-bottom: 10px;
-  font-size: 18px; 
+  font-size: 18px;
   font-weight: bold;
 }
 
 .notification-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  /* gap: 20px; */
+  justify-content: space-evenly;
 }
 
 .notification-card {
-  width: 250px; 
-  background-color: #d3c2ff; 
+  width: 250px;
+  background-color: #d3c2ff;
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -80,6 +81,6 @@
   box-shadow: 0 0 2px 2px rgb(255, 255, 255);
 }
 
-.view-all-button:hover{
+.view-all-button:hover {
   box-shadow: 0 0 1px 1px black;
 }

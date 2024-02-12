@@ -6,27 +6,34 @@ import "./LoginPage.css";
 function LoginPage() {
   const navigate = useNavigate();
   return (
-    <div>
-      <LandingNavbar />
+    <div className="main-container">
       <div className="login-container">
-        <div className="container">
-          <img src="./src/assets/logo.png" />
-          <input type="email" id="userEmail" placeholder="email address" />
-          <input type="password" id="userPassword" placeholder="password" />
-          <button className="loginBtn" onClick={() => navigate("/homepage")}>Login</button>
-          <div className="singleLine">
-            <div className="line"></div>
-            <text>Or</text>
-            <div className="line"></div>
-          </div>
-
-          <button
-            className="googleLoginBtn"
-            onClick={() => navigate("/landing")}
-          >
-            Sign in with google
-          </button>
+        <img src="./src/assets/logo.png" />
+        <input type="email" id="userEmail" placeholder="email address" />
+        <input type="password" id="userPassword" placeholder="password" />
+        <button
+          className="loginBtn"
+          onClick={() => {
+            navigate("/homepage");
+          }}
+        >
+          Login
+        </button>
+        <div className="singleLine">
+          <div className="line"></div>
+          <text>Or</text>
+          <div className="line"></div>
         </div>
+        <GoogleLogin
+          clientId="109725098981-becg76b1emp5dnji0n1tla3j43743lgn.apps.googleusercontent.com"
+          onSuccess={(credentialResponse) => {
+            navigate("/homepage");
+            console.log(credentialResponse);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
       </div>
     </div>
   );

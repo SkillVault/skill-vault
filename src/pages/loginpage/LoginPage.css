@@ -1,12 +1,13 @@
-.login-container {
+.main-container {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #333333;
+ 
+  background-color: #212121;
 }
 
-.container {
+.login-container {
   height: 400px;
   width: 400px;
   display: flex;
@@ -17,13 +18,14 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.container img {
-  padding: 20px;
-  width: 50px;
-  height: 50px;
+.login-container gbtn{
+  width: 200px;
 }
 
-.container input {
+
+
+
+.login-container input {
 
   border: 0;
   height: 30px;
@@ -33,13 +35,20 @@
   border-radius: 9px;
 }
 
-.container input:focus {
+.login-container img {
+  
+  padding: 20px;
+  height: 100px;
+  width: 100px;
+}
+
+.login-container input:focus {
 
   outline: none;
   border: none;
 }
 
-.container button {
+.login-container button {
 
   background-color: #54249b;
   
