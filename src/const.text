@@ -2,6 +2,8 @@ npm install react-bootstrap bootstrap
 npm install phosphor-react
 npm install @react-oauth/google@latest
 npm install --save react-router-dom
+npm install react-webcam
+https://www.npmjs.com/package/react-webcam?activeTab=readme
 
 
 Back end 

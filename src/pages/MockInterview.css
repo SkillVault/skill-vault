@@ -1,22 +1,65 @@
 .mock-screen {
   height: 100vh;
+
   background-color: white;
   position: relative;
-
+  padding: 40px;
 }
 
-.mock-container {
 
-    display: flex;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    align-items: stretch;
+.mock-container {
+  display: flex;
+
+  flex-direction: column;
+  gap: 200px;
 }
 
 .mock-container h1 {
 
-    text-align: center;
+  text-align: center;
+}
+
+.mock-container h2 {
+  text-align: center;
+  font-size: 60px;
+  font-weight: bolder;
+}
+
+.mock-main {
+  display: flex;
+  display: flex;
+  align-items: center;
+  padding-left: 131px;
+ 
+}
+
+.mock-main img {
+  
+  padding: 5px;
+  height: 60px;
+  width: 60px;
+}
+
+.audio {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+}
+
+.mock {
+  display: flex;
+
+  left: 40px;
+  top: 242px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.mock img {
+  height: 30px;
+  width: 30px;
 }
 
 .audio-section {
@@ -28,29 +71,15 @@
   align-items: center;
 }
 
-.mck
-
 #timer {
-
-    width: 20px;
-    height: 20px;
-    
-
-    
+  width: 40px;
+  height: 40px;
 }
-
 
 #video-player {
+  position: absolute;
+  bottom: 40px;
 
-    width: 400px;
-    height: 300px;
+  width: 400px;
+  height: 300px;
 }
-
-
-
-.audio-section  img {
-  height: 30px;
-  width: 30px;
-}
-
-
