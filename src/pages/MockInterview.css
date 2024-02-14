@@ -1,0 +1,56 @@
+.mock-screen {
+  height: 100vh;
+  background-color: white;
+  position: relative;
+
+}
+
+.mock-container {
+
+    display: flex;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: stretch;
+}
+
+.mock-container h1 {
+
+    text-align: center;
+}
+
+.audio-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 725px;
+  gap: 409px;
+  align-items: center;
+}
+
+.mck
+
+#timer {
+
+    width: 20px;
+    height: 20px;
+    
+
+    
+}
+
+
+#video-player {
+
+    width: 400px;
+    height: 300px;
+}
+
+
+
+.audio-section  img {
+  height: 30px;
+  width: 30px;
+}
+
+

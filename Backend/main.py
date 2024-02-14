@@ -1,54 +1,37 @@
-# from fastapi import FastAPI, HTTPException
-# from pydantic import BaseModel
-# from pymongo import MongoClient
 
-# app = FastAPI()
-
-
-
-# @app.get("/")
-# async def read_root():
-#     return {"message": "Welcome to the FastAPI server!"}
-
-
-# # MongoDB configuration
-# mongo_client = MongoClient("mongodb+srv://bibs:<bibinmongodb>@skillvault.a9z8sqr.mongodb.net/?retryWrites=true&w=majority")
-# db = mongo_client["mydatabase"]
-# collection = db["mycollection"]
-
-# class Item(BaseModel):
-#     name: str
-#     description: str = None
-
-# @app.post("/items/")
-# async def create_item(item: Item):
-#     item_dict = item.dict()
-#     inserted_item = collection.insert_one(item_dict)
-#     return {"message": "Item created successfully", "item_id": str(inserted_item.inserted_id)}
-
-
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from pymongo import MongoClient
+from database import ( create_user)
+
+password = "bibinmongodb"
+
+uri = f"mongodb+srv://bibs:{password}@skillvault.a9z8sqr.mongodb.net/?retryWrites=true&w=majority"
+
+# Create a new client and connect to the server
+client = MongoClient(uri)
 
 app = FastAPI()
 
-# Allowing CORS (Cross-Origin Resource Sharing)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Allow your frontend URL here
-    allow_credentials=True,
-    allow_methods=["GET", "POST"],
-    allow_headers=["*"],
-)
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 
-# MongoDB connection
-client = MongoClient("mongodb://localhost:27017/")
-db = client["mydatabase"]
-collection = db["users"]
+@app.get("/")
+def read_root():
+    return {"Fast": "Api"}
 
-@app.post("/add")
-async def add_user(text: str):
-    user = {"text": text}
-    collection.insert_one(user)
-    return {"message": "User added successfully"}
+@app.post("api/postmail")
+async def post_main():
+    res = await  create_user()
+    return res
+
+
+
+    
+
+
+

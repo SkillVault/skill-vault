@@ -1,20 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { useState } from 'react';
-import axios from 'axios'; // Import Axios for making HTTP requests
-
-
+import axios from 'axios';
 
 import "./LoginPage.css";
 
 function LoginPage() {
   const navigate = useNavigate();
-  const [email,setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const handleSubmit = async () => {
     try {
-      await axios.post('/api/saveData', { email, password });
+      await axios.post('http://localhost:5173/api/saveData', { email, password });
+
       console.log('Data saved successfully');
       // Redirect to homepage after successful submission
       navigate("/homepage");
@@ -26,15 +25,14 @@ function LoginPage() {
   return (
     <div className="main-container">
       <div className="login-container">
-        <img src="./src/assets/logo.png" />
-        <input type="email" onChange={(e) => setEmail(e.target.value)} id="userEmail" placeholder="email address"/>
+        <img src="./src/assets/logo.png" alt="logo" />
+        <input type="email" onChange={(e) => setEmail(e.target.value)} id="userEmail" placeholder="email address" />
         <input type="password" onChange={(e) => setPassword(e.target.value)} id="userPassword" placeholder="password" />
         <button
           className="loginBtn"
-          onClick={() => {
-            handleSubmit
-            navigate("/homepage");
-          }}
+          onClick={
+            ()=> navigate('/homepage')
+          } // Call handleSubmit function when button is clicked
         >
           Login
         </button>

@@ -7,6 +7,7 @@ import {RouterProvider, createBrowserRouter
 } from "react-router-dom";
 import { SignIn } from "phosphor-react";
 import Homepage from "./pages/homepage/Homepage";
+import MockInterview from "./pages/MockInterview";
 
 // this is our first react project
 
@@ -17,11 +18,15 @@ function App() {
     // <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
     {
       path: "/",
-      element: <LandingPage />,
+      element: <MockInterview />,
     },
     {
       path: "landing",
       element: <LandingPage />,
+    },
+    {
+      path: "mockinterview",
+      element: <MockInterview />,
     },
     {
       path: "login",
