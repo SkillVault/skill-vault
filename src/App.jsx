@@ -1,8 +1,13 @@
 import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingpage/LandingPage";
-import JobSearch from  "./pages/JobSeach";
+import JobSearch from  "./pages/jobsearch/JobSeach";
 import ProfilePage from "./pages/profilepage/ProfilePage";
+import ContactPage from "./pages/contactpage/contactpage";
+
+import ProfileForm from "./components/ProfileForm/ProfileForm";
+
 import {RouterProvider, createBrowserRouter
+
 
   // Navigate,
 } from "react-router-dom";
@@ -41,6 +46,11 @@ function App() {
       path: "profilepage",
       element: <ProfilePage />,
     },
+
+  {
+    path:"contactpage",
+    element: <ContactPage/>
+  }
   ]);
   return (
     <>

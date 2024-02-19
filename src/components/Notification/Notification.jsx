@@ -57,14 +57,14 @@ const Notification = () => {
     },
   ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("https://api.example.com/notifications");
-      const data = await response.json();
-      setNotifications(data);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch("https://api.example.com/notifications");
+  //     const data = await response.json();
+  //     setNotifications(data);
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <section className="notification-section">

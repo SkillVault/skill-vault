@@ -13,8 +13,13 @@ const Homepage = () => {
         </div>
         <main className="main-content">
           <Slider />
+          <div className="notification-progress">
+          <hr />
           <Notification />
+          <hr />
           <ProgressSection />
+          <hr />
+          </div>
         </main>
       </div>
     );

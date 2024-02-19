@@ -18,11 +18,13 @@
 .nav-item {
   margin: 0 0.5rem;
   padding-left: 20px;
+  width: 130px;
 }
 
 .nav-link {
   text-decoration: none;
   color: #fff;
+  height: 30px;
   padding: 0.5rem 1rem;
   border-radius: 50px;
   background-color: #54249b;
@@ -44,7 +46,6 @@
   margin-top: 8px;
   margin-bottom: 6px;
 }
-
 
 .nav-link:hover {
   box-shadow: 0 0 2px 2px rgb(206, 183, 255);

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import LandingNavbar from "../../components/LandingNav/LandingNav";
+import { GoogleLogin } from '@react-oauth/google';
 
 import "./LoginPage.css";
 function LoginPage() {
