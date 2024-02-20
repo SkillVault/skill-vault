@@ -1,4 +1,9 @@
+#models 
+
 from pydantic import BaseModel
 
-class GetUserDetail(BaseModel):
-    email:str
+class UserInfo(BaseModel):
+    name: str
+    profimg: str
+    uid: str
+    mailid: str

@@ -10,17 +10,31 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async () => {
-    try {
-      await axios.post('http://localhost:5173/api/saveData', { email, password });
+  // const handleSubmit = async () => {
+  //   try {
+  //     await axios.post('localhost:8000/api/saveData', { email, password });
 
-      console.log('Data saved successfully');
-      // Redirect to homepage after successful submission
+  //     console.log('Data saved successfully');
+  //     // Redirect to homepage after successful submission
+  //     navigate("/homepage");
+  //   } catch (error) {
+  //     console.error('Error saving data:', error);
+  //   }
+  // };
+
+  const handleLoginSuccess = async (response) => {
+    // Assuming `response` includes a property `credential` with the OAuth token
+    const token = response.credential;
+  
+    try {
+      const res = await axios.post('http://localhost:8000/api/user', { token });
+      console.log('Success:', res.data);
       navigate("/homepage");
     } catch (error) {
-      console.error('Error saving data:', error);
+      console.error('Error sending data to backend:', error);
     }
   };
+  
 
   return (
     <div className="main-container">
@@ -43,10 +57,7 @@ function LoginPage() {
         </div>
         <GoogleLogin
           clientId="109725098981-becg76b1emp5dnji0n1tla3j43743lgn.apps.googleusercontent.com"
-          onSuccess={(credentialResponse) => {
-            navigate("/homepage");
-            console.log(credentialResponse);
-          }}
+          onSuccess={handleLoginSuccess}
           onError={() => {
             console.log("Login Failed");
           }}

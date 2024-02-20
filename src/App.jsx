@@ -18,7 +18,7 @@ function App() {
     // <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>
     {
       path: "/",
-      element: <MockInterview />,
+      element: <LandingPage />,
     },
     {
       path: "landing",

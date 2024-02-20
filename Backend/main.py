@@ -1,37 +1,31 @@
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from model import UserInfo  # Corrected import
+# Ensure you import the function for database operations correctly
+from database import create_user
 
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from fastapi import FastAPI
-from database import ( create_user)
-
-password = "bibinmongodb"
-
-uri = f"mongodb+srv://bibs:{password}@skillvault.a9z8sqr.mongodb.net/?retryWrites=true&w=majority"
-
-# Create a new client and connect to the server
-client = MongoClient(uri)
+origin = ['http://localhost:5173']
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origin,
+    allow_methods=["*"],
+    allow_headers=["*"],
+   
+)
 
-# Send a ping to confirm a successful connection
-try:
-    client.admin.command('ping')
-    print("Pinged your deployment. You successfully connected to MongoDB!")
-except Exception as e:
-    print(e)
-
-@app.get("/")
+@app.get('/')
 def read_root():
-    return {"Fast": "Api"}
+    return {"Hello": "world!"}
 
-@app.post("api/postmail")
-async def post_main():
-    res = await  create_user()
-    return res
+@app.post('/api/user', response_model=UserInfo)
 
-
-
-    
+async def add_userdata(user: UserInfo):
+    response = await  create_user(user.dict())
+    if response:
+        return response
+    raise HTTPException(400, "something went wrong")
 
 
 

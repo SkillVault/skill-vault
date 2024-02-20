@@ -3,17 +3,17 @@ npm install phosphor-react
 npm install @react-oauth/google@latest
 npm install --save react-router-dom
 npm install react-webcam
+npm install @tensorflow/tfjs @tensorflow-models/blazeface
 https://www.npmjs.com/package/react-webcam?activeTab=readme
 
 
 Back end 
 
-npm install axios
+pip install pipenv
+pipenv shell
+python3 -m venv venv
+venv\Scripts\activate
 uvicorn main.py:app --reload  
-install mongodb connect
-cntrl shift p then connect mongodb with connection string
-from cntrl shift p then create playground
 python -m pip install "pymongo[srv]"  
 pip install fastapi
 pip install uvicorn
- uvicorn Backend.route.main:app --reload
