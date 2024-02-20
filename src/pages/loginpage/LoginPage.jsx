@@ -19,6 +19,14 @@ function LoginPage() {
         >
           Login
         </button>
+        <button
+          className="loginBtn"
+          onClick={() => {
+            navigate("/companyloginpage");
+          }}
+        >
+          Company
+        </button>
         <div className="singleLine">
           <div className="line"></div>
           <text>Or</text>

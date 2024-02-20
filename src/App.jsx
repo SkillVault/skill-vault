@@ -2,6 +2,7 @@ import LoginPage from "./pages/loginpage/LoginPage";
 import LandingPage from "./pages/landingpage/LandingPage";
 import JobSearch from  "./pages/JobSeach";
 import ProfilePage from "./pages/profilepage/ProfilePage";
+import CompanyLogin from "./company/companyloginpage/CompanyLogin";
 import {RouterProvider, createBrowserRouter
 
   // Navigate,
@@ -43,6 +44,10 @@ function App() {
     {
       path: "profilepage",
       element: <ProfilePage />,
+    },
+    {
+      path: "companyloginpage",
+      element: <CompanyLogin />,
     },
   ]);
   return (
