@@ -1,42 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import "./ProfileSlide.css";
 
-// const fetchUsername = async () => {
-// //Implement your API call or GraphQL query here
-//   //Replace with your actual logic for fetching the username from MongoDB
-//   const response = await fetch("/api/username");
-//   const data = await response.json();
-//   return data.username;
-// };
-
 const ProfileSlide = () => {
-  const [username, setUsername] = useState("User");
-
-  // useEffect(() => {
-  //   const getUsername = async () => {
-  //     try {
-  //       const fetchedUsername = await fetchUsername();
-  //       setUsername(fetchedUsername);
-  //     } catch (error) {
-  //       console.error("Error fetching username:", error);
-  //       // Handle the error appropriately, e.g., display an error message
-  //     }
-  //   };
-
-  //   getUsername();
-  // }, []);
-
   return (
-    <div className="slide-container">
-      <div className="slide-image-container">
-        <img src="./src/assets/stars.jpg" alt="" />
-        <div className="slide-message">
-          <h2 style={{ fontSize: "40px" }}>Welcome {username}</h2>
-          <p>
-            View and your profile here. <br />
-            Enhance your skills.
-          </p>
+    <div className="home-slide-container">
+      <div className="home-slide-image-container">
+        <img src="./src/assets/raindrops.jpg" alt="" />
+        <div className="home-slide-message">
+          <h3 style={{ fontSize: "25px" }}>
+            View and Update Your Profile Here <br />
+          </h3>
+          <h3 style={{ fontSize: "25px", paddingTop : "10px"}}>
+            Build Your Future 
+          </h3>
         </div>
       </div>
     </div>

@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import "./ProfileForm.css";
 
-const ProfileForm = () => {
+const ProfileForm = ({ onFormSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-
-  const toggleEditing = () => {
-    setIsEditing(!isEditing);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevent default form submission behavior
-    onFormSubmit(); // Invoke the onFormSubmit function passed from parent component
-    toggleEditing();
+    console.log("Form Submitted");
+    onFormSubmit();
   };
 
   return (
@@ -24,22 +20,40 @@ const ProfileForm = () => {
             <div className="data-field">
               <label htmlFor="username">Username :</label>
               <br />
-              <input type="text" name="username" placeholder="Username123" />
+              <input
+                type="text"
+                name="username"
+                placeholder="Username123"
+                className="form-input"
+              />
             </div>
             <div className="data-field">
               <label htmlFor="email">Email Address :</label>
               <br />
-              <input type="email" name="email" placeholder="example@xyz.com" />
+              <input
+                type="email"
+                name="email"
+                placeholder="example@xyz.com"
+                className="form-input"
+              />
             </div>
             <div className="data-field">
               <label htmlFor="first-name">First Name :</label>
               <br />
-              <input type="text" placeholder="First Name" />
+              <input
+                type="text"
+                placeholder="First Name"
+                className="form-input"
+              />
             </div>
             <div className="data-field">
               <label htmlFor="last-name">Last Name :</label>
               <br />
-              <input type="text" placeholder="Last Name" />
+              <input
+                type="text"
+                placeholder="Last Name"
+                className="form-input"
+              />
             </div>
           </section>
           <hr />
@@ -52,22 +66,38 @@ const ProfileForm = () => {
                 type="text"
                 name="first address"
                 placeholder="House No. , Street Name "
+                className="form-input"
               />
             </div>
             <div className="data-field">
               <label htmlFor="country">Country :</label>
               <br />
-              <input type="text" name="country" placeholder="Country Name" />
+              <input
+                type="text"
+                name="country"
+                placeholder="Country Name"
+                className="form-input"
+              />
             </div>
             <div className="data-field">
               <label htmlFor="state">State :</label>
               <br />
-              <input type="text" name="state" placeholder="State Name" />
+              <input
+                type="text"
+                name="state"
+                placeholder="State Name"
+                className="form-input"
+              />
             </div>
             <div className="data-field">
               <label htmlFor="city">City :</label>
               <br />
-              <input type="text" name="city" placeholder="City Name" />
+              <input
+                type="text"
+                name="city"
+                placeholder="City Name"
+                className="form-input"
+              />
             </div>
             <div className="data-field">
               <label htmlFor="postal-code">Postal Code :</label>
@@ -77,6 +107,7 @@ const ProfileForm = () => {
                 name="postal-code"
                 placeholder="000000"
                 maxLength={6}
+                className="form-input"
               />
             </div>
           </section>
@@ -91,6 +122,7 @@ const ProfileForm = () => {
                 cols="50"
                 rows="10"
                 placeholder="I am ......."
+                className="form-input"
               ></textarea>
             </div>
           </section>

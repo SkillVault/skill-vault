@@ -1,26 +1,26 @@
-.home-slide-container {
+.slide-container {
   position: relative;
-  width: 84%;
+  width: 100%;
+  height: auto;
   z-index: -1;
-  margin-left: 16%;
-  margin-bottom: 20px;
 }
 
-.home-slide-container img {
+.slide-container img {
   width: 100%;
+  height: 100%;
   object-fit: fill;
 }
 
-.home-slide-image-container {
+.slide-image-container {
   position: relative;
 }
 
-.home-slide-image-container img {
+.slide-image-container img {
   width: 100%; /* Adjust as needed */
   height: auto; /* Or set a specific height */
 }
 
-.home-slide-message {
+.slide-message {
   position: absolute;
   top: 50%;
   left: 50%;

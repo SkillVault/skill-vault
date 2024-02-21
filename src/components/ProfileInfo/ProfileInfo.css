@@ -1,10 +1,4 @@
-.data-field input,
-.data-field textarea {
-  background-color: #f2f2f2;
-  border: 1px solid #ddd;
-  color: #444;
-  cursor: default;
-}
+
 
 .data-field span,.data-field p{
     color: black;

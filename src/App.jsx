@@ -3,8 +3,8 @@ import LandingPage from "./pages/landingpage/LandingPage";
 import JobSearch from  "./pages/jobsearch/JobSeach";
 import ProfilePage from "./pages/profilepage/ProfilePage";
 import ContactPage from "./pages/contactpage/contactpage";
+import CompanySignupForm from "./components/CompanySignupForm/CompanySignupForm";
 
-import ProfileForm from "./components/ProfileForm/ProfileForm";
 
 import {RouterProvider, createBrowserRouter
 
@@ -36,7 +36,6 @@ function App() {
     {
       path: "jobsearch",
       element: <JobSearch />,
-      // this is our first react project
     },
     {
       path: "homepage",
@@ -46,6 +45,11 @@ function App() {
       path: "profilepage",
       element: <ProfilePage />,
     },
+    {
+      path: "companysignup",
+      element: <CompanySignupForm />,
+    },
+
 
   {
     path:"contactpage",
