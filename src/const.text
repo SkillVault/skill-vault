@@ -29,3 +29,11 @@ for uploading datas
 pip install pyarrow
 pip install openpyxl
 pip install pandas
+
+
+for checking similarity 
+
+pip install transformers
+pip install scipy
+pip install torch transformers  
+

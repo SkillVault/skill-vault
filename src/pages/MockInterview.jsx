@@ -11,6 +11,7 @@ const MockInterview = () => {
   const [isPersonPresent, setIsPersonPresent] = useState(true);
 
   const [currentQuestion, setCurrentQuestion] = useState("");
+  const [currentQnAns, setCurrentQnAns] = useState("");
   const [questionNumber, setQuestionNumber] = useState(1);
   const [timeLeft, setTimeLeft] = useState(80); // 80 seconds for 01:20
   const [timerActive, setTimerActive] = useState(true);
@@ -42,6 +43,7 @@ const MockInterview = () => {
     if (mediaRecorder) {
       mediaRecorder.stop();
       setIsRecording(false);
+    
     }
     if (speechRecognition) {
       speechRecognition.stop();
@@ -71,19 +73,50 @@ const MockInterview = () => {
         `http://localhost:8000/questions/?Q_No=${questionNumber}`
       );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
+      setCurrentQnAns(response.data.Answer);
+      
     } catch (error) {
       console.error("Failed to fetch question:", error);
       setCurrentQuestion("Failed to load question.");
     }
   };
 
+  const checkTextSimilarity = async (transcript, actualAnswer) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/text-similarity/",
+        {
+          text1: transcript,
+          text2: currentQnAns,
+        }
+      );
+      const similarity = response.data.similarity;
+      console.log("Similarity score:", similarity);
+      // Here you can decide what to do with the similarity score
+    } catch (error) {
+      console.error("Failed to compute similarity:", error);
+    }
+  };
+
   useEffect(() => {
     fetchQuestion();
+
+    
   }, [questionNumber]);
 
   const handleNextQuestion = () => {
+    // Stop recording and speech recognition if they are active
+    stopRecording();
+
+    // Reset transcript for the next question
     setTranscript("");
+
+    // Increment question number to fetch the next question
     setQuestionNumber((prevNumber) => prevNumber + 1);
+
+    // Optionally, reset timer and other states as needed
+    setTimeLeft(80); // Reset time for the next question
+    setTimerActive(true); // Restart timer for the next question
   };
 
   useEffect(() => {
@@ -153,14 +186,17 @@ const MockInterview = () => {
             <img
               src="./src/assets/mic.png"
               alt="mic"
-              onClick={!isRecording ? startRecording : stopRecording}
+              onClick={startRecording}
               style={{ cursor: "pointer" }}
             />
 
             <img
               src="./src/assets/stop.png"
               alt="stop"
-              onClick={stopRecording}
+              onClick={()=>{
+                stopRecording(),
+                checkTextSimilarity(transcript, currentQnAns)
+              }}
               style={{ cursor: "pointer" }}
             />
           </div>
