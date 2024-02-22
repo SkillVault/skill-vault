@@ -38,7 +38,7 @@ const Dashboard = () => {
           </Link>
         </li>
         <li className="dashboard-link">
-          <Link to="/candidate/profile">
+        <Link to="/profilepage"> 
             <img
               src="./src/assets/profile.png"
               alt="profile-icon"

@@ -19,7 +19,7 @@ const LandingNavbar = () => {
           </a>
         </li>
         <li className="nav-item">
-          <a href="/contact" className="nav-link">
+          <a href="/contactpage" className="nav-link">
             Contact
           </a>
         </li>

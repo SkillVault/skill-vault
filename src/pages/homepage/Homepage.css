@@ -1,28 +1,38 @@
-/* styles.css */
 .homepage-container {
   display: flex;
 }
 
 .sidebar {
-  width: 20%; /* Adjust as needed */
+  width: 16%;
   background-color: #f0f0f0;
-  /* padding: 20px; */
-  /* height: 100%; Fixed height if sidebar content fills viewport */
+
 }
 
 .main-content {
-  flex: 1; /* Remaining space */
-  /* padding: 20px; */
+  flex: 1;
   display: flex;
-  flex-direction: column; /* Stack components vertically */
+  flex-direction: column;
+}
+
+.notification-progess{
+  margin-top: 20px;
 }
 
 .slider-container,
 .notification-container {
-  flex: 1; /* Share remaining space proportionally */
+  flex: 1;
+}
+
+.slider-container{
+  height: 600px;
 }
 
 /* Media queries for responsive adjustments */
 @media (max-width: 768px) {
   /* Adapt layout for smaller screens */
+}
+
+hr{
+  margin: 8px;
+  color: black;
 }

@@ -1,10 +1,10 @@
 import React from "react";
 import "./JobSeach.css";
 import 'bootstrap/dist/css/bootstrap.css'; 
-import Dashboard from "../components/Dashboard/Dashboard";
+import Dashboard from "../../components/Dashboard/Dashboard";
 import Dropdown from "react-bootstrap/Dropdown";
 import { MagnifyingGlass } from "phosphor-react";
-import JobCard from "../components/jobcard/JobCard";
+import JobCard from "../../components/jobcard/JobCard";
 
 const JobSeach = () => {
   return (
