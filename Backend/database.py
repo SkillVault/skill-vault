@@ -15,3 +15,8 @@ async def create_user(user):
     document = user
     result = await collection.insert_one(document)
     return document
+
+
+# async def create_questions(questions):
+#     result = await collection.insert_many(questions)
+#     return result

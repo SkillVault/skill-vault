@@ -7,3 +7,5 @@ class UserInfo(BaseModel):
     profimg: str
     uid: str
     mailid: str
+
+

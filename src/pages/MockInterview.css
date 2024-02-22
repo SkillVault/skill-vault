@@ -6,7 +6,6 @@
   padding: 40px;
 }
 
-
 .mock-container {
   display: flex;
 
@@ -15,7 +14,6 @@
 }
 
 .mock-container h1 {
-
   text-align: center;
 }
 
@@ -30,11 +28,9 @@
   display: flex;
   align-items: center;
   padding-left: 131px;
- 
 }
 
 .mock-main img {
-  
   padding: 5px;
   height: 60px;
   width: 60px;
@@ -54,7 +50,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 .mock img {
@@ -77,11 +72,10 @@
 }
 
 #video-player {
-  position: absolute;
   bottom: 40px;
 
   width: 400px;
-  height: 300px;
+  height: 200px;
 }
 
 .alert {
@@ -109,3 +103,15 @@
   }
 }
 
+.video-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#nxt-btn {
+  width: 300px;
+  height: 50px;
+  border: none;
+  border-radius: 15px;
+}

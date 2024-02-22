@@ -17,3 +17,15 @@ uvicorn main.py:app --reload
 python -m pip install "pymongo[srv]"  
 pip install fastapi
 pip install uvicorn
+pip install fastapi-cors
+
+
+
+for uploading datas 
+
+
+// run python upload.py
+
+pip install pyarrow
+pip install openpyxl
+pip install pandas
