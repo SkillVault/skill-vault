@@ -55,7 +55,7 @@ function LoginPage() {
       <LandingNavbar />
     <div className="main-container">
       <div className="login-container">
-        <img src="/src/assets/logo.png" alt="logo" alt="Logo" />
+        <img src="/src/assets/logo.png" alt="logo"  />
         <input
           type="email"
           onChange={(e) => setEmail(e.target.value)}
