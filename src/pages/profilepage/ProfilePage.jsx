@@ -8,6 +8,7 @@ import "./ProfilePage.css"
 const ProfilePage = () => {
   return (
       <main className="main-content">
+        <Dashboard />
         <div className='cards'>
           <div className='card'>
             <img src="./src/assets/logo.png" />

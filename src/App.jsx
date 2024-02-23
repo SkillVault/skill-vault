@@ -45,10 +45,7 @@ function App() {
       path: "profilepage",
       element: <ProfilePage />,
     },
-    {
-      path: "companyloginpage",
-      element: <CompanyLogin />,
-    },
+
   ]);
   return (
     <>
