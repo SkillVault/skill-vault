@@ -5,7 +5,7 @@ const ProfileSlide = () => {
   return (
     <div className="home-slide-container">
       <div className="home-slide-image-container">
-        <img src="./src/assets/raindrops.jpg" alt="" />
+        <img src="/src/assets/raindrops.jpg" alt="" />
         <div className="home-slide-message">
           <h3 style={{ fontSize: "25px" }}>
             View and Update Your Profile Here <br />

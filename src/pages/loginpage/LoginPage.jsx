@@ -1,14 +1,19 @@
+// Import React and other necessary modules
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from '@react-oauth/google';
-
+import { GoogleLogin } from "@react-oauth/google";
+import LandingNavbar from "../../components/LandingNav/LandingNav";
 import "./LoginPage.css";
+
 function LoginPage() {
   const navigate = useNavigate();
+
   return (
+    <div>
+      <LandingNavbar />
     <div className="main-container">
       <div className="login-container">
-        <img src="./src/assets/logo.png" />
+        <img src="/src/assets/logo.png" alt="Logo" />
         <input type="email" id="userEmail" placeholder="email address" />
         <input type="password" id="userPassword" placeholder="password" />
         <button
@@ -21,7 +26,7 @@ function LoginPage() {
         </button>
         <div className="singleLine">
           <div className="line"></div>
-          <text>Or</text>
+          <span>Or</span>
           <div className="line"></div>
         </div>
         <GoogleLogin
@@ -35,6 +40,7 @@ function LoginPage() {
           }}
         />
       </div>
+    </div>
     </div>
   );
 }

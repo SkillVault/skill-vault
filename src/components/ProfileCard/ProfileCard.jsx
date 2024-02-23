@@ -12,7 +12,7 @@ const ProfileCard = () => {
   return (
         <div className='cards'>
           <div className='card'>
-            <img src="./src/assets/logo.png" />
+            <img src="/src/assets/logo.png" />
             <div className='outside'>
               <div className="inside">
                 <div className='i'>

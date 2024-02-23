@@ -10,7 +10,7 @@ const Dashboard = () => {
         <li className="dashboard-link">
           <Link to="/homepage">
             <img
-              src="./src/assets/home.png"
+              src="/src/assets/home.png"
               alt="home-icon"
               className="dash-icon"
             />
@@ -20,7 +20,7 @@ const Dashboard = () => {
         <li className="dashboard-link">
           <Link to="/jobsearch"> 
             <img
-              src="./src/assets/search.png"
+              src="/src/assets/search.png"
               alt="search-icon"
               className="dash-icon"
             />
@@ -30,7 +30,7 @@ const Dashboard = () => {
         <li className="dashboard-link">
           <Link to="/candidate/mock-interview">
             <img
-              src="./src/assets/interview.png"
+              src="/src/assets/interview.png"
               alt="interview-icon"
               className="dash-icon"
             />
@@ -40,7 +40,7 @@ const Dashboard = () => {
         <li className="dashboard-link">
         <Link to="/profilepage"> 
             <img
-              src="./src/assets/profile.png"
+              src="/src/assets/profile.png"
               alt="profile-icon"
               className="dash-icon"
             />
@@ -50,7 +50,7 @@ const Dashboard = () => {
         <li className="dashboard-link">
           <Link to="/candidate/settings">
             <img
-              src="./src/assets/settings.png"
+              src="/src/assets/settings.png"
               alt="settings-icon"
               className="dash-icon"
             />
@@ -71,7 +71,7 @@ const Dashboard = () => {
             to="/landing"
           >
             <img
-              src="./src/assets/logout.png"
+              src="/src/assets/logout.png"
               alt="logout-icon"
               className="dash-icon"
             />
