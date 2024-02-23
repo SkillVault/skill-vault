@@ -1,32 +1,38 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./LandingNav.css";
 
 const LandingNavbar = () => {
   return (
     <nav className="navbar">
       <div className="logo-container">
-        <img src="./src/assets/logo.png" alt="Logo" className="logo" />
+        <img src="/src/assets/logo.png" alt="Logo" className="logo" />
       </div>
       <ul className="nav-list">
         <li className="nav-item">
-          <a href="/" className="nav-link">
+          <Link to="/" className="nav-link">
             Home
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a href="/about" className="nav-link">
+          <Link to="/about" className="nav-link">
             About
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a href="/contactpage" className="nav-link">
+          <Link to="/contactpage" className="nav-link">
             Contact
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a href="/login" className="nav-link">
-            Login/Sign Up
-          </a>
+          <Link to="/candidate/login" className="nav-link">
+            Candidate Login
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/company/login" className="nav-link">
+            Company Login
+          </Link>
         </li>
       </ul>
     </nav>

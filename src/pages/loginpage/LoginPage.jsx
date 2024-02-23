@@ -1,10 +1,12 @@
+// Import React and other necessary modules
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin } from '@react-oauth/google';
-
+import { GoogleLogin } from "@react-oauth/google";
+import LandingNavbar from "../../components/LandingNav/LandingNav";
 import axios from "axios";
 
 import "./LoginPage.css";
+
 function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -47,10 +49,13 @@ function LoginPage() {
   //   }
   // };
 
+
   return (
+    <div>
+      <LandingNavbar />
     <div className="main-container">
       <div className="login-container">
-        <img src="./src/assets/logo.png" alt="logo" />
+        <img src="/src/assets/logo.png" alt="logo" alt="Logo" />
         <input
           type="email"
           onChange={(e) => setEmail(e.target.value)}
@@ -71,7 +76,7 @@ function LoginPage() {
         </button>
         <div className="singleLine">
           <div className="line"></div>
-          <text>Or</text>
+          <span>Or</span>
           <div className="line"></div>
         </div>
         <GoogleLogin
@@ -82,6 +87,7 @@ function LoginPage() {
           }}
         />
       </div>
+    </div>
     </div>
   );
 }

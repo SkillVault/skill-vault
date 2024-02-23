@@ -30,7 +30,7 @@ const HomeSlide = () => {
   return (
     <div className="slide-container">
       <div className="slide-image-container">
-        <img src="./src/assets/stars.jpg" alt="" />
+        <img src="/src/assets/stars.jpg" alt="" />
         <div className="slide-message">
           <h2 style={{ fontSize: "40px" }}>Welcome {username}</h2>
           <p style={{ paddingTop: "10px" }}>

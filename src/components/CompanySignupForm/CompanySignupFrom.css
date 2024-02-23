@@ -1,0 +1,79 @@
+.company-signup-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.company-signup-form h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 24px;
+}
+
+.company-signupform-group {
+  margin-bottom: 15px;
+}
+
+.company-signupform-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: rgb(56, 67, 194);
+}
+
+.company-signupform-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+
+#company-signupform-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(93, 68, 205);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#company-signupform-button:hover {
+  background-color: rgb(55, 44, 105);
+}
+
+#company-signupform-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#company-signupform-button.loading::after {
+  content: " ";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

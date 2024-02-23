@@ -13,7 +13,7 @@ const LandingPage = () => (
         Explore your skills
       </h1>
       <img
-        src="./src/assets/dialogue-executives.jpg"
+        src="/src/assets/dialogue-executives.jpg"
         alt="Background image"
         className="background-image"
       />

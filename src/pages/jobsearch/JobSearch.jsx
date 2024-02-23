@@ -1,17 +1,17 @@
 import React from "react";
-import "./JobSeach.css";
-import 'bootstrap/dist/css/bootstrap.css'; 
+import "./JobSearch.css";
+import "bootstrap/dist/css/bootstrap.css";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import Dropdown from "react-bootstrap/Dropdown";
 import { MagnifyingGlass } from "phosphor-react";
 import JobCard from "../../components/jobcard/JobCard";
 
-const JobSeach = () => {
+const JobSearch = () => {
   return (
     <div className="job-search-container">
       <div className="sidebar">
-          <Dashboard />
-        </div>
+        <Dashboard />
+      </div>
       <div className="job-search-page">
         <div className="search-bar">
           <div className="search-container">
@@ -63,4 +63,4 @@ const JobSeach = () => {
   );
 };
 
-export default JobSeach;
+export default JobSearch;
