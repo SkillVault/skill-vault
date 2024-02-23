@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from transformers import BertTokenizer, BertModel
 import torch
+from models.model import CreateUser,FetchQuestion
 from scipy.spatial.distance import cosine
 from pydantic import BaseModel, Field
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -33,36 +34,25 @@ def read_root():
 # Setup MongoDB connection
 client = AsyncIOMotorClient("mongodb+srv://bibinjose:bibinmongodb@cluster0.8cod5vz.mongodb.net/?retryWrites=true&w=majority")
 db = client.skillvault
-collection = db.Flutter
+collection = db.flutter
 collection1 = db.users
 
-class UserInfo(BaseModel):
-    mailid: str
-    password: str
 
-@app.post('/api/user', response_model=UserInfo)
-async def add_user_data(user_info: UserInfo):
+
+@app.post('/api/user', response_model=CreateUser)
+async def add_user_data(user_info: CreateUser):
     # Insert user_info into the MongoDB collection
     await collection1.insert_one(user_info.dict())
     return user_info
    
 
 
-class Question(BaseModel):
-    
-    Q_No: int = Field(..., alias="Q No")
-    Question: str
-    Answer: str
-    Level: int
-
-  
-
-@app.get("/questions/", response_model=Question)
-async def get_question(Q_No: int):
+@app.get("/questions/", response_model=FetchQuestion)
+async def get_question(QNo: int,Level: int):
     try:
-        question_document = await collection.find_one({"Q No": Q_No})
+        question_document = await collection.find_one({"QNo": QNo,"Level": Level})
         if question_document:
-            return Question(**question_document)
+            return FetchQuestion(**question_document)
         else:
             raise HTTPException(status_code=404, detail="Question not found")
     except ValueError as e:  # If Q_No is not an integer

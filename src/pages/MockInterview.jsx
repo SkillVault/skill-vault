@@ -12,11 +12,13 @@ const MockInterview = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState("");
   const [currentQnAns, setCurrentQnAns] = useState("");
+  const [currentLevel, setLevel] = useState(1);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [timeLeft, setTimeLeft] = useState(80); // 80 seconds for 01:20
   const [timerActive, setTimerActive] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [isStoped, setRecordStopped] = useState(false)
   let mediaRecorder;
   let audioChunks = [];
   let speechRecognition = new (window.SpeechRecognition ||
@@ -43,6 +45,7 @@ const MockInterview = () => {
     if (mediaRecorder) {
       mediaRecorder.stop();
       setIsRecording(false);
+      setRecordStopped(true)
     
     }
     if (speechRecognition) {
@@ -70,10 +73,10 @@ const MockInterview = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `http://localhost:8000/questions/?Q_No=${questionNumber}`
-      );
+        `http://localhost:8000/questions/?Level=${currentLevel}&QNo=${questionNumber}` );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
       setCurrentQnAns(response.data.Answer);
+      setLevel(response.data.Level)
       
     } catch (error) {
       console.error("Failed to fetch question:", error);
@@ -112,7 +115,15 @@ const MockInterview = () => {
     setTranscript("");
 
     // Increment question number to fetch the next question
-    setQuestionNumber((prevNumber) => prevNumber + 1);
+    if (questionNumber<8) {
+      setQuestionNumber((prevNumber) => prevNumber + 1);
+      
+    }
+    else{
+      setQuestionNumber(1)
+    setLevel((prevLevel) => prevLevel + 1);
+    }
+    
 
     // Optionally, reset timer and other states as needed
     setTimeLeft(80); // Reset time for the next question
@@ -175,7 +186,8 @@ const MockInterview = () => {
   return (
     <div className="mock-screen">
       <div className="mock-container">
-        <h1>{currentQuestion || "Loading question..."}</h1>
+        <p style={{margin:0}}>Your current level : {currentLevel}</p>
+        <h1 style={{color:"black"}}>{currentQuestion || "Loading question..."}</h1>
 
         <div className="mock-main">
           <div className="mock">
@@ -200,7 +212,7 @@ const MockInterview = () => {
               style={{ cursor: "pointer" }}
             />
           </div>
-          {transcript && <p>Transcript: {transcript}</p>}
+          { <p>Transcript: {transcript}</p>}
         </div>
         <div className="video-div">
           <Webcam
