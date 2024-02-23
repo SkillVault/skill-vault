@@ -2,3 +2,38 @@ npm install react-bootstrap bootstrap
 npm install phosphor-react
 npm install @react-oauth/google@latest
 npm install --save react-router-dom
+npm install react-webcam
+npm install @tensorflow/tfjs @tensorflow-models/blazeface
+https://www.npmjs.com/package/react-webcam?activeTab=readme
+
+
+Back end 
+
+pip install pipenv
+pipenv shell
+python3 -m venv venv
+venv\Scripts\activate
+uvicorn main.py:app --reload  
+python -m pip install "pymongo[srv]"  
+pip install fastapi
+pip install uvicorn
+pip install fastapi-cors
+
+
+
+for uploading datas 
+
+
+// run python upload.py
+
+pip install pyarrow
+pip install openpyxl
+pip install pandas
+
+
+for checking similarity 
+
+pip install transformers
+pip install scipy
+pip install torch transformers  
+

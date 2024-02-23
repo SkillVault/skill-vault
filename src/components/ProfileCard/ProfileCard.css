@@ -1,0 +1,92 @@
+
+.cards {
+  position: relative;
+  width: 24%;
+  display: flex;
+  flex-direction: row;
+  gap: 35px;
+}
+
+.card {
+  width: 400px;
+  height: 400px;
+  background-color: rgb(41, 39, 39);
+  border-radius: 10px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto; /* Align to the right side */
+  margin-right: 20px; /* Adjust margin as needed */
+}
+
+
+.outside {
+  margin-top: 45px;
+  display: flex;
+  width: 80%;
+  align-items: center;
+}
+
+.inside {
+  display: flex;
+  flex-direction: column;
+}
+
+.inside p {
+  margin-top: 8px;
+  margin-left: 39px;
+  font-size: 13px;
+}
+
+.i {
+  margin-left: 14px;
+}
+.i1 {
+  margin-left: 31px;
+}
+.i2 {
+  margin-left: 55px;
+}
+
+.card img {
+  padding: 20px;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  right: 150px;
+  bottom: 350px;
+}
+
+.name {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.name h3 {
+  font-size: 25px;
+}
+
+.address {
+  text-align: center;
+}
+
+.job {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.button {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.button button {
+  background-color: rgb(135, 135, 255);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}

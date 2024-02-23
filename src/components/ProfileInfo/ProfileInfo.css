@@ -1,0 +1,30 @@
+
+
+.data-field span,.data-field p{
+    color: black;
+}
+
+.about-information-grid .data-field {
+  width: 600px;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.edit-button button {
+  background-color: rgb(135, 135, 255);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.edit-button button:hover {
+  background-color: rgb(76, 76, 150);
+}

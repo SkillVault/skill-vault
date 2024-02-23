@@ -22,7 +22,6 @@ const Slider = () => {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-      console.log(currentSlide);
     }, 3000);
 
     return () => clearInterval(intervalId);
@@ -36,11 +35,6 @@ const Slider = () => {
             key={index}
             className={`slide ${index === currentSlide ? "active" : ""}`}
           >
-            {console.log(
-              `Classname for slide ${index}: ${
-                index === currentSlide ? "active" : ""
-              }`
-            )}
             <img src={slide.image} alt={slide.altText} />
           </div>
         ))}

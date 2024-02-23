@@ -1,0 +1,117 @@
+.mock-screen {
+  height: 100vh;
+
+  background-color: white;
+  position: relative;
+  padding: 40px;
+}
+
+.mock-container {
+  display: flex;
+
+  flex-direction: column;
+  gap: 200px;
+}
+
+.mock-container h1 {
+  text-align: center;
+}
+
+.mock-container h2 {
+  text-align: center;
+  font-size: 60px;
+  font-weight: bolder;
+}
+
+.mock-main {
+  display: flex;
+  display: flex;
+  align-items: center;
+  padding-left: 131px;
+}
+
+.mock-main img {
+  padding: 5px;
+  height: 60px;
+  width: 60px;
+}
+
+.audio {
+  display: flex;
+  width: 70%;
+  justify-content: center;
+}
+
+.mock {
+  display: flex;
+
+  left: 40px;
+  top: 242px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mock img {
+  height: 30px;
+  width: 30px;
+}
+
+.audio-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 725px;
+  gap: 409px;
+  align-items: center;
+}
+
+#timer {
+  width: 40px;
+  height: 40px;
+}
+
+#video-player {
+  bottom: 40px;
+
+  width: 400px;
+  height: 200px;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  text-align: center;
+  animation: fadeInOut 5s linear forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.video-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#nxt-btn {
+  width: 300px;
+  height: 50px;
+  border: none;
+  border-radius: 15px;
+}

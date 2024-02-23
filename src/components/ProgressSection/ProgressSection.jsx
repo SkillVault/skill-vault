@@ -28,14 +28,14 @@ const ProgressSection = () => {
       
   ]);
 
-  useEffect(() => {
-    const fetchUncompletedInterviews = async () => {
-      const response = await fetch("https://api.example.com/notifications");
-      const data = await response.json();
-      setUncompletedInterviews(data);
-    };
-    fetchUncompletedInterviews();
-  }, []);
+  // useEffect(() => {
+  //   const fetchUncompletedInterviews = async () => {
+  //     const response = await fetch("https://api.example.com/notifications");
+  //     const data = await response.json();
+  //     setUncompletedInterviews(data);
+  //   };
+  //   fetchUncompletedInterviews();
+  // }, []);
 
   return (
     <section className="notification-section">

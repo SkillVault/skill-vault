@@ -1,53 +1,36 @@
-import React from 'react'
-import LandingNavbar from '../../components/LandingNav/LandingNav';
+import React, { useState } from 'react';
 import "../../components/LandingNav/LandingNav";
 import Dashboard from '../../components/Dashboard/Dashboard';
-import "./ProfilePage.css"
-
+import ProfileSlide from '../../components/ProfileSlide/ProfileSlide';
+import ProfileInfo from '../../components/ProfileInfo/ProfileInfo';
+import ProfileForm from '../../components/ProfileForm/ProfileForm';
+import ProfileCard from '../../components/ProfileCard/ProfileCard';
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
-  return (
-      <main className="main-content">
-        <Dashboard />
-        <div className='cards'>
-          <div className='card'>
-            <img src="./src/assets/logo.png" />
-            <div className='outside'>
-              <div className="inside">
-                <div className='i'>
-                  <p>22</p> 
-                </div>
-                <p>Skills</p>
-              </div>
-              <div className="inside">
-                <div className='i1'>
-                  <p>22</p> 
-                </div>
-                <p>Experience</p>
-              </div>
-              <div className="inside">
-                <div className='i2'>
-                  <p>22</p> 
-                </div> 
-                <p>Recommendations</p>
-              </div>
-            </div>
-            <div className="name">
-              <h3>Bibin Benny</h3>
-            </div>
-            <div className="address">
-              <p>Kottayam,Kerala</p>
-            </div>
-            <div className="job">
-              <p>Btech in Computer Science</p>
-            </div>
-            <div className="button">
-              <button>Show Resume</button>
-            </div>
-          </div>
-        </div>
-      </main>
+  const [isEditing, setIsEditing] = useState(false); // State to manage editing mode
 
+  // Function to toggle editing mode
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleFormSubmit = () => {
+    setIsEditing(!isEditing); // Exit editing mode
+  };
+
+  return (
+    <div className="profile-container">
+      <Dashboard />
+      <ProfileSlide/>
+      {isEditing ? (
+        <ProfileForm onFormSubmit={handleFormSubmit} /> // Pass onFormSubmit function as a prop
+      ) : (
+        <ProfileInfo onEditClick={toggleEditing} /> // Pass onEditClick function as a prop
+      )}
+      <ProfileCard />
+    </div>
+    
   );
 };
 
