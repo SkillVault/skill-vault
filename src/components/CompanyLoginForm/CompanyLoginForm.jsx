@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import "./CompanyLoginForm.css"; 
+import axios from "axios";
 
 function CompanyLoginForm() {
   const [companyEmail, setCompanyEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // const response = axios.get('/fetch_company')
 
   const handleSubmit = async (event) => {
     event.preventDefault();

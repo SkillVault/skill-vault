@@ -7,6 +7,7 @@ import ProfilePage from "./pages/profilepage/ProfilePage";
 import ContactPage from "./pages/contactpage/ContactPage"; // Corrected typo
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { SignIn } from "phosphor-react";
+import MockInterview from "./pages/MockInterview"
 import Homepage from "./pages/homepage/Homepage";
 import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
 
@@ -53,6 +54,10 @@ function App() {
     {
       path: "contactpage",
       element: <ContactPage />,
+    },
+    {
+      path: "mockinterview",
+      element: <MockInterview/>
     },
   ]);
   return (

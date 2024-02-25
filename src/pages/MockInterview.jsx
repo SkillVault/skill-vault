@@ -5,6 +5,7 @@ import axios from "axios";
 import * as tf from "@tensorflow/tfjs";
 
 import * as blazeface from "@tensorflow-models/blazeface";
+import { FileX } from "phosphor-react";
 
 const MockInterview = () => {
   const webcamRef = useRef(null);
@@ -18,7 +19,8 @@ const MockInterview = () => {
   const [timerActive, setTimerActive] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [isStoped, setRecordStopped] = useState(false)
+  const [similarityScore, setSimilarity] = useState("");
+  const [isStoped, setRecordStopped] = useState(false);
   let mediaRecorder;
   let audioChunks = [];
   let speechRecognition = new (window.SpeechRecognition ||
@@ -45,8 +47,7 @@ const MockInterview = () => {
     if (mediaRecorder) {
       mediaRecorder.stop();
       setIsRecording(false);
-      setRecordStopped(true)
-    
+      setRecordStopped(true);
     }
     if (speechRecognition) {
       speechRecognition.stop();
@@ -73,11 +74,11 @@ const MockInterview = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `http://localhost:8000/questions/?Level=${currentLevel}&QNo=${questionNumber}` );
+        `http://localhost:8000/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
+      );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
       setCurrentQnAns(response.data.Answer);
-      setLevel(response.data.Level)
-      
+      setLevel(response.data.Level);
     } catch (error) {
       console.error("Failed to fetch question:", error);
       setCurrentQuestion("Failed to load question.");
@@ -94,6 +95,7 @@ const MockInterview = () => {
         }
       );
       const similarity = response.data.similarity;
+      setSimilarity(similarity)
       console.log("Similarity score:", similarity);
       // Here you can decide what to do with the similarity score
     } catch (error) {
@@ -103,8 +105,6 @@ const MockInterview = () => {
 
   useEffect(() => {
     fetchQuestion();
-
-    
   }, [questionNumber]);
 
   const handleNextQuestion = () => {
@@ -115,15 +115,17 @@ const MockInterview = () => {
     setTranscript("");
 
     // Increment question number to fetch the next question
-    if (questionNumber<8) {
-      setQuestionNumber((prevNumber) => prevNumber + 1);
-      
-    }
-    else{
-      setQuestionNumber(1)
-    setLevel((prevLevel) => prevLevel + 1);
-    }
     
+      if (questionNumber<8) {
+       
+        setQuestionNumber((prevNumber) => prevNumber + 1);
+       
+        
+      
+    } else {
+      setQuestionNumber(1);
+      setLevel((prevLevel) => prevLevel + 1);
+    }
 
     // Optionally, reset timer and other states as needed
     setTimeLeft(80); // Reset time for the next question
@@ -186,8 +188,19 @@ const MockInterview = () => {
   return (
     <div className="mock-screen">
       <div className="mock-container">
-        <p style={{margin:0}}>Your current level : {currentLevel}</p>
-        <h1 style={{color:"black"}}>{currentQuestion || "Loading question..."}</h1>
+        <div className="head">
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <img
+              style={{ width: 30, height: 30 }}
+              src="./src/assets/aim.png"
+              alt=""
+            />
+            <h6>SkillVault</h6>
+          </div>
+          <h6>React</h6>
+        </div>
+
+        <h1>{currentQuestion || "Loading question..."}</h1>
 
         <div className="mock-main">
           <div className="mock">
@@ -205,14 +218,13 @@ const MockInterview = () => {
             <img
               src="./src/assets/stop.png"
               alt="stop"
-              onClick={()=>{
-                stopRecording(),
-                checkTextSimilarity(transcript, currentQnAns)
+              onClick={() => {
+                stopRecording(), checkTextSimilarity(transcript, currentQnAns);
               }}
               style={{ cursor: "pointer" }}
             />
           </div>
-          { <p>Transcript: {transcript}</p>}
+          {<p>Transcript: {transcript}</p>}
         </div>
         <div className="video-div">
           <Webcam
@@ -235,6 +247,7 @@ const MockInterview = () => {
           )}
         </div>
       </div>
+      <p style={{ margin: 0 }}>Your current level : {currentLevel}</p>
     </div>
   );
 };

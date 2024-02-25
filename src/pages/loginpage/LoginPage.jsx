@@ -15,7 +15,7 @@ function LoginPage() {
   const handleSubmit = async () => {
     try {
       // Using async/await to wait for the axios.post request to resolve
-      const response = await axios.post("http://localhost:8000/api/user", {
+     response = await axios.post("http://localhost:8000/api/add_user", {
         mailid: email,
         password: password,
       }).then(value =>{

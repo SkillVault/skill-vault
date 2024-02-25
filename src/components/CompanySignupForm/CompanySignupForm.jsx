@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./CompanySignupFrom.css"; // Import CSS file for styling
+import axios from "axios";
 
 function CompanySignupForm() {
   const [companyName, setCompanyName] = useState("");
@@ -9,6 +10,8 @@ function CompanySignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+ 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,8 +29,18 @@ function CompanySignupForm() {
     try {
       // Your API call here
 
-      // Simulating API call delay
+      // // Simulating API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const response = await axios.post("http://localhost:8000/api/company_signup",{
+        "company_name": companyName,
+        "company_email": companyEmail,
+        "company_website": companyWebsite,
+        "password" : password
+        
+      }).then(value => {
+        console.log(response)
+      })
 
       console.log("Company:", companyName, companyEmail, companyWebsite);
 

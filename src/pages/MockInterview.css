@@ -1,9 +1,16 @@
 .mock-screen {
   height: 100vh;
 
-  background-color: white;
+  background: linear-gradient(#6a14d9, #6262e2);
   position: relative;
   padding: 40px;
+  font-weight: bolder;
+  color: white;
+}
+
+body h1,h2,h6 {
+  margin: 0;
+
 }
 
 .mock-container {
@@ -15,12 +22,16 @@
 
 .mock-container h1 {
   text-align: center;
+  font-weight: bolder;
+  color: white;
 }
 
 .mock-container h2 {
   text-align: center;
   font-size: 60px;
   font-weight: bolder;
+  font-weight: bolder;
+  color: white;
 }
 
 .mock-main {
@@ -63,6 +74,12 @@
   flex-wrap: wrap;
   width: 725px;
   gap: 409px;
+  align-items: center;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
