@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from routes import user,questions,company
+from routes import user,questions,company,similarity_score
 
 
 # Ensure you import the function for database operations correctly
@@ -25,3 +25,4 @@ def read_root():
 app.include_router(user.app,prefix="/api/add_user")
 app.include_router(questions.app,prefix="/api/questions")
 app.include_router(company.app,prefix="/api/company_signup")
+app.include_router(similarity_score.app,prefix="/api/text-similarity")

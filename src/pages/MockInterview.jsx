@@ -4,6 +4,7 @@ import Webcam from "react-webcam";
 import axios from "axios";
 import * as tf from "@tensorflow/tfjs";
 
+
 import * as blazeface from "@tensorflow-models/blazeface";
 import { FileX } from "phosphor-react";
 
@@ -88,10 +89,10 @@ const MockInterview = () => {
   const checkTextSimilarity = async (transcript, actualAnswer) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/text-similarity/",
+        "http://localhost:8000/api/text-similarity/",
         {
-          text1: transcript,
-          text2: currentQnAns,
+          text1: currentQnAns,
+          text2: transcript,
         }
       );
       const similarity = response.data.similarity;
@@ -102,6 +103,8 @@ const MockInterview = () => {
       console.error("Failed to compute similarity:", error);
     }
   };
+
+  
 
   useEffect(() => {
     fetchQuestion();
