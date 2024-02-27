@@ -33,21 +33,6 @@ function LoginPage() {
     }
   };
 
-  
-  
-
-  // const handleLoginSuccess = async (response) => {
-  //   // Assuming `response` includes a property `credential` with the OAuth token
-  //   const token = response.credential;
-
-  //   try {
-  //     const res = await axios.post("http://localhost:8000/api/user", { token });
-  //     console.log("Success:", res.data);
-  //     navigate("/homepage");
-  //   } catch (error) {
-  //     console.error("Error sending data to backend:", error);
-  //   }
-  // };
 
 
   return (
