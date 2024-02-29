@@ -1,0 +1,80 @@
+.candidate-signup-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .candidate-signup-form h2 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 24px;
+  }
+  
+  .candidate-signupform-group {
+    margin-bottom: 15px;
+  }
+  
+  .candidate-signupform-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: rgb(56, 67, 194);
+  }
+  
+  .candidate-signupform-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+  
+  #candidate-signupform-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(93, 68, 205);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #candidate-signupform-button:hover {
+    background-color: rgb(55, 44, 105);
+  }
+  
+  #candidate-signupform-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  #candidate-signupform-button.loading::after {
+    content: " ";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

@@ -1,15 +1,15 @@
 import { useNavigate } from "react-router-dom"; // Import the navigate function
 
-import LoginPage from "./pages/loginpage/LoginPage";
-import LandingPage from "./pages/landingpage/LandingPage";
 import JobSearch from "./pages/jobsearch/JobSearch"; // Corrected typo
 import ProfilePage from "./pages/profilepage/ProfilePage";
 import ContactPage from "./pages/contactpage/ContactPage"; // Corrected typo
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { SignIn } from "phosphor-react";
+import LandingPage from "./pages/landingpage/LandingPage"
 import MockInterview from "./pages/MockInterview"
 import Homepage from "./pages/homepage/Homepage";
 import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
+import CandidateSignupPage from "./pages/candidateSignup/CandidateSignupPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -29,7 +29,7 @@ function App() {
     },
     {
       path: "candidate/login",
-      element: <LoginPage />,
+      element: <CandidateSignupPage />,
     },
     {
       path: "jobsearch",
