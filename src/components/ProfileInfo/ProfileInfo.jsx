@@ -5,8 +5,8 @@ import "./ProfileInfo.css";
 const ProfileInfo = ({ onEditClick }) => {
   const [username, setUsername] = useState("User1234");
   const [email, setEmail] = useState("example@gmail.com");
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Miller");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [country, setCountry] = useState("India");
   const [statename, setStatename] = useState("Kerala");
