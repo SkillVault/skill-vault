@@ -26,9 +26,6 @@ const LandingPage = () => (
           empowers you discover, master and connect.
         </p>
       </div>
-      <a href="/login" id="sign-up-button">
-        Sign Up Now
-      </a>
     </div>
   </div>
 );

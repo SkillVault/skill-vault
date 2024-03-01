@@ -3,6 +3,7 @@ import "./CandidateLoginForm.css";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function CandidateLoginForm() {
   const [candidateEmail, setCandidateEmail] = useState("");
@@ -35,6 +36,50 @@ function CandidateLoginForm() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleSuccess =  async  (googleData)=> {
+
+    console.log('Received googleData:', googleData); 
+  
+
+
+    // Correctly use googleData to extract the credential
+    const { credential } = googleData; // Extract the JWT token from the googleData
+    const decoded = jwtDecode(credential); // Decode the JWT to get the user's data
+
+    // Now you can access user information from the decoded object
+    const userEmail = decoded.email;
+    const userName = decoded.name;
+    const userProfilePicUrl = decoded.picture;
+
+    try {
+      // Using async/await to wait for the axios.post request to resolve
+      response = await axios
+        .post("http://localhost:8000/api/user/create_google_user", {
+          user_name: userName,
+          user_mail: userEmail,
+          profile_url: userProfilePicUrl
+        })
+        .then((value) => {
+          navigate("/homepage");
+        });
+
+      // Now response is available in this scope
+      if (response.status === 200 || response.status === 201) {
+      } else {
+        console.error("Failed to login:", response);
+      }
+    } catch (error) {
+      console.error("Failed:", error.response ? error.response : error);
+    }
+    
+    console.log("Google login success, navigating to /homepage");
+    // Perform any necessary operations here, like API calls
+  };
+
+  const handleGoogleFailure = (error) => {
+    console.log("Google Sign In Failed:", error);
   };
 
   return (
@@ -79,7 +124,7 @@ function CandidateLoginForm() {
       <div className="google-signin-container">
       <GoogleLogin
         clientId="109725098981-becg76b1emp5dnji0n1tla3j43743lgn.apps.googleusercontent.com"
-        onSuccess={() => navigate("/homepage")}
+        onSuccess={handleGoogleSuccess}
         onError={() => {
           console.log("Login Failed");
         }}
