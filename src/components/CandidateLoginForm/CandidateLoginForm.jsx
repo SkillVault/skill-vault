@@ -4,9 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { useUser } from "../../StateManagement/UserContext";
 
 function CandidateLoginForm() {
+  const { setUserSub } = useUser();
   const [candidateEmail, setCandidateEmail] = useState("");
+  const [usrFirstName, setFirstName] = useState("");
+  const [usrLastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -38,44 +42,83 @@ function CandidateLoginForm() {
     }
   };
 
-  const handleGoogleSuccess =  async  (googleData)=> {
+  const handleGoogleSuccess = async (googleData) => {
+    console.log("Received googleData:", googleData);
 
-    console.log('Received googleData:', googleData); 
-  
+    const { credential } = googleData;
+    const decoded = jwtDecode(credential);
 
-
-    // Correctly use googleData to extract the credential
-    const { credential } = googleData; // Extract the JWT token from the googleData
-    const decoded = jwtDecode(credential); // Decode the JWT to get the user's data
-
-    // Now you can access user information from the decoded object
     const userEmail = decoded.email;
     const userName = decoded.name;
+    // Split the full name by space
+    const nameParts = userName.split(" ");
+
+    // If the name contains more than one part
+    if (nameParts.length > 1) {
+      // The first part is the first name
+      const firstName = nameParts[0];
+      // The rest of the parts joined by space are the last name
+      const lastName = nameParts.slice(1).join(" ");
+
+      console.log("First Name:", firstName);
+      setFirstName(firstName);
+      console.log("state First Name:", usrFirstName);
+      console.log("Last Name:", lastName);
+      setLastName(lastName);
+    } else {
+      // If the name contains only one part, consider it as the first name
+      const firstName = nameParts[0];
+      setFirstName(firstName);
+      console.log("First Name:", firstName);
+      console.log("state First Name:", usrFirstName);
+
+      
+    }
+    const currentuserSub = decoded.sub;
+    localStorage.setItem("userSub", currentuserSub);
+    setUserSub(currentuserSub);
     const userProfilePicUrl = decoded.picture;
+    console.log(decoded);
 
     try {
-      // Using async/await to wait for the axios.post request to resolve
-      response = await axios
-        .post("http://localhost:8000/api/user/create_google_user", {
-          user_name: userName,
-          user_mail: userEmail,
-          profile_url: userProfilePicUrl
-        })
-        .then((value) => {
-          navigate("/homepage");
-        });
+      let checkUserResponse = await axios.get(
+        `http://localhost:8000/api/user/get_user?user_sub=${currentuserSub}`
+      );
 
-      // Now response is available in this scope
-      if (response.status === 200 || response.status === 201) {
+      if (!checkUserResponse.data) {
+        // If the user doesn't exist, create a new one
+        const response = await axios.post(
+          "http://localhost:8000/api/user/create_google_user",
+          {
+            user_name: userEmail,
+            user_mail: userEmail,
+            profile_url: userProfilePicUrl,
+            user_sub: currentuserSub,
+            first_name: usrFirstName,
+            last_name: usrLastName,
+            country: "",
+            state: "",
+            city: "",
+            postal_code: "",
+            about: "",
+          }
+        );
+
+        if (response.status === 200 || response.status === 201) {
+          navigate("/homepage");
+        } else {
+          console.error("Failed to login:", response);
+        }
       } else {
-        console.error("Failed to login:", response);
+        navigate("/homepage");
+        console.log("User already exists:", checkUserResponse.data);
+        // Perform any other actions you need
       }
     } catch (error) {
       console.error("Failed:", error.response ? error.response : error);
     }
-    
+
     console.log("Google login success, navigating to /homepage");
-    // Perform any necessary operations here, like API calls
   };
 
   const handleGoogleFailure = (error) => {
@@ -122,13 +165,13 @@ function CandidateLoginForm() {
         <div className="line"></div>
       </div>
       <div className="google-signin-container">
-      <GoogleLogin
-        clientId="109725098981-becg76b1emp5dnji0n1tla3j43743lgn.apps.googleusercontent.com"
-        onSuccess={handleGoogleSuccess}
-        onError={() => {
-          console.log("Login Failed");
-        }}
-      />
+        <GoogleLogin
+          clientId="109725098981-becg76b1emp5dnji0n1tla3j43743lgn.apps.googleusercontent.com"
+          onSuccess={handleGoogleSuccess}
+          onError={() => {
+            console.log("Login Failed");
+          }}
+        />
       </div>
     </form>
   );

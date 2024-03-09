@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Form
-from models.user import CreateUser,GoogleUser
+from models.user import CreateUser,GoogleUser,UpdateUser
 from dotenv import load_dotenv
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -38,16 +38,38 @@ async def createGoogleUser(user_info: GoogleUser):
 
 
 
-@app.get("/", response_model=GoogleUser)
-async def fetchGoogleUser(user_info: GoogleUser):
+@app.get("/get_user")
+async def fetchGoogleUser(user_sub:str):
     # Attempt to find the user in the database
-    existing_user = await collection.find_one({"email": user_info.email})
+    existing_user = await collection.find_one({"user_sub": user_sub})
     
     if existing_user:
         # If the user exists, convert the MongoDB document to a GoogleUser model and return
         return GoogleUser(**existing_user)
+   
+@app.put("/update_user")
+async def update_google_user(user_sub: str, user_data: UpdateUser):
+    # Check if the user exists
+    existing_user = await collection.find_one({"user_sub": user_sub})
+    if existing_user:
+        # Update the user's about field
+        result = await collection.update_one(
+            {"user_sub": user_sub},  # Filter criteria
+            {"$set": {
+              
+                "first_name": user_data.first_name,
+                "last_name": user_data.last_name,
+                "country": user_data.country,
+                "state": user_data.state,
+                "city": user_data.city,
+                "postal_code": user_data.postal_code,
+                "about": user_data.about,
+            
+            }}  # Update operation using $set
+        )
+        if result.modified_count == 1:
+            return {"message": "User updated successfully"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to update user")
     else:
-        # If the user does not exist, insert the new user data
-        await collection.insert_one(user_info.dict())
-        # Return the new user data
-        return user_info
+        raise HTTPException(status_code=404, detail="User not found")

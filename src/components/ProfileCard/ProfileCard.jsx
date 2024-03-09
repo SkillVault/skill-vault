@@ -1,8 +1,28 @@
-import React,{useState} from 'react'
+import React, { useState,useEffect } from 'react'
 import "./ProfileCard.css"
+import axios from "axios";
 
 
 const ProfileCard = () => {
+
+  const storedUserSub = localStorage.getItem("userSub");
+  const [profImg, setProfImg] = useState();
+
+  const fetchUsrProfile = async ()=> {
+    const response = await axios.get(`http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`);
+    const userData = response.data;
+    console.log(userData);
+   setProfImg(userData.profile_url);
+   console.log(profImg)
+
+    
+
+  }
+
+  useEffect(() => {
+    fetchUsrProfile()
+  }, []);
+
   const [skill, setSkill] = useState(0);
   const [experience, setExperience] = useState(0);
   const [recommendation, setRecommendation] = useState(0);
@@ -12,7 +32,7 @@ const ProfileCard = () => {
   return (
         <div className='cards'>
           <div className='card'>
-            <img src="/src/assets/logo.png" />
+            <img src={profImg} alt="" />
             <div className='outside'>
               <div className="inside">
                 <div className='i'>
