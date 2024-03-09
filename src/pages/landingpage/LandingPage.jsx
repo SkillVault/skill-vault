@@ -13,7 +13,7 @@ const LandingPage = () => (
         Explore your skills
       </h1>
       <img
-        src="./src/assets/dialogue-executives.jpg"
+        src="/src/assets/dialogue-executives.jpg"
         alt="Background image"
         className="background-image"
       />
@@ -26,9 +26,6 @@ const LandingPage = () => (
           empowers you discover, master and connect.
         </p>
       </div>
-      <a href="/login" id="sign-up-button">
-        Sign Up Now
-      </a>
     </div>
   </div>
 );

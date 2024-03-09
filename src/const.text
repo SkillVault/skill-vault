@@ -11,7 +11,9 @@ Back end
 
 pip install pipenv
 pipenv shell
-python3 -m venv venv 
+python3 -m venv venv
+pip install python-dotenv
+
 venv\Scripts\activate
 uvicorn main.py:app --reload  
 python -m pip install "pymongo[srv]"  

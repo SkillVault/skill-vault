@@ -10,6 +10,8 @@
   margin-bottom: 10px;
 }
 
+
+
 .form-inner-container {
   background-color: white;
   color: rgb(56, 67, 194);
@@ -47,12 +49,15 @@
   margin-left: 50px;
 }
 
+
+
 .contact-information-grid label {
   grid-column: span 1;
 }
 
 .contact-information-grid .data-field:nth-of-type(1) {
   grid-row: 1;
+  
 }
 .contact-information-grid .data-field:nth-of-type(2) {
   grid-row: 2;
@@ -86,7 +91,6 @@
 .data-field input,
 .data-field textarea {
   background-color: rgb(235, 242, 255);
-  color: white;
   padding: 10px;
   border: none;
   border-radius: 5px;

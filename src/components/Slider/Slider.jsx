@@ -6,15 +6,15 @@ const Slider = () => {
 
   const slides = [
     {
-      image: "./src/assets/slider1.png",
+      image: "/src/assets/slider1.png",
       altText: "Unlock hidden potential you never knew existed.",
     },
     {
-      image: "./src/assets/slider2.png",
+      image: "/src/assets/slider2.png",
       altText: "Connect with top employers and land your dream job.",
     },
     {
-      image: "./src/assets/slider3.png",
+      image: "/src/assets/slider3.png",
       altText: "Start your skills journey today!",
     },
   ];

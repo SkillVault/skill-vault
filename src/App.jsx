@@ -1,42 +1,35 @@
-import LoginPage from "./pages/loginpage/LoginPage";
-import LandingPage from "./pages/landingpage/LandingPage";
-import JobSearch from  "./pages/jobsearch/JobSeach";
+import { useNavigate } from "react-router-dom"; // Import the navigate function
+
+import JobSearch from "./pages/jobsearch/JobSearch"; // Corrected typo
 import ProfilePage from "./pages/profilepage/ProfilePage";
-import ContactPage from "./pages/contactpage/contactpage";
-import CompanySignupForm from "./components/CompanySignupForm/CompanySignupForm";
-
-
-import {RouterProvider, createBrowserRouter
-
-
-  // Navigate,
-} from "react-router-dom";
+import ContactPage from "./pages/contactpage/ContactPage"; // Corrected typo
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { SignIn } from "phosphor-react";
+import LandingPage from "./pages/landingpage/LandingPage"
+import MockInterview from "./pages/MockInterview"
 import Homepage from "./pages/homepage/Homepage";
-import MockInterview from "./pages/MockInterview";
-
-
+import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
+import CandidateSignupPage from "./pages/candidateSignup/CandidateSignupPage";
 
 function App() {
   const router = createBrowserRouter([
-    // this is our first react project
-
-    <button className="googleLoginBtn" onClick={()=>navigate('/landing')}>Sign in with google</button>,
+    <button
+      className="googleLoginBtn"
+      onClick={() => navigate("/landing")}
+    >
+      Sign in with google
+    </button>,
     {
       path: "/",
-      element: < LandingPage />,
+      element: <LandingPage />,
     },
     {
       path: "landing",
       element: <LandingPage />,
     },
     {
-      path: "mockinterview",
-      element: <MockInterview />,
-    },
-    {
-      path: "login",
-      element: <LoginPage />,
+      path: "candidate/login",
+      element: <CandidateSignupPage />,
     },
     {
       path: "jobsearch",
@@ -51,15 +44,21 @@ function App() {
       element: <ProfilePage />,
     },
     {
-      path: "companysignup",
-      element: <CompanySignupForm />,
+      path: "company/login",
+      element: <CompanySignupPage />,
     },
-
-
-  {
-    path:"contactpage",
-    element: <ContactPage/>
-  }
+    {
+      path: "company/signup",
+      element: <CompanySignupPage />,
+    },
+    {
+      path: "contactpage",
+      element: <ContactPage />,
+    },
+    {
+      path: "mockinterview",
+      element: <MockInterview/>
+    },
   ]);
   return (
     <>

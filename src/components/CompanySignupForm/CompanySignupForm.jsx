@@ -1,32 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "./CompanySignupFrom.css"; // Import CSS file for styling
+import axios from "axios";
 
 function CompanySignupForm() {
-  const [companyName, setCompanyName] = useState('');
-  const [companyEmail, setCompanyEmail] = useState('');
-  const [companyWebsite, setCompanyWebsite] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [companyName, setCompanyName] = useState("");
+  const [companyEmail, setCompanyEmail] = useState("");
+  const [companyWebsite, setCompanyWebsite] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event) => {
+ 
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError("");
+    setLoading(true);
 
-    // Perform data validation here (optional)
+    // Perform data validation
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
 
     // Simulate backend call (replace with actual API call)
-    console.log(
-      'Company:',
-      companyName,
-      companyEmail,
-      companyWebsite,
-    );
+    try {
+      // Your API call here
 
-    // Redirect to confirmation page or handle success/error response
+      // // Simulating API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const response = await axios.post("http://localhost:8000/api/company_signup",{
+        "company_name": companyName,
+        "company_email": companyEmail,
+        "company_website": companyWebsite,
+        "password" : password
+        
+      }).then(value => {
+        console.log(response)
+      })
+
+      console.log("Company:", companyName, companyEmail, companyWebsite);
+
+      // Redirect to confirmation page or handle success response
+    } catch (err) {
+      console.error("Error signing up:", err.message);
+      setError("Error signing up. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Company Signup</h2>
-      <div className="form-group">
+    <form className="company-signup-form" onSubmit={handleSubmit}>
+      <h2>Create Account</h2>
+      {error && <div className="error-message">{error}</div>}
+      <div className="company-signupform-group">
         <label htmlFor="companyName">Company Name:</label>
         <input
           type="text"
@@ -37,7 +68,7 @@ function CompanySignupForm() {
           required
         />
       </div>
-      <div className="form-group">
+      <div className="company-signupform-group">
         <label htmlFor="companyEmail">Company Email:</label>
         <input
           type="email"
@@ -48,7 +79,7 @@ function CompanySignupForm() {
           required
         />
       </div>
-      <div className="form-group">
+      <div className="company-signupform-group">
         <label htmlFor="companyWebsite">Company Website (Optional):</label>
         <input
           type="url"
@@ -58,7 +89,7 @@ function CompanySignupForm() {
           placeholder="Your company website"
         />
       </div>
-      <div className="form-group">
+      <div className="company-signupform-group">
         <label htmlFor="password">Password:</label>
         <input
           type="password"
@@ -69,7 +100,7 @@ function CompanySignupForm() {
           required
         />
       </div>
-      <div className="form-group">
+      <div className="company-signupform-group">
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <input
           type="password"
@@ -80,7 +111,14 @@ function CompanySignupForm() {
           required
         />
       </div>
-      <button type="submit">Sign Up</button>
+      <button
+        type="submit"
+        id="company-signupform-button"
+        className={loading ? "loading" : ""}
+        disabled={loading}
+      >
+        {loading ? "Signing Up..." : "Sign Up"}
+      </button>
     </form>
   );
 }

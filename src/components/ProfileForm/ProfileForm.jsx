@@ -1,11 +1,52 @@
 import React, { useState } from "react";
 import "./ProfileForm.css";
+import axios from "axios";
 
 const ProfileForm = ({ onFormSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const storedUserSub = localStorage.getItem("userSub");
+  const [firstName, setFirstName] = useState("");
+  const [address, setAddress] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [aboutMe, setAboutMe] = useState();
 
-  const handleSubmit = (event) => {
+  const params = {
+    'user_sub': storedUserSub,
+    'first_name': firstName,
+    'last_name': lastName,
+    'country': country,
+    'state': state,
+    'city': city,
+    'postal_code': postalCode,
+    'about': aboutMe,
+  };
+
+  const queryString = new URLSearchParams(params).toString();
+
+  const UpdateUsrProfile = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/api/user/update_user/?${queryString}`
+      );
+      console.log("Update successful:", response.data);
+    } catch (error) {
+      console.error("Update failed:", error);
+    }
+  };
+
+  const handleAboutMeChange = (event) => {
+    setAboutMe(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
+    await UpdateUsrProfile();
+    console.log(firstName);
+    console.log(address);
     console.log("Form Submitted");
     onFormSubmit();
   };
@@ -44,6 +85,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 type="text"
                 placeholder="First Name"
                 className="form-input"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="data-field">
@@ -53,6 +96,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 type="text"
                 placeholder="Last Name"
                 className="form-input"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           </section>
@@ -67,6 +112,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 name="first address"
                 placeholder="House No. , Street Name "
                 className="form-input"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             <div className="data-field">
@@ -77,6 +124,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 name="country"
                 placeholder="Country Name"
                 className="form-input"
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
               />
             </div>
             <div className="data-field">
@@ -87,6 +136,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 name="state"
                 placeholder="State Name"
                 className="form-input"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
               />
             </div>
             <div className="data-field">
@@ -97,6 +148,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 name="city"
                 placeholder="City Name"
                 className="form-input"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
               />
             </div>
             <div className="data-field">
@@ -108,6 +161,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 placeholder="000000"
                 maxLength={6}
                 className="form-input"
+                value={postalCode}
+                onChange={(e) => setPostalCode(e.target.value)}
               />
             </div>
           </section>
@@ -123,6 +178,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 rows="10"
                 placeholder="I am ......."
                 className="form-input"
+                value={aboutMe} // Bind the value of the textarea to the state
+                onChange={handleAboutMeChange} // Handle changes in the textarea
               ></textarea>
             </div>
           </section>

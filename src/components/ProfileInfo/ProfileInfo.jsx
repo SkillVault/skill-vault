@@ -1,20 +1,45 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../../components/ProfileForm/ProfileForm.css";
+import { useUser } from '../../StateManagement/UserContext';
 import "./ProfileInfo.css";
+import axios from "axios";
+
 
 const ProfileInfo = ({ onEditClick }) => {
-  const [username, setUsername] = useState("User1234");
-  const [email, setEmail] = useState("example@gmail.com");
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Miller");
+  const { userSub } = useUser();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
-  const [country, setCountry] = useState("India");
-  const [statename, setStatename] = useState("Kerala");
-  const [city, setCity] = useState("Ernakulam");
-  const [postal, setPostal] = useState("686670");
+  const [country, setCountry] = useState("");
+  const [statename, setStatename] = useState("");
+  const [city, setCity] = useState("");
+  const [postal, setPostal] = useState("");
   const [aboutMe, setAboutMe] = useState(
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
+
+  const storedUserSub = localStorage.getItem('userSub');
+
+  const fetchUsrProfile = async ()=> {
+    const response = await axios.get(`http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`);
+    const userData = response.data;
+    setEmail(userData.user_mail);
+    setUsername(userData.user_name);
+    setAboutMe(userData.about);
+    setFirstName(userData.first_name);
+
+    
+
+  }
+
+  useEffect(() => {
+    fetchUsrProfile()
+  }, []);
+
+  
 
   return (
     <div className="form-outer-container">
