@@ -77,6 +77,7 @@ function CandidateLoginForm() {
     const currentuserSub = decoded.sub;
     localStorage.setItem("userSub", currentuserSub);
     setUserSub(currentuserSub);
+    console.log(currentuserSub);
     const userProfilePicUrl = decoded.picture;
     console.log(decoded);
 
@@ -101,6 +102,7 @@ function CandidateLoginForm() {
             city: "",
             postal_code: "",
             about: "",
+            address: ""
           }
         );
 

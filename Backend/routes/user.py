@@ -47,7 +47,7 @@ async def fetchGoogleUser(user_sub:str):
         # If the user exists, convert the MongoDB document to a GoogleUser model and return
         return GoogleUser(**existing_user)
    
-@app.put("/update_user")
+@app.put("/update_user",response_model=UpdateUser)
 async def update_google_user(user_sub: str, user_data: UpdateUser):
     # Check if the user exists
     existing_user = await collection.find_one({"user_sub": user_sub})
@@ -64,11 +64,12 @@ async def update_google_user(user_sub: str, user_data: UpdateUser):
                 "city": user_data.city,
                 "postal_code": user_data.postal_code,
                 "about": user_data.about,
+                "address": user_data.address
             
             }}  # Update operation using $set
         )
         if result.modified_count == 1:
-            return {"message": "User updated successfully"}
+            return user_data
         else:
             raise HTTPException(status_code=500, detail="Failed to update user")
     else:

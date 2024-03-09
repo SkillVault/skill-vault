@@ -5,6 +5,9 @@ npm install --save react-router-dom
 npm install react-webcam
 npm install @tensorflow/tfjs @tensorflow-models/blazeface
 https://www.npmjs.com/package/react-webcam?activeTab=readme
+npm install jwt-decode
+npm install jwt-decode --legacy-peer-deps  // if the about code doesnt work
+
 
 
 Back end 
@@ -13,9 +16,10 @@ pip install pipenv
 pipenv shell
 python3 -m venv venv
 pip install python-dotenv
-
 venv\Scripts\activate
-uvicorn main.py:app --reload  
+
+
+uvicorn main:app --reload 
 python -m pip install "pymongo[srv]"  
 pip install fastapi
 pip install uvicorn
@@ -39,3 +43,9 @@ pip install transformers
 pip install scipy
 pip install torch transformers  
 
+
+
+
+// if error is based on this package uninstall 
+
+npm uninstall react-country-dropdown    

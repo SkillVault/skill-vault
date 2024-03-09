@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./ProfileForm.css";
 import axios from "axios";
 
@@ -13,6 +13,30 @@ const ProfileForm = ({ onFormSubmit }) => {
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [aboutMe, setAboutMe] = useState();
+  const [email,setEmail] = useState("");
+  const [usrname,setUserName] = useState("");
+
+
+  const fetchUsrProfile = async ()=> {
+    const response = await axios.get(`http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`);
+    const userData = response.data;
+    setEmail(userData.user_mail);
+    setUserName(userData.user_name);
+    setAboutMe(userData.about);
+    setFirstName(userData.first_name);
+    setLastName(userData.last_name);
+    setCountry(userData.country);
+    setAddress(userData.address);
+    setCity(userData.city);
+    setPostalCode(userData.postal_code);
+    setState(userData.state);
+    
+
+  }
+
+  useEffect(() => {
+    fetchUsrProfile()
+  }, []);
 
   const params = {
     'user_sub': storedUserSub,
@@ -23,6 +47,7 @@ const ProfileForm = ({ onFormSubmit }) => {
     'city': city,
     'postal_code': postalCode,
     'about': aboutMe,
+    'address': address,
   };
 
   const queryString = new URLSearchParams(params).toString();
@@ -30,7 +55,7 @@ const ProfileForm = ({ onFormSubmit }) => {
   const UpdateUsrProfile = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:8000/api/user/update_user/?${queryString}`
+        `http://localhost:8000/api/user/update_user/?${queryString}`,params
       );
       console.log("Update successful:", response.data);
     } catch (error) {
@@ -66,6 +91,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 name="username"
                 placeholder="Username123"
                 className="form-input"
+                value={usrname}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
             <div className="data-field">
@@ -76,6 +103,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 name="email"
                 placeholder="example@xyz.com"
                 className="form-input"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="data-field">
