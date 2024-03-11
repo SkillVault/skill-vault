@@ -24,14 +24,7 @@ async def add_user_data(user_info: CreateUser):
 
 @app.post("/create_google_user", response_model=GoogleUser)
 async def createGoogleUser(user_info: GoogleUser):
-    # # Attempt to find the user in the database
-    # existing_user = await collection.insert_one({"email": user_info.email})
-    
-    # if existing_user:
-    #     # If the user exists, convert the MongoDB document to a GoogleUser model and return
-    #     return GoogleUser(**existing_user)
-    # else:
-        # If the user does not exist, insert the new user data
+  
         await collection.insert_one(user_info.dict())
         # Return the new user data
         return user_info
