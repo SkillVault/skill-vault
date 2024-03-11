@@ -1,36 +1,144 @@
-.job-search-container {
-  min-height: 100vh; /* Ensure the page fills the viewport height */
+.main {
+  height: 100vh; /* Ensure the page fills the viewport height */
+  overflow-x: hidden;
+
   display: flex;
 }
-.job-search-page {
-  width: 100vw;
-}
-.search-bar {
-  display: flex;
-  background-color: #1b1a1e;
-  height: 70px;
-  justify-content: flex-end;
-}
+
 .sidebar {
   width: 20%; /* Adjust as needed */
   background-color: #f0f0f0;
-  /* padding: 20px; */
-  /* height: 100%; Fixed height if sidebar content fills viewport */
   height: 100%;
 }
-.search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  margin: 15px;
-  padding-left: 10px;
-  width: 500px;
-  border-radius: 10px;
-  gap: 10px;
+
+/* First div */
+
+.comp {
+  background-color: #1b1a1e;
+  width: max-content;
 }
 
-.search-bar input {
+.comp-div {
+  background-color: #54249b;
+  height: 150px;
+  width: 1220px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding-left: 850px;
+  background-image: url("./src/assets/job.png");
+  background-size: cover;
+  background-position: center;
+}
+.comp-div p {
+  text-align: center;
+  font-size: 25px;
+}
+
+.comp-inside {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  height: 250px;
+  width: 1220px;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
+}
+
+.comp-inside img {
+  padding: 20px;
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 170px;
+}
+
+.comp-div-h3 {
+  padding-left: 90px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.comp-div-p {
+  padding-left: 90px;
+}
+
+/* Second div */
+
+.comp1-div {
+  height: 250px;
+  width: 1220px;
+  margin-top: 40px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
+}
+
+.comp1-div h5 {
+  padding-left: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.comp1-div p {
+  font-size: 15px;
+  padding-left: 10px;
+  margin-bottom: 2px;
+}
+.comp1-div button {
+  background-color: #54249b;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/* Third div */
+
+.comp2-div {
+  height: 600px;
+  width: 1220px;
+  margin-top: 40px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
+}
+
+.comp2-div h5 {
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+.comp2-div p {
+  font-size: 15px;
+  padding-left: 10px;
+  margin-bottom: 2px;
+}
+.comp2-div button {
+  background-color: #54249b;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.comp2-inside {
+  height: 110px;
+  background-color: #54249b;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.comp2-inside h5 {
+  padding: 10px;
+  color: #fff;
+}
+
+.button-drop-down input {
   height: 30px;
   width: 400px;
   border: none;
@@ -38,45 +146,105 @@
   outline: none;
 }
 
-.search-container button {
+.comp2-inside input::placeholder {
+  color: rgba(255, 255, 255, 0.551);
+}
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  margin-left: 10px;
+  padding-left: 10px;
+  width: 500px;
+  height: 40px;
+  border-radius: 10px;
+  gap: 10px;
+}
+.search button {
   text-decoration: none;
   color: #fff;
   height: 30px;
   width: 70px;
   margin-right: 5px;
+  margin-bottom: 10px;
   border-radius: 10px;
   background-color: #54249b;
   transition: box-shadow 0.2s ease-in-out;
 }
 
-.search-container button:hover {
+.search button:hover {
   box-shadow: 0 0 2px 2px rgb(206, 183, 255);
-}
-
-.job-search-container input::placeholder {
-  color: rgba(255, 255, 255, 0.551);
 }
 
 .drop-down-container {
   display: flex;
   width: 470px;
   gap: 20px;
-  padding: 30px;
+  padding: 10px;
+  margin-bottom: 35px;
   align-items: center;
   color: white;
 }
 
-#dropdown-basic {
+#dropdown {
   text-decoration: none;
-  color: #fff;
-  padding: 0.5rem 1rem;
+  color: black;
   border-radius: 50px;
-  background-color: #54249b;
+  background-color: white;
   transition: box-shadow 0.2s ease-in-out;
   border: 0;
 }
 
-.drop-down-main {
+.button-drop-down {
   display: flex;
-  justify-content: center;
+  height: 70px;
+}
+
+.job {
+  height: 100px;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  border: 1px solid #b6b3b3;
+}
+
+.job img {
+  padding: 20px;
+  height: 100px;
+  width: 100px;
+  position: relative;
+}
+
+.spec h5 {
+  margin-top: 30px;
+  padding-right: 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.spec p {
+  padding-right: 85px;
+}
+
+.apply {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  margin-left: 850px;
+}
+
+.apply button {
+  display: flex;
+  text-decoration: none;
+  color: #54249b;
+  font-weight: 700;
+  height: 30px;
+  width: 100px;
+  margin-right: 100px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: white;
+  transition: box-shadow 0.2s ease-in-out;
 }
