@@ -36,8 +36,10 @@
 
 .comp-inside {
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-top: 40px;
+  
   height: 250px;
   width: 1220px;
   flex-direction: column;
@@ -51,7 +53,7 @@
   height: 100px;
   width: 100px;
   position: absolute;
-  top: 170px;
+  top: 130px;
 }
 
 .comp-div-h3 {
