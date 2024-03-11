@@ -22,6 +22,7 @@ class GoogleUser(BaseModel):
     city: str
     postal_code: str
     about: str
+    address: str
 
 
 class GetUser(BaseModel):
@@ -36,6 +37,7 @@ class GetUser(BaseModel):
     city: str
     postal_code: str
     about: str
+    address: str
 
 class UpdateUser(BaseModel):
 
@@ -46,5 +48,6 @@ class UpdateUser(BaseModel):
     city: str
     postal_code: str
     about: str
+    address: str
 
 

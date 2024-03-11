@@ -1,38 +1,47 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./HomeSlide.css";
 
-// const fetchUsername = async () => {
-// //Implement your API call or GraphQL query here
-//   //Replace with your actual logic for fetching the username from MongoDB
-//   const response = await fetch("/api/username");
-//   const data = await response.json();
-//   return data.username;
-// };
-
 const HomeSlide = () => {
-  const [username, setUsername] = useState("User Name");
+  const storedUserSub = localStorage.getItem("userSub");
+  const [firstName, setFirstName] = useState("");
+  const [address, setAddress] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [aboutMe, setAboutMe] = useState();
+  const [email, setEmail] = useState("");
+  const [usrname, setUserName] = useState("");
 
-  // useEffect(() => {
-  //   const getUsername = async () => {
-  //     try {
-  //       const fetchedUsername = await fetchUsername();
-  //       setUsername(fetchedUsername);
-  //     } catch (error) {
-  //       console.error("Error fetching username:", error);
-  //       // Handle the error appropriately, e.g., display an error message
-  //     }
-  //   };
+  const fetchUsrProfile = async () => {
+    const response = await axios.get(
+      `http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`
+    );
+    const userData = response.data;
+    setEmail(userData.user_mail);
+    setUserName(userData.user_name);
+    setAboutMe(userData.about);
+    setFirstName(userData.first_name);
+    setLastName(userData.last_name);
+    setCountry(userData.country);
+    setAddress(userData.address);
+    setCity(userData.city);
+    setPostalCode(userData.postal_code);
+    setState(userData.state);
+  };
 
-  //   getUsername();
-  // }, []);
+  useEffect(() => {
+    fetchUsrProfile();
+  }, []);
 
   return (
     <div className="slide-container">
       <div className="slide-image-container">
         <img src="/src/assets/stars.jpg" alt="" />
         <div className="slide-message">
-          <h2 style={{ fontSize: "40px" }}>Welcome {username}</h2>
+          <h2 style={{ fontSize: "40px" }}>Welcome {email}</h2>
           <p style={{ paddingTop: "10px" }}>
             Connect with Top Employers & Land Your Dream Job
           </p>

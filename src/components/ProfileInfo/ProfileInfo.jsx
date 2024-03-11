@@ -30,7 +30,12 @@ const ProfileInfo = ({ onEditClick }) => {
     setUsername(userData.user_name);
     setAboutMe(userData.about);
     setFirstName(userData.first_name);
-
+    setLastName(userData.last_name);
+    setCountry(userData.country);
+    setAddress(userData.address);
+    setCity(userData.city);
+    setPostal(userData.postal_code);
+    setStatename(userData.state);
     
 
   }
