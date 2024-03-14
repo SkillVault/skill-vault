@@ -10,6 +10,7 @@ import MockInterview from "./pages/MockInterview"
 import Homepage from "./pages/homepage/Homepage";
 import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
 import CandidateSignupPage from "./pages/candidateSignup/CandidateSignupPage";
+import Skill from "./pages/skill/Skill";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,6 +59,10 @@ function App() {
     {
       path: "mockinterview",
       element: <MockInterview/>
+    },
+    {
+      path: "skill",
+      element: <Skill/>
     },
   ]);
   return (

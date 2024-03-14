@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from "react";
 import "../../components/ProfileForm/ProfileForm.css";
-import { useUser } from '../../StateManagement/UserContext';
 import "./ProfileInfo.css";
 import axios from "axios";
 

@@ -18,7 +18,7 @@ const JobSearch = () => {
           <div className="comp-div"></div>
           <img src="./src/assets/logo.png" />
           <h3 className="comp-div-h3">SkillVault</h3>
-          <p className="comp-div-p">
+          <p className="comp-div-p">    
             We connect top talents with top companies
           </p>
         </div>

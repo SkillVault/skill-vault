@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useUser } from "../../StateManagement/UserContext";
 
 function CandidateLoginForm() {
-  const { setUserSub } = useUser();
+
   const [candidateEmail, setCandidateEmail] = useState("");
   const [usrFirstName, setFirstName] = useState("");
   const [usrLastName, setLastName] = useState("");
