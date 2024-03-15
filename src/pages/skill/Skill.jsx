@@ -16,15 +16,6 @@ const Skill = () => {
       description:"HTML Interview: Semantics, Structure, Accessibility.",
     },
 
-    // {
-    //   title: "Application status for [Job Title] updated",
-    //   description:
-    //     "Your application for the [Job Title] position at [Company Name] has been moved to the [New Status] stage.",
-    //   job_id: "[Job ID]",
-    //   candidate_id: "[Candidate ID]",
-    //   updated_at: "2023-10-27",
-    // },
-
     {
       title: "CSS",
       description:"CSS Interview: Layout, Specificity, Best Practices.",
