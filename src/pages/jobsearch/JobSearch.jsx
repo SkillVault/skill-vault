@@ -63,6 +63,7 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
           <div className="job">
@@ -70,6 +71,7 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
           <div className="job">
@@ -77,6 +79,7 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
           <div className="job">
@@ -84,6 +87,7 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
         </div>

@@ -253,3 +253,16 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
+.spec button {
+  text-decoration: none;
+  color: #fff;
+  height: 30px;
+  width: 105px;
+  position: relative;
+  left: 1000px;
+  bottom: 60px;
+  border-radius: 10px;
+  background-color: #54249b;
+  transition: box-shadow 0.2s ease-in-out;
+
+}

@@ -24,7 +24,7 @@ const CompanyDashboard = () => {
               alt="search-icon"
               className="dash-icon"
             />
-            Mock Interview
+            Post Job
           </Link>
         </li>
         <li className="dashboard-link">
@@ -34,7 +34,7 @@ const CompanyDashboard = () => {
               alt="interview-icon"
               className="dash-icon"
             />
-            Jobs
+            Application
           </Link>
         </li>
         <li className="dashboard-link">
