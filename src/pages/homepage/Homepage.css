@@ -1,0 +1,38 @@
+.homepage-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 16%;
+  background-color: #f0f0f0;
+
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-progess{
+  margin-top: 20px;
+}
+
+.slider-container,
+.notification-container {
+  flex: 1;
+}
+
+.slider-container{
+  height: 600px;
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 768px) {
+  /* Adapt layout for smaller screens */
+}
+
+hr{
+  margin: 8px;
+  color: black;
+}

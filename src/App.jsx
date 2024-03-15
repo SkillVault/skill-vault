@@ -1,14 +1,25 @@
-import LoginPage from "./pages/loginpage/LoginPage";
-import LandingPage from "./pages/landingPage";
-import {RouterProvider, createBrowserRouter,
-  // Navigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import the navigate function
 
-// this is our first react project
+import JobSearch from "./pages/jobsearch/JobSearch"; // Corrected typo
+import ProfilePage from "./pages/profilepage/ProfilePage";
+import ContactPage from "./pages/contactpage/ContactPage"; // Corrected typo
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { SignIn } from "phosphor-react";
+import LandingPage from "./pages/landingpage/LandingPage"
+import MockInterview from "./pages/mockinterview/MockInterview"
+import Homepage from "./pages/homepage/Homepage";
+import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
+import CandidateSignupPage from "./pages/candidateSignup/CandidateSignupPage";
+import Skill from "./pages/skill/Skill";
 
 function App() {
   const router = createBrowserRouter([
-    // this is our first react project
+    <button
+      className="googleLoginBtn"
+      onClick={() => navigate("/landing")}
+    >
+      Sign in with google
+    </button>,
     {
       path: "/",
       element: <LandingPage />,
@@ -18,18 +29,47 @@ function App() {
       element: <LandingPage />,
     },
     {
-      path: "login",
-      element: <LoginPage />,
-      // this is our first react project
+      path: "candidate/login",
+      element: <CandidateSignupPage />,
     },
-  
+    {
+      path: "jobsearch",
+      element: <JobSearch />,
+    },
+    {
+      path: "homepage",
+      element: <Homepage />,
+    },
+    {
+      path: "profilepage",
+      element: <ProfilePage />,
+    },
+    {
+      path: "company/login",
+      element: <CompanySignupPage />,
+    },
+    {
+      path: "company/signup",
+      element: <CompanySignupPage />,
+    },
+    {
+      path: "contactpage",
+      element: <ContactPage />,
+    },
+    {
+      path: "mockinterview",
+      element: <MockInterview/>
+    },
+    {
+      path: "skill",
+      element: <Skill/>
+    },
   ]);
   return (
     <>
       <RouterProvider router={router} />
     </>
   );
-  // this is our first react project
 }
 
 export default App;

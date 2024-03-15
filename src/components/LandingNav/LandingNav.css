@@ -1,0 +1,47 @@
+.navbar {
+  background-color: rgba(34, 34, 34, 0.12) !important;
+  display: flex !important;
+  height: 10vh !important;
+  justify-content: space-between !important; /* Adjust alignment */
+  align-items: cente !important;
+  position: relative !important;
+  z-index: 1 !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.nav-list {
+  display: flex !important;
+  list-style: none!important;
+  margin: 0;
+}
+
+.nav-item {
+  margin: 0 0.5rem !important;
+}
+
+.nav-link {
+  text-decoration: none !important;
+  color: #fff !important;
+  padding: 0.5rem 1rem !important; /* Increase padding */
+  border-radius: 50px !important;
+  background-color: #54249b !important;
+  transition: box-shadow 0.2s ease-in-out !important;
+  display: inline-block !important;
+  min-width: 100px !important; /* Set minimum width for links */
+  text-align: center !important; /* Center text *//
+}
+
+.nav-link:hover {
+  box-shadow: 0 0 4px 4px rgb(94, 94, 95) !important;
+}
+
+.logo-container {
+  margin-left: 10px !important; /* Adjust margin */
+}
+
+.logo {
+  height: 52px !important;
+  width: 52px !important;
+  margin-top: 8px !important;
+  margin-bottom: 6px !important;
+}

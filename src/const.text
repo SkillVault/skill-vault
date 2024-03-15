@@ -1,0 +1,55 @@
+npm install react-bootstrap bootstrap
+npm install phosphor-react
+npm install @react-oauth/google@latest
+npm install --save react-router-dom
+npm install react-webcam
+npm install @tensorflow/tfjs @tensorflow-models/blazeface
+https://www.npmjs.com/package/react-webcam?activeTab=readme
+npm install jwt-decode
+npm install jwt-decode --legacy-peer-deps  // if the about code doesnt work
+
+
+
+Back end 
+
+pip install pipenv
+pipenv shell
+python -m venv env
+pip install python-dotenv
+env\Scripts\activate
+
+pip install bcrypt
+
+
+
+uvicorn main:app --reload 
+python -m pip install "pymongo[srv]"  
+pip install fastapi
+pip install uvicorn
+pip install fastapi-cors
+
+
+
+
+for uploading datas 
+
+
+// run python upload.py
+
+pip install pyarrow
+pip install openpyxl
+pip install pandas
+
+
+for checking similarity 
+
+pip install transformers
+pip install scipy
+pip install torch transformers  
+
+
+
+
+// if error is based on this package uninstall 
+
+npm uninstall react-country-dropdown    

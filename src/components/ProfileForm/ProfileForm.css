@@ -1,0 +1,134 @@
+.form-outer-container {
+  background-color: rgb(43, 43, 43);
+  color: white;
+  width: 55%;
+  height: auto;
+  border-radius: 20px;
+  margin-left: 18%;
+  outline: none; /* Remove default outline */
+  box-shadow: 5px 5px 12px rgb(46, 58, 103);
+  margin-bottom: 10px;
+}
+
+
+
+.form-inner-container {
+  background-color: white;
+  color: rgb(56, 67, 194);
+  border-radius: 20px;
+}
+
+.user-information-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  margin-left: 50px;
+}
+
+.user-information-grid label {
+  grid-column: span 1;
+}
+
+.user-information-grid .data-field:nth-of-type(1) {
+  grid-row: 1;
+}
+.user-information-grid .data-field:nth-of-type(2) {
+  grid-row: 1;
+}
+.user-information-grid .data-field:nth-of-type(3) {
+  grid-row: 2;
+}
+.user-information-grid .data-field:nth-of-type(4) {
+  grid-row: 2;
+}
+
+.contact-information-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  margin-left: 50px;
+}
+
+
+
+.contact-information-grid label {
+  grid-column: span 1;
+}
+
+.contact-information-grid .data-field:nth-of-type(1) {
+  grid-row: 1;
+  
+}
+.contact-information-grid .data-field:nth-of-type(2) {
+  grid-row: 2;
+}
+.contact-information-grid .data-field:nth-of-type(3) {
+  grid-row: 2;
+}
+.contact-information-grid .data-field:nth-of-type(4) {
+  grid-row: 3;
+}
+.contact-information-grid .data-field:nth-of-type(5) {
+  grid-row: 3;
+}
+
+.about-information-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.data-field {
+  margin: 10px;
+}
+
+.data-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.data-field input,
+.data-field textarea {
+  background-color: rgb(235, 242, 255);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 5px 5px 5px rgb(86, 86, 86);
+}
+
+.change-button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+}
+
+.change-button input[type="submit"] {
+  background-color: rgb(135, 135, 255);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.change-button input[type="submit"]:hover {
+  background-color: rgb(76, 76, 150);
+}
+
+h4 {
+  color: rgb(135, 135, 255);
+}
+
+/* section line */
+hr {
+  color: black;
+}

@@ -1,0 +1,85 @@
+.notification-section {
+  margin-top: 8px;
+  padding: 20px;
+  background-color: #f6f2fb;
+  border-radius: 5px;
+  padding-top: 10px;
+}
+
+.notification-section h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.notification-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-evenly;
+}
+
+.notification-card {
+  width: 250px;
+  background-color: #d3c2ff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-card h4 {
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.notification-card p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.notification-card button {
+  background-color: #54249b;
+  transition: box-shadow 0.2s ease-in-out;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.no-notifications {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.no-notifications-content {
+  text-align: center;
+}
+
+.no-notifications-content p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.view-all-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: none;
+  background-color: #54249b;
+  transition: box-shadow 0.2s ease-in-out;
+  color: #fff;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.notification-card button:hover {
+  box-shadow: 0 0 2px 2px rgb(255, 255, 255);
+}
+
+.view-all-button:hover {
+  box-shadow: 0 0 1px 1px black;
+}
