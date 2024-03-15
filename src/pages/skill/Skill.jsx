@@ -2,9 +2,13 @@ import { useState } from "react";
 import React from 'react'
 import Dashboard from "../../components/Dashboard/Dashboard";
 import "./Skill.css";
+import MockInterview from "../mockinterview/MockInterview";
+import { useNavigate } from "react-router-dom";
+
 
 
 const Skill = () => {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([
     {
       title: "REACT ",
@@ -80,7 +84,7 @@ const Skill = () => {
               <h4>{notification.title}</h4>
               <p>{notification.description}</p>
               <button
-                onClick={() => console.log(`Details for ${notification.title}`)}
+                onClick={()=> navigate("/mockinterview")}
               >
                 Take Interview
               </button>

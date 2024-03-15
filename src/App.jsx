@@ -6,7 +6,7 @@ import ContactPage from "./pages/contactpage/ContactPage"; // Corrected typo
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { SignIn } from "phosphor-react";
 import LandingPage from "./pages/landingpage/LandingPage"
-import MockInterview from "./pages/MockInterview"
+import MockInterview from "./pages/mockinterview/MockInterview"
 import Homepage from "./pages/homepage/Homepage";
 import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
 import CandidateSignupPage from "./pages/candidateSignup/CandidateSignupPage";

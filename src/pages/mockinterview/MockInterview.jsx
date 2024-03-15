@@ -5,7 +5,7 @@ import axios from "axios";
 import * as tf from "@tensorflow/tfjs";
 
 
-import * as blazeface from "@tensorflow-models/blazeface";
+import * as blazeface from "@tensorflow-models/blazeface"; 
 import { FileX } from "phosphor-react";
 
 const MockInterview = () => {
