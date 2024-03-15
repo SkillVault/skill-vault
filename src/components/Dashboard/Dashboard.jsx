@@ -28,7 +28,7 @@ const Dashboard = () => {
           </Link>
         </li>
         <li className="dashboard-link">
-          <Link to="/mockinterview">
+          <Link to="/skill">
             <img
               src="/src/assets/interview.png"
               alt="interview-icon"

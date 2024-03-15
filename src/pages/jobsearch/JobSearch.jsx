@@ -6,6 +6,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { MagnifyingGlass } from "phosphor-react";
 import JobCard from "../../components/jobcard/JobCard";
 
+
 const JobSearch = () => {
   return (
     <div className="main">
@@ -17,7 +18,7 @@ const JobSearch = () => {
           <div className="comp-div"></div>
           <img src="./src/assets/logo.png" />
           <h3 className="comp-div-h3">SkillVault</h3>
-          <p className="comp-div-p">
+          <p className="comp-div-p">    
             We connect top talents with top companies
           </p>
         </div>
@@ -62,6 +63,7 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
           <div className="job">
@@ -69,6 +71,7 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
           <div className="job">
@@ -76,6 +79,7 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
           <div className="job">
@@ -83,12 +87,14 @@ const JobSearch = () => {
             <div className="spec">
               <h5>Web Designer</h5>
               <p>hfbguf</p>
+              <button>Easy Apply</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+    
+  )
+}
 
 export default JobSearch;
