@@ -11,9 +11,7 @@ import Homepage from "./pages/homepage/Homepage";
 import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
 import CandidateSignupPage from "./pages/candidateSignup/CandidateSignupPage";
 import Skill from "./pages/skill/Skill";
-import CompLanding from "./pages/complanding/CompLanding";
-import AddJob from "./pages/addjob/AddJob";
-import JobEntry from "./pages/jobentry/JobEntry";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -67,18 +65,7 @@ function App() {
       path: "skill",
       element: <Skill/>
     },
-    {
-      path: "complanding",
-      element: <CompLanding/>
-    },
-    {
-      path: "addjob",
-      element: <AddJob/>
-    },
-    {
-      path: "jobentry",
-      element: <JobEntry/>
-    },
+  
   ]);
   return (
     <>
