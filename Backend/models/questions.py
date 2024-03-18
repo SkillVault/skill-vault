@@ -10,3 +10,7 @@ class FetchQuestion(BaseModel):
     # Correct: Union[int, str]
     Level: int
     Answer: str
+
+class CheckAnswer(BaseModel):
+    question: str
+    answer: str

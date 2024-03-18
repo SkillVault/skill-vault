@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import "./MockInterview.css";
 import Webcam from "react-webcam";
 import axios from "axios";
-import * as blazeface from "@tensorflow-models/blazeface";
+import * as tf from "@tensorflow/tfjs";
+
+
+import * as blazeface from "@tensorflow-models/blazeface"; 
 import { FileX } from "phosphor-react";
 
 const MockInterview = () => {
   const webcamRef = useRef(null);
   const [isPersonPresent, setIsPersonPresent] = useState(true);
-
   const [currentQuestion, setCurrentQuestion] = useState("");
   const [currentQnAns, setCurrentQnAns] = useState("");
   const [currentLevel, setLevel] = useState(1);
@@ -17,51 +19,47 @@ const MockInterview = () => {
   const [timerActive, setTimerActive] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [headOrientation, setHeadOrientation] = useState(
-    "Head is facing forward"
-  );
-
-  const [similarityScore, setSimilarity] = useState("");
+  const [score,setScore] = useState("")
+  const [headOrientation, setHeadOrientation] = useState("Head is facing forward");
   const [isStoped, setRecordStopped] = useState(false);
   let mediaRecorder;
   let audioChunks = [];
   let speechRecognition = new (window.SpeechRecognition ||
     window.webkitSpeechRecognition)();
 
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorder = new MediaRecorder(stream);
-      mediaRecorder.start();
-
-      mediaRecorder.ondataavailable = (event) => {
-        audioChunks.push(event.data);
-      };
-
-      setIsRecording(true);
-      startSpeechRecognition();
-    } catch (error) {
-      console.error("Error accessing microphone:", error);
-    }
-  };
-
-  const stopRecording = () => {
-   
-    if (mediaRecorder) {
-      setIsRecording(false);
-     
-      mediaRecorder.stop();
-    
-      setRecordStopped(true);
-    }
-    if (speechRecognition) {
-      setIsRecording(false);
-      speechRecognition.stop();
-    }
-  };
+    const startRecording = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+  
+        mediaRecorder.ondataavailable = (event) => {
+          audioChunks.push(event.data);
+        };
+  
+        setIsRecording(true);
+        startSpeechRecognition();
+      } catch (error) {
+        console.error("Error accessing microphone:", error);
+      }
+    };
+  
+    const stopRecording = () => {
+      if (mediaRecorder) {
+        setIsRecording(false);
+  
+        mediaRecorder.stop();
+  
+        setRecordStopped(true);
+      }
+      if (speechRecognition) {
+        setIsRecording(false);
+        speechRecognition.stop();
+      }
+    };
+  
 
   const startSpeechRecognition = () => {
-    setIsRecording(true);
     speechRecognition.start();
 
     speechRecognition.onresult = (event) => {
@@ -92,23 +90,10 @@ const MockInterview = () => {
     }
   };
 
-  const checkTextSimilarity = async (transcript, actualAnswer) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:8000/api/text-similarity/",
-        {
-          text1: currentQnAns,
-          text2: transcript,
-        }
-      );
-      const similarity = response.data.similarity;
-      setSimilarity(similarity);
-      console.log("Similarity score:", similarity);
-      // Here you can decide what to do with the similarity score
-    } catch (error) {
-      console.error("Failed to compute similarity:", error);
-    }
-  };
+
+
+  
+
 
   useEffect(() => {
     fetchQuestion();
@@ -147,6 +132,30 @@ const MockInterview = () => {
     setTimerActive(true);
   };
 
+  const checkTextSimilarity = async (transcript) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/text-similarity/check_answer",
+        {
+          question: currentQuestion,
+          answer: transcript,
+        }
+      );
+      console.log(response.data);
+      if (response.data) {
+        setScore((score) => score + 1);
+        console.log("Score = " + score);
+        if (score === 1) {
+          setLevel((level) => level++);
+          console.log("Level = " + level);
+        }
+      }
+      handleNextQuestion();
+    } catch (error) {
+      console.error("Failed to compute similarity:", error);
+    }
+  };
+
   useEffect(() => {
     let interval = null;
 
@@ -175,51 +184,50 @@ const MockInterview = () => {
     facingMode: "user",
   };
 
+ 
   const detectPerson = async () => {
     if (webcamRef.current) {
       const video = webcamRef.current.video;
-
+  
       if (video && video.readyState === 4) {
         const model = await blazeface.load();
         const predictions = await model.estimateFaces(video, false);
-
+  
         if (predictions.length > 0) {
           const face = predictions[0]; // Assuming only one face is detected for simplicity
           const landmarks = face.landmarks;
-
+  
           // Calculate the average x position of landmarks on the left and right sides of the face
           const leftEye = landmarks[0];
           const rightEye = landmarks[1];
           const leftEar = landmarks[3];
           const rightEar = landmarks[4];
           const nose = landmarks[2];
-
+  
           // Horizontal movement - comparing the distance between ears and eyes
           const horizontalDistLeft = Math.abs(leftEye[0] - leftEar[0]);
           const horizontalDistRight = Math.abs(rightEye[0] - rightEar[0]);
-
+  
           // Vertical movement - comparing the vertical positions of eyes and nose
           const verticalDistUp = (leftEye[1] + rightEye[1]) / 2 - nose[1];
           const verticalDistDown = nose[1] - (leftEye[1] + rightEye[1]) / 2;
-
+  
           let message = "Head is facing forward";
-
+  
           if (horizontalDistLeft > horizontalDistRight) {
             message = "Head is turned to the right";
           } else if (horizontalDistRight > horizontalDistLeft) {
             message = "Head is turned to the left";
           }
-
-          if (verticalDistUp > 20) {
-            // Threshold for looking up
+  
+          if (verticalDistUp > 20) { // Threshold for looking up
             message = "Head is tilted up";
-          } else if (verticalDistDown > 20) {
-            // Threshold for looking down
+          } else if (verticalDistDown > 20) { // Threshold for looking down
             message = "Head is tilted down";
           }
-
+  
           console.log(message); // Or handle the message as needed in your UI
-
+  
           setIsPersonPresent(true);
         } else {
           setIsPersonPresent(false);
@@ -228,12 +236,13 @@ const MockInterview = () => {
       }
     }
   };
+  
 
   // Consider using a more specific effect dependency to control the detection frequency
   useEffect(() => {
     const interval = setInterval(() => {
       detectPerson();
-    }, 5000); // check every 5 seconds
+    }, 3000); // check every 5 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -252,18 +261,15 @@ const MockInterview = () => {
           <p style={{ margin: 0 }}>Your current level : {currentLevel}</p>
           <h6>React</h6>
         </div>
-        <div className="question-container">
-          <pre>
-            <code>{currentQuestion || "Loading question..."}</code>
-          </pre>
-        </div>
+
+        <h1>{currentQuestion || "Loading question..."}</h1>
 
         <div className="mock-main">
           <div className="mock">
             <img src="./src/assets/timer.png" alt="timer" id="timer" />
             <h2>{formatTime(timeLeft)}</h2>
           </div>
-          <div className="audio">
+           <div className="audio">
             <button
               id="audio-btn"
               className={`${isRecording ? "recording-animation" : ""}`}
@@ -276,13 +282,12 @@ const MockInterview = () => {
               />
             </button>
 
-            <button id="audio-btn" onClick={startRecording}>
+            <button id="audio-btn" onClick={stopRecording}>
               <img
                 src="./src/assets/stop.png"
                 alt="stop"
                 onClick={() => {
-                  stopRecording(),
-                    checkTextSimilarity(transcript, currentQnAns);
+                  stopRecording(), checkTextSimilarity(transcript);
                 }}
                 style={{ cursor: "pointer" }}
               />
@@ -304,13 +309,10 @@ const MockInterview = () => {
             Next Question
           </button>
 
-          {!isPersonPresent && (
-            <div className="alert">
-              <strong>Error: </strong>You are not in the camera view.
-            </div>
-          )}
+          
         </div>
       </div>
+    
     </div>
   );
 };
