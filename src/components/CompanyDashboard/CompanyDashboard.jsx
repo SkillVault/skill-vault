@@ -39,7 +39,7 @@ const CompanyDashboard = () => {
             Application
           </Link>
         </li>
-        <li className="cdashboard-link">
+        {/* <li className="cdashboard-link">
         <Link to="/profilepage"> 
             <img
               src="./src/assets/profile.png"
@@ -48,7 +48,7 @@ const CompanyDashboard = () => {
             />
              User Profile
           </Link>
-        </li>
+        </li> */}
         <li className="cdashboard-link">
           <Link to="/candidate/settings">
             <img
