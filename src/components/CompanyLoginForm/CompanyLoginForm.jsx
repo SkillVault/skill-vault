@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "./CompanyLoginForm.css"; 
 import axios from "axios";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function CompanyLoginForm() {
   const [companyEmail, setCompanyEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   // const response = axios.get('/fetch_company')
 
@@ -68,6 +71,7 @@ function CompanyLoginForm() {
       >
         {loading ? "Logging In..." : "Login"}
       </button>
+      <button onClick={()=>navigate("/complanding")}>log</button>
     </form>
   );
 }
