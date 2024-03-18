@@ -29,6 +29,11 @@ pip install uvicorn
 pip install fastapi-cors
 
 
+for llm model 
+
+
+pip install langchain_together
+pip install kor
 
 
 for uploading datas 
