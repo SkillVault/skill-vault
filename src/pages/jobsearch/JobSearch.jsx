@@ -35,7 +35,7 @@ const JobSearch = () => {
           <div className="comp2-inside">
             <h5>Active Job Opening</h5>
             <div className="button-drop-down">
-              <div className="search">
+              <div className="search4">
                 <MagnifyingGlass size={22} />
                 <input placeholder="Search by Job Title"></input>
                 <button>Search</button>
