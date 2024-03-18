@@ -12,6 +12,7 @@ import CompanySignupPage from "./pages/companySignup/CompanySignupPage";
 import CandidateSignupPage from "./pages/candidateSignup/CandidateSignupPage";
 import Skill from "./pages/skill/Skill";
 
+
 function App() {
   const router = createBrowserRouter([
     <button
@@ -64,6 +65,7 @@ function App() {
       path: "skill",
       element: <Skill/>
     },
+  
   ]);
   return (
     <>

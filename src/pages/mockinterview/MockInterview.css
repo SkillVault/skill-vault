@@ -1,7 +1,6 @@
-body {
-  height: 100vh;
-}
 .mock-screen {
+  height: 100vh;
+
   background: linear-gradient(#6a14d9, #6262e2);
   position: relative;
   padding: 40px;
@@ -9,24 +8,22 @@ body {
   color: white;
 }
 
-body h1,
-h2,
-h6 {
+body h1,h2,h6 {
   margin: 0;
+
 }
 
 .mock-container {
   display: flex;
 
   flex-direction: column;
-  gap: 100px;
+  gap: 130px;
 }
 
-.question-container {
-  height: 200px;
-  display: flex;
-  overflow: auto;
-  justify-content: center;
+.mock-container h1 {
+  text-align: center;
+  font-weight: bolder;
+  color: white;
 }
 
 .mock-container h2 {
@@ -39,21 +36,15 @@ h6 {
 
 .mock-main {
   display: flex;
+  display: flex;
   align-items: center;
   padding-left: 131px;
 }
 
 .mock-main img {
   padding: 5px;
-  width: 60px;
   height: 60px;
-  object-fit: cover;
-}
-
-#audio-btn {
-  width: 70px;
-  height: 70px;
-  border-radius: 100px;
+  width: 60px;
 }
 
 .audio {
@@ -70,6 +61,11 @@ h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.mock img {
+  height: 30px;
+  width: 30px;
 }
 
 .audio-section {
@@ -136,26 +132,3 @@ h6 {
   border: none;
   border-radius: 15px;
 }
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0.7);
-  }
-  70% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 10px rgba(255, 82, 82, 0);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
-  }
-}
-
-.recording-animation {
-  animation: pulse 2s infinite;
-}
-
-
-
-
