@@ -7,49 +7,49 @@ import { Link } from "react-router-dom";
 const CompanyDashboard = () => {
 
   return (
-    <nav className="dashboard">
-      <ul className="dashboard-links">
-        <li className="dashboard-link">
+    <nav className="cdashboard">
+      <ul className="cdashboard-links">
+        <li className="cdashboard-link">
           <Link to="/complanding">
             <img
               src="./src/assets/home.png"
               alt="home-icon"
-              className="dash-icon"
+              className="cdash-icon"
             />
             Dashboard
           </Link>
         </li>
-        <li className="dashboard-link">
+        <li className="cdashboard-link">
           <Link to="/addjob"> 
             <img
               src="./src/assets/search.png"
               alt="search-icon"
-              className="dash-icon"
+              className="cdash-icon"
             />
             Post Job
           </Link>
         </li>
-        <li className="dashboard-link">
+        <li className="cdashboard-link">
           <Link to="/candidate/mock-interview">
             <img
               src="./src/assets/interview.png"
               alt="interview-icon"
-              className="dash-icon"
+              className="cdash-icon"
             />
             Application
           </Link>
         </li>
-        <li className="dashboard-link">
+        <li className="cdashboard-link">
         <Link to="/profilepage"> 
             <img
               src="./src/assets/profile.png"
               alt="profile-icon"
-              className="dash-icon"
+              className="cdash-icon"
             />
              User Profile
           </Link>
         </li>
-        <li className="dashboard-link">
+        <li className="cdashboard-link">
           <Link to="/candidate/settings">
             <img
               src="./src/assets/settings.png"
@@ -59,7 +59,7 @@ const CompanyDashboard = () => {
             Account Settings
           </Link>
         </li>
-        <li className="dashboard-link">
+        <li className="cdashboard-link">
           <Link
             onClick={async () => {
               console.log("Logout clicked");
@@ -75,7 +75,7 @@ const CompanyDashboard = () => {
             <img
               src="./src/assets/logout.png"
               alt="logout-icon"
-              className="dash-icon"
+              className="cdash-icon"
             />
             Logout
           </Link>

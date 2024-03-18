@@ -62,37 +62,37 @@ const JobEntry = () => {
                 <div className="formdiv">
                     <form className="job-entry-form" onSubmit={handleSubmit}>
                         <div className="card-main">
-                            <div className="card1">
+                            <div className="card5">
                                 <label>
                                     Job Title:
                                     <input type="text" classNamename="jobTitle" value={formData.jobTitle} onChange={handleInputChange} required />
                                 </label>
                             </div>
-                            <div className="card1">
+                            <div className="card5">
                                 <label>
                                     Skills Required:
                                     <input type="text" classNamename="skillsRequired" value={formData.skillsRequired} onChange={handleInputChange} required />
                                 </label>
                             </div>
-                            <div className="card1">
+                            <div className="card5">
                                 <label>
                                     Category:
                                     <input type="text" classNamename="category" value={formData.category} onChange={handleInputChange} required />
                                 </label>
                             </div>
-                            <div className="card1">
+                            <div className="card5">
                                 <label>
                                     Location:
                                     <input type="text" classNamename="location" value={formData.location} onChange={handleInputChange} required />
                                 </label>
                             </div>
-                            <div className="card1">
+                            <div className="card5">
                                 <label>
                                     Openings:
                                     <input type="number" classNamename="openings" value={formData.openings} onChange={handleInputChange} required />
                                 </label>
                             </div>
-                            <div className="card1">
+                            <div className="card5">
                                 <label>
                                     Salary:
                                     <input type="text" classNamename="salary" value={formData.salary} onChange={handleInputChange} required />
