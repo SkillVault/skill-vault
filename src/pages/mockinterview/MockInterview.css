@@ -68,6 +68,11 @@ body h1,h2,h6 {
   width: 30px;
 }
 
+#audio-btn {
+
+  border-radius: 100px;
+}
+
 .audio-section {
   display: flex;
   justify-content: space-around;
@@ -132,3 +137,23 @@ body h1,h2,h6 {
   border: none;
   border-radius: 15px;
 }
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.recording-animation {
+  animation: pulse 2s infinite;
+}
+
