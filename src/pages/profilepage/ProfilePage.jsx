@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import "../../components/LandingNav/LandingNav";
 
-
-import Dashboard from '../../components/Dashboard/Dashboard';
-import ProfileSlide from '../../components/ProfileSlide/ProfileSlide';
-import ProfileInfo from '../../components/ProfileInfo/ProfileInfo';
-import ProfileForm from '../../components/ProfileForm/ProfileForm';
-import ProfileCard from '../../components/ProfileCard/ProfileCard';
+import Dashboard from "../../components/Dashboard/Dashboard";
+import ProfileSlide from "../../components/ProfileSlide/ProfileSlide";
+import ProfileInfo from "../../components/ProfileInfo/ProfileInfo";
+import ProfileForm from "../../components/ProfileForm/ProfileForm";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
@@ -21,12 +20,10 @@ const ProfilePage = () => {
     setIsEditing(!isEditing); // Exit editing mode
   };
 
-
-
   return (
     <div className="profile-container">
       <Dashboard />
-      <ProfileSlide/>
+      <ProfileSlide />
       {isEditing ? (
         <ProfileForm onFormSubmit={handleFormSubmit} /> // Pass onFormSubmit function as a prop
       ) : (
@@ -34,7 +31,6 @@ const ProfilePage = () => {
       )}
       <ProfileCard />
     </div>
-    
   );
 };
 

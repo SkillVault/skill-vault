@@ -1,12 +1,10 @@
-import React, { useState,useEffect } from "react";
-import "../../components/ProfileForm/ProfileForm.css";
+import React, { useState, useEffect } from "react";
+import "../ProfileForm/ProfileForm.css";
 import "./ProfileInfo.css";
 import axios from "axios";
 
-
 const ProfileInfo = ({ onEditClick }) => {
-  const { userSub } = useUser();
-
+  
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -20,10 +18,12 @@ const ProfileInfo = ({ onEditClick }) => {
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
 
-  const storedUserSub = localStorage.getItem('userSub');
+  const storedUserSub = localStorage.getItem("userSub");
 
-  const fetchUsrProfile = async ()=> {
-    const response = await axios.get(`http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`);
+  const fetchUsrProfile = async () => {
+    const response = await axios.get(
+      `http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`
+    );
     const userData = response.data;
     setEmail(userData.user_mail);
     setUsername(userData.user_name);
@@ -35,15 +35,11 @@ const ProfileInfo = ({ onEditClick }) => {
     setCity(userData.city);
     setPostal(userData.postal_code);
     setStatename(userData.state);
-    
-
-  }
+  };
 
   useEffect(() => {
-    fetchUsrProfile()
+    fetchUsrProfile();
   }, []);
-
-  
 
   return (
     <div className="form-outer-container">

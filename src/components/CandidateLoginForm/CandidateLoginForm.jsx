@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 function CandidateLoginForm() {
 
   const [candidateEmail, setCandidateEmail] = useState("");
+  const [currentuserSub , setUserSub] = useState("");
   const [usrFirstName, setFirstName] = useState("");
   const [usrLastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -15,28 +16,37 @@ function CandidateLoginForm() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // const response = axios.get('/fetch_company')
-
-  const handleSubmit = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
-    setLoading(true);
+    setLoading(true); // Set loading state to true during login request
 
-    // Simulate backend call (replace with actual API call)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(candidateEmail)) {
+      setError("Invalid email format.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      // Your API call here
-
-      // Simulating API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      console.log("Candidate Email:", candidateEmail);
-      console.log("Password:", password);
-
-      // Redirect to dashboard or handle success response
+      console.log("started");
+      const response = await axios.post("http://127.0.0.1:8000/api/user/candidate_login", {
+        email: candidateEmail,
+        password: password,
+      });
+      console.log("Login response:", response.data);
+      navigate("/homepage");
     } catch (err) {
       console.error("Error logging in:", err.message);
-      setError("Error logging in. Please try again later.");
-    } finally {
+      if (err.response && err.response.status === 404) {
+        setError("Incorrect email or user doesn't exist.");
+      } else if (err.response && err.response.status === 401) {
+        setError("Incorrect password.");
+      } else {
+        setError("Error logging in. Please try again later.");
+      }
+    }
+       finally {
       setLoading(false);
     }
   };
@@ -127,7 +137,7 @@ function CandidateLoginForm() {
   };
 
   return (
-    <form className="candidate-login-form" onSubmit={handleSubmit}>
+    <form className="candidate-login-form" onSubmit={handleLogin}>
       <h2>Login</h2>
       {error && <div className="error-message">{error}</div>}
       <div className="candidate-login-form-group">

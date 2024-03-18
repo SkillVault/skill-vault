@@ -73,7 +73,7 @@ const Skill = () => {
       <div className="sidebar">
         <Dashboard />
       </div>
-      <div className="inside">
+      <div className="inside-main">
         <h1>WELCOME TO SKILL SPACE</h1>
       </div>
       <section className="notification_section">

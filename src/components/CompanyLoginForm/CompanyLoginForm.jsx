@@ -68,10 +68,11 @@ function CompanyLoginForm() {
         id="company-loginform-button"
         className={loading ? "loading" : ""}
         disabled={loading}
+        onClick={()=>navigate("/complanding")}
       >
         {loading ? "Logging In..." : "Login"}
       </button>
-      <button onClick={()=>navigate("/complanding")}>log</button>
+     
     </form>
   );
 }

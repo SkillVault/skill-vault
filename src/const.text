@@ -14,9 +14,12 @@ Back end
 
 pip install pipenv
 pipenv shell
-python3 -m venv venv
+python -m venv env
 pip install python-dotenv
-venv\Scripts\activate
+env\Scripts\activate
+
+pip install bcrypt
+
 
 
 uvicorn main:app --reload 
@@ -25,6 +28,12 @@ pip install fastapi
 pip install uvicorn
 pip install fastapi-cors
 
+
+for llm model 
+
+
+pip install langchain_together
+pip install kor
 
 
 for uploading datas 

@@ -15,6 +15,7 @@ import CompLanding from "./pages/complanding/CompLanding";
 import AddJob from "./pages/addjob/AddJob";
 import JobEntry from "./pages/jobentry/JobEntry";
 
+
 function App() {
   const router = createBrowserRouter([
     <button
@@ -79,6 +80,8 @@ function App() {
       path: "jobentry",
       element: <JobEntry/>
     },
+
+  
   ]);
   return (
     <>

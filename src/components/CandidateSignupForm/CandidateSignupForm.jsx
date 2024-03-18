@@ -1,53 +1,51 @@
 import React, { useState } from "react";
-import "./CandidateSignupFrom.css"; // Import CSS file for styling
+import "./CandidateSignupFrom.css";
 import axios from "axios";
 
 function CandidateSignupForm() {
   const [candidateName, setCandidateName] = useState("");
   const [candidateEmail, setCandidateEmail] = useState("");
-  const [candidateWebsite, setCandidateWebsite] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
- 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
     setLoading(true);
 
-    // Perform data validation
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(candidateEmail)) {
+      setError("Invalid email format.");
       setLoading(false);
       return;
     }
 
-    // Simulate backend call (replace with actual API call)
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      // Your API call here
-
-      // // Simulating API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const response = await axios.post("http://localhost:8000/api/candidate_signup",{
-        "candidate_name": candidateName,
-        "candidate_email": candidateEmail,
-        "candidate_website": candidateWebsite,
-        "password" : password
-        
-      }).then(value => {
-        console.log(response)
-      })
-
-      console.log("Candidate:", candidateName, candidateEmail, candidateWebsite);
-
-      // Redirect to confirmation page or handle success response
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/user/candidate_signup",
+        {
+          username: candidateName,
+          email: candidateEmail,
+          password: password,
+        }
+      );
+      console.log("Signup response:", response.data);
+      // Redirect to login page or show success message
     } catch (err) {
       console.error("Error signing up:", err.message);
-      setError("Error signing up. Please try again later.");
+      if (err.response && err.response.status === 500) {
+        setError("Internal server error. Please try again later.");
+      } else {
+        setError("Error signing up. Please try again later.");
+      }
     } finally {
       setLoading(false);
     }
@@ -72,7 +70,7 @@ function CandidateSignupForm() {
         <label htmlFor="candidateEmail">Candidate Email:</label>
         <input
           type="email"
-          id="candiateEmail"
+          id="signupcandidateEmail" // Fixed typo here
           value={candidateEmail}
           onChange={(e) => setCandidateEmail(e.target.value)}
           placeholder="Your candidate email"
@@ -80,20 +78,10 @@ function CandidateSignupForm() {
         />
       </div>
       <div className="candidate-signupform-group">
-        <label htmlFor="candidateWebsite">Candiate Website (Optional):</label>
-        <input
-          type="url"
-          id="candidateWebsite"
-          value={candidateWebsite}
-          onChange={(e) => setCandidateWebsite(e.target.value)}
-          placeholder="Your candidate website"
-        />
-      </div>
-      <div className="candidate-signupform-group">
         <label htmlFor="password">Password:</label>
         <input
           type="password"
-          id="password"
+          id="signuppassword"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Your password"
