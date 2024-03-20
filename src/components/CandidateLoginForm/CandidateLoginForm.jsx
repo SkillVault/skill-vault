@@ -30,7 +30,7 @@ function CandidateLoginForm() {
 
     try {
       console.log("started");
-      const response = await axios.post("http://127.0.0.1:8000/api/user/candidate_login", {
+      const response = await axios.post("https://skillvault-backend.onrender.com/api/user/candidate_login", {
         email: candidateEmail,
         password: password,
       });
@@ -92,13 +92,13 @@ function CandidateLoginForm() {
 
     try {
       let checkUserResponse = await axios.get(
-        `http://localhost:8000/api/user/get_user?user_sub=${currentuserSub}`
+        `https://skillvault-backend.onrender.com/api/user/get_user?user_sub=${currentuserSub}`
       );
 
       if (!checkUserResponse.data) {
         // If the user doesn't exist, create a new one
         const response = await axios.post(
-          "http://localhost:8000/api/user/create_google_user",
+          "https://skillvault-backend.onrender.com/api/user/create_google_user",
           {
             user_name: userEmail,
             user_mail: userEmail,

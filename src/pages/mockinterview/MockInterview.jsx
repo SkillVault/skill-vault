@@ -79,7 +79,7 @@ const MockInterview = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `http://localhost:8000/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
+        `https://skillvault-backend.onrender.com/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
       );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
       setCurrentQnAns(response.data.Answer);
@@ -135,7 +135,7 @@ const MockInterview = () => {
   const checkTextSimilarity = async (transcript) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/text-similarity/check_answer",
+        "https://skillvault-backend.onrender.com/api/text-similarity/check_answer",
         {
           question: currentQuestion,
           answer: transcript,

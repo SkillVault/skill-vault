@@ -22,7 +22,7 @@ const ProfileInfo = ({ onEditClick }) => {
 
   const fetchUsrProfile = async () => {
     const response = await axios.get(
-      `http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`
+      `https://skillvault-backend.onrender.com/api/user/get_user?user_sub=${storedUserSub}`
     );
     const userData = response.data;
     setEmail(userData.user_mail);

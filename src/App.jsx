@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"; // Import the navigate function
 
 import JobSearch from "./pages/jobsearch/JobSearch"; // Corrected typo
 import ProfilePage from "./pages/profilepage/ProfilePage";
-import ContactPage from "./pages/contactpage/ContactPage"; // Corrected typo
+import ContactPage from "./pages/contactpage/Contactpage"; // Corrected typo
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { SignIn } from "phosphor-react";
 import LandingPage from "./pages/landingpage/LandingPage"
