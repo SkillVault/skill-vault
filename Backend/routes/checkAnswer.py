@@ -1,4 +1,6 @@
 from langchain_together import Together
+import os
+from dotenv import load_dotenv
 from kor.extraction import create_extraction_chain
 from kor.nodes import Object, Text
 from langchain_core.messages import HumanMessage
@@ -6,12 +8,16 @@ from fastapi import APIRouter,HTTPException
 from typing import Optional
 from models.questions import CheckAnswer
 
+load_dotenv()
+
+TOGETHER_URI = os.getenv('TOGETHER_URI')
+
 llm = Together(
     model="mistralai/Mistral-7B-Instruct-v0.2",
     temperature=0.7,
     max_tokens=128,
     top_k=1,
-    together_api_key="ba0ba9b1db3f7297485f948c14ff025e5081f325d770e4734bc687b7b769a522",
+    together_api_key=TOGETHER_URI,
 )
 
 schema = Object(
