@@ -27,6 +27,6 @@ def read_root():
 
 app.include_router(user.app,prefix="/api/user")
 app.include_router(questions.app,prefix="/api/questions")
-app.include_router(company.app,prefix="/api/company_signup")
+app.include_router(company.app,prefix="/api/company")
 app.include_router(checkAnswer.app,prefix="/api/text-similarity")
 
