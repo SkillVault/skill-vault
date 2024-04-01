@@ -54,7 +54,7 @@ const ProfileForm = ({ onFormSubmit }) => {
 
   const UpdateUsrProfile = async () => {
     try {
-      const response = await axios.put(
+      const response = await axios.post(
         `https://skillvault-backend.onrender.com/api/user/update_user/?${queryString}`,params
       );
       console.log("Update successful:", response.data);

@@ -47,7 +47,7 @@ const JobEntry = () => {
   const addJob = async () => {
     try {
       // Make sure to use backticks here for the template literal
-      const response = await axios.put(
+      const response = await axios.post(
         `http://localhost:8000/api/company/add_job/?${queryString}`,params
       );
     } catch (error) {
@@ -90,8 +90,9 @@ const JobEntry = () => {
                 <label>
                   Job Title:
                   <input
+                   name="jobTitle"
                     type="text"
-                    classNamename="jobTitle"
+                    className="jobTitle"
                     value={formData.jobTitle}
                     onChange={handleInputChange}
                     required
@@ -102,8 +103,9 @@ const JobEntry = () => {
                 <label>
                   Skills Required:
                   <input
+                  name="skillsRequired"
                     type="text"
-                    classNamename="skillsRequired"
+                    className="skillsRequired"
                     value={formData.skillsRequired}
                     onChange={handleInputChange}
                     required
@@ -115,7 +117,8 @@ const JobEntry = () => {
                   Category:
                   <input
                     type="text"
-                    classNamename="category"
+                    name="category"
+                    className="category"
                     value={formData.category}
                     onChange={handleInputChange}
                     required
@@ -127,7 +130,8 @@ const JobEntry = () => {
                   Location:
                   <input
                     type="text"
-                    classNamename="location"
+                    name="location"
+                    className="location"
                     value={formData.location}
                     onChange={handleInputChange}
                     required
@@ -139,7 +143,8 @@ const JobEntry = () => {
                   Openings:
                   <input
                     type="number"
-                    classNamename="openings"
+                    name="openings"
+                    className="openings"
                     value={formData.openings}
                     onChange={handleInputChange}
                     required
@@ -151,7 +156,8 @@ const JobEntry = () => {
                   Salary:
                   <input
                     type="text"
-                    classNamename="salary"
+                    name="salary"
+                    className="salary"
                     value={formData.salary}
                     onChange={handleInputChange}
                     required

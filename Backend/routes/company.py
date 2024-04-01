@@ -12,7 +12,7 @@ db = client.skillvault
 collection = db.jobposts
 app = APIRouter()
 
-@app.post("/signup", response_model=CompanysignUp)
+@app.post("/signup", response_model= CompanysignUp)
 async def add_company_data(company_info: CompanysignUp):
     # Insert user_info into the MongoDB collection
     await collection.insert_one(company_info.dict())
@@ -22,4 +22,4 @@ async def add_company_data(company_info: CompanysignUp):
 async def postjob(add_job: AddJob):
     # Insert user_info into the MongoDB collection
     await collection.insert_one(add_job.dict())
-    return company_info
+    return add_job
