@@ -59,7 +59,7 @@ const Dashboard = () => {
         </li>
         <li className="dashboard-link">
           <Link
-            onClick={async () => {
+            onClick={async ()  => {
               console.log("Logout clicked");
               try {
                 await googleLogout();

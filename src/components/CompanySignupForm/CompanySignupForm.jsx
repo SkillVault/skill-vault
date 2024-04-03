@@ -32,7 +32,7 @@ function CompanySignupForm() {
       // // Simulating API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const response = await axios.post("http://localhost:8000/api/company_signup",{
+      const response = await axios.post("https://skillvault-backend.onrender.com/api/company_signup",{
         "company_name": companyName,
         "company_email": companyEmail,
         "company_website": companyWebsite,

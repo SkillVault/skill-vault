@@ -137,12 +137,12 @@
 
   .card-main input{
     width: 350px;
-    background-color: rgb(41, 39, 39);
+    color: black;
     padding: 3px; 
     margin-top: 1px; 
     border: 1px solid #ccc; 
     border-radius: 4px;
-    color: white;
+   
   }
 
   label {

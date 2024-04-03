@@ -135,7 +135,7 @@ const MockInterview = () => {
   const checkTextSimilarity = async (transcript) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/text-similarity/check_answer",
+        "http://localhost:8000/api/text-similarity/check_answer",
         {
           question: currentQuestion,
           answer: transcript,
