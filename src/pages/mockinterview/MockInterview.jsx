@@ -79,7 +79,7 @@ const MockInterview = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `http://localhost:8000/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
+        `https://skillvault-backend.onrender.com/api/questions/?Level=${currentLevel}&QNo=${questionNumber}}`
       );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
       setCurrentQnAns(response.data.Answer);
@@ -252,17 +252,19 @@ const MockInterview = () => {
         <div className="head">
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              style={{ width: 30, height: 30 }}
-              src="./src/assets/aim.png"
+              style={{ width: 100, height: 100 }}
+              src="./src/assets/blue_logo.png"
               alt=""
             />
-            <h6>SkillVault</h6>
+            
           </div>
+          <h3>Skill Test : React</h3>
           <p style={{ margin: 0 }}>Your current level : {currentLevel}</p>
-          <h6>React</h6>
+          
         </div>
-
-        <h1>{currentQuestion || "Loading question..."}</h1>
+        <div className="question">
+          <h1>{currentQuestion || "Loading question..."}</h1>
+        </div>
 
         <div className="mock-main">
           <div className="mock">
@@ -293,7 +295,14 @@ const MockInterview = () => {
               />
             </button>
           </div>
-          {<p>Transcript: {transcript}</p>}
+          <div className="transcript_main">
+            <p>Transcript:</p>
+            <div className="transcript">
+              <div className="transcript_inside">
+                {transcript}
+              </div> 
+            </div>
+          </div>
         </div>
         <div className="video-div">
           <Webcam
