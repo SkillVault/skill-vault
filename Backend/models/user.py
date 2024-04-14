@@ -25,7 +25,6 @@ class BaseUser(BaseModel):
 
 class UpdateUser(BaseModel):
     username: Optional[str] = None
-    email: Optional[str] = None
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     address: Optional[Address] = None
@@ -46,11 +45,6 @@ class GoogleUser(BaseUser):
     username: str
     email: str
 
-class GetUser(BaseUser):
-    username: str
-    email: str
-    password: str
-    user_sub: str
     
 class Login(BaseModel):
     email: str

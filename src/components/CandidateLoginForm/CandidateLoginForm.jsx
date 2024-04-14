@@ -6,7 +6,6 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 function CandidateLoginForm() {
-
   const [candidateEmail, setCandidateEmail] = useState("");
   const [usrFirstName, setFirstName] = useState("");
   const [usrLastName, setLastName] = useState("");
@@ -52,68 +51,54 @@ function CandidateLoginForm() {
     }
   };
 
-
   const handleGoogleSuccess = async (googleData) => {
     console.log("Received googleData:", googleData);
 
     const { credential } = googleData;
     const decoded = jwtDecode(credential);
-    console.log(decoded)
-    localStorage.setItem("token", credential)
-
-    const userEmail = decoded.email;
-    const userName = decoded.name;
-    const nameParts = userName.split(" ");
-    if (nameParts.length > 1) {
-      const firstName = nameParts[0];
-      const lastName = nameParts.slice(1).join(" ");
-      console.log("First Name:", firstName);
-      setFirstName(firstName);
-      console.log("Last Name:", lastName);
-      setLastName(lastName);
-    } else {
-      const firstName = nameParts[0];
-      setFirstName(firstName);
-      console.log("First Name:", firstName);
-      console.log("state First Name:", usrFirstName);
-
-      
-    }
-    const userProfilePicUrl = decoded.picture;
+    localStorage.setItem("token", credential);
 
     try {
       let checkUserResponse = await axios.get(
-        `http://127.0.0.1:8000/api/user/get_user?email=${userEmail}`
+        `http://127.0.0.1:8000/api/user/get_user?email=${decoded.email}`
       );
 
-      console.log(checkUserResponse)
-
+      console.log(checkUserResponse);
+      let firstName = "";
+      let lastName = "";
       if (!checkUserResponse.data) {
+        const nameParts = decoded.name.split(" ");
+        if (nameParts.length > 1) {
+          firstName = nameParts[0];
+          lastName = nameParts.slice(1).join(" ");
+        } else {
+          firstName = nameParts[0];
+        }
         const response = await axios.post(
           "http://127.0.0.1:8000/api/user/create_google_user",
           {
-              username: usrFirstName,
-              email: userEmail,
-              password: "",
-              first_name: usrFirstName,
-              last_name: usrLastName,
-              address: {
-                  first_line: "",
-                  country: "", 
-                  state: "",
-                  city: "",
-                  pincode: 0 
-              },
-              job_role: "",
-              company: "",
-              experience: 0, 
-              resume: "",
-              photo: userProfilePicUrl,
-              about_me: "",
-              skills: "", 
-              interview_scores: "" 
+            username: decoded.name,
+            email: decoded.email,
+            password: "",
+            first_name: firstName,
+            last_name: lastName,
+            address: {
+              first_line: "",
+              country: "",
+              state: "",
+              city: "",
+              pincode: 0,
+            },
+            job_role: "",
+            company: "",
+            experience: 0,
+            resume: "",
+            photo: decoded.picture,
+            about_me: "",
+            skills: "",
+            interview_scores: "",
           }
-      );
+        );
 
         if (response.status === 200 || response.status === 201) {
           navigate("/homepage");

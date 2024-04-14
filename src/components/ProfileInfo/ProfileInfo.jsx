@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "../ProfileForm/ProfileForm.css";
 import "./ProfileInfo.css";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const ProfileInfo = ({ onEditClick }) => {
-  
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -17,24 +17,25 @@ const ProfileInfo = ({ onEditClick }) => {
   const [aboutMe, setAboutMe] = useState(
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
-
-  const storedUserSub = localStorage.getItem("userSub");
-
+  const token = localStorage.getItem("token")
+  const decoded = jwtDecode(token);
   const fetchUsrProfile = async () => {
     const response = await axios.get(
-      `http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`
+      `http://127.0.0.1:8000/api/user/get_user?email=${decoded.email}`
     );
     const userData = response.data;
-    setEmail(userData.user_mail);
-    setUsername(userData.user_name);
-    setAboutMe(userData.about);
+    setEmail(userData.email);
+    setUsername(userData.username);
+    setAboutMe(userData.about_me);
     setFirstName(userData.first_name);
     setLastName(userData.last_name);
-    setCountry(userData.country);
-    setAddress(userData.address);
-    setCity(userData.city);
-    setPostal(userData.postal_code);
-    setStatename(userData.state);
+    setCountry(userData.address.country);
+    setAddress(userData.address.first_line);
+    setCity(userData.address.city);
+    setPostal(userData.address.postal_code);
+    setStatename(userData.address.state);
+
+    console.log(userData)
   };
 
   useEffect(() => {

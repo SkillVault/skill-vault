@@ -20,6 +20,7 @@ const HomeSlide = () => {
       );
       const userData = response.data;
       setUserName(userData.username);
+      console.log(userData)
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }

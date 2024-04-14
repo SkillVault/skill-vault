@@ -67,48 +67,51 @@ async def checkUserExist(email: str) -> bool:
  ####################  UPDATE USERS #################################
 
 async def updateUserDetails(email: str, profileData: UpdateUser) -> dict:
-    if await checkUserExist(email):
-        update_data = {}
-        if hasattr(profileData, 'username'):
-            update_data['username'] = profileData.username
-        if hasattr(profileData, 'email'):
-            update_data['email'] = profileData.email
-        if hasattr(profileData, 'first_name'):
-            update_data['first_name'] = profileData.first_name
-        if hasattr(profileData, 'last_name'):
-            update_data['last_name'] = profileData.last_name
-        if hasattr(profileData, 'address'):
-            if profileData.address is not None:
-                if isinstance(profileData.address, dict):
-                    address_data = profileData.address
+    try:
+        if await checkUserExist(email):
+            update_data = {}
+            if hasattr(profileData, 'username'):
+                update_data['username'] = profileData.username
+            if hasattr(profileData, 'email'):
+                update_data['email'] = profileData.email
+            if hasattr(profileData, 'first_name'):
+                update_data['first_name'] = profileData.first_name
+            if hasattr(profileData, 'last_name'):
+                update_data['last_name'] = profileData.last_name
+            if hasattr(profileData, 'address'):
+                if profileData.address is not None:
+                    if isinstance(profileData.address, dict):
+                        address_data = profileData.address
+                    else:
+                        address_data = profileData.address.dict()
                 else:
-                    address_data = profileData.address.dict()
+                    address_data = None
+                update_data['address'] = address_data
+            if hasattr(profileData, 'phone_number'):
+                update_data['phone_number'] = profileData.phone_number
+            if hasattr(profileData, 'job_role'):
+                update_data['job_role'] = profileData.job_role
+            if hasattr(profileData, 'company'):
+                update_data['company'] = profileData.company
+            if hasattr(profileData, 'experience'):
+                update_data['experience'] = profileData.experience
+            if hasattr(profileData, 'resume'):
+                update_data['resume'] = profileData.resume
+            if hasattr(profileData, 'photo'):
+                update_data['photo'] = profileData.photo
+            if hasattr(profileData, 'about_me'):
+                update_data['about_me'] = profileData.about_me
+
+            # Remove any keys with None values from the update_data dictionary
+            update_data = {k: v for k, v in update_data.items() if v is not None}
+
+            result = await collection.update_one({"email": email}, {"$set": update_data})
+
+            if result.modified_count == 1:
+                return {"message": "User details updated successfully"}
             else:
-                address_data = None
-            update_data['address'] = address_data
-        if hasattr(profileData, 'phone_number'):
-            update_data['phone_number'] = profileData.phone_number
-        if hasattr(profileData, 'job_role'):
-            update_data['job_role'] = profileData.job_role
-        if hasattr(profileData, 'company'):
-            update_data['company'] = profileData.company
-        if hasattr(profileData, 'experience'):
-            update_data['experience'] = profileData.experience
-        if hasattr(profileData, 'resume'):
-            update_data['resume'] = profileData.resume
-        if hasattr(profileData, 'photo'):
-            update_data['photo'] = profileData.photo
-        if hasattr(profileData, 'about_me'):
-            update_data['about_me'] = profileData.about_me
-
-        # Remove any keys with None values from the update_data dictionary
-        update_data = {k: v for k, v in update_data.items() if v is not None}
-
-        result = await collection.update_one({"email": email}, {"$set": update_data})
-
-        if result.modified_count == 1:
-            return {"message": "User details updated successfully"}
+                return {"error": "Failed to update user details. No documents modified."}
         else:
-            raise HTTPException(status_code=500, detail="Failed to update user details")
-    else:
-        raise HTTPException(status_code=404, detail="Candidate NOT FOUND")
+            return {"error": "Candidate NOT FOUND"}
+    except Exception as e:
+        return {"error": f"Failed to update user details. {str(e)}"}

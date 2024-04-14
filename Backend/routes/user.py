@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from models.user import Candidate, GoogleUser, GetUser, Login
+from models.user import Candidate, GoogleUser, Login,UpdateUser
 from database.candidate_data import login, signup, fetchUserDetails, checkUserExist, updateUserDetails
 from dotenv import load_dotenv
 import os
@@ -86,9 +86,9 @@ async def fetch_google_user(email: str):
     else: 
         return False
 
-@router.put("/update_user", response_model=GetUser)
-async def update_google_user(email: str, user_data: GetUser):
-    existing_user = checkUserExist(email)
+@router.put("/update_candidate", response_model=dict)
+async def update_google_user(email: str, user_data: UpdateUser):
+    existing_user = await checkUserExist(email)
     if existing_user:
         result = await updateUserDetails(email, user_data)
         return result
