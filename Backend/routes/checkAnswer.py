@@ -84,17 +84,10 @@ def interviewer(question: str, answer: str):
     return data
 
 
-# question = "What is the primary purpose of JSX in React?"
-# answer = "To write backend logic in react"
-# data = interviewer(question, answer)
-# print(data)
 
+router = APIRouter()
 
-
-
-app = APIRouter()
-
-@app.post("/check_answer",response_model=bool)
+@router.post("/check_answer",response_model=bool)
 def check_answer(dialog: CheckAnswer):
     try:
         response = interviewer(dialog.question,dialog.answer)

@@ -8,7 +8,6 @@ import { jwtDecode } from "jwt-decode";
 function CandidateLoginForm() {
 
   const [candidateEmail, setCandidateEmail] = useState("");
-  const [currentuserSub , setUserSub] = useState("");
   const [usrFirstName, setFirstName] = useState("");
   const [usrLastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -19,8 +18,7 @@ function CandidateLoginForm() {
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
-    setLoading(true); // Set loading state to true during login request
-
+    setLoading(true);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(candidateEmail)) {
       setError("Invalid email format.");
@@ -30,11 +28,15 @@ function CandidateLoginForm() {
 
     try {
       console.log("started");
-      const response = await axios.post("http://localhost:8000/api/user/candidate_login", {
-        email: candidateEmail,
-        password: password,
-      });
-      console.log("Login response:", response.data);
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/user/candidate_login",
+        {
+          email: candidateEmail,
+          password: password,
+        }
+      );
+      const decoded = jwtDecode(response.data.access_token);
+      localStorage.setItem("token", response.data.access_token);
       navigate("/homepage");
     } catch (err) {
       console.error("Error logging in:", err.message);
@@ -45,37 +47,31 @@ function CandidateLoginForm() {
       } else {
         setError("Error logging in. Please try again later.");
       }
-    }
-       finally {
+    } finally {
       setLoading(false);
     }
   };
+
 
   const handleGoogleSuccess = async (googleData) => {
     console.log("Received googleData:", googleData);
 
     const { credential } = googleData;
     const decoded = jwtDecode(credential);
+    console.log(decoded)
+    localStorage.setItem("token", credential)
 
     const userEmail = decoded.email;
     const userName = decoded.name;
-    // Split the full name by space
     const nameParts = userName.split(" ");
-
-    // If the name contains more than one part
     if (nameParts.length > 1) {
-      // The first part is the first name
       const firstName = nameParts[0];
-      // The rest of the parts joined by space are the last name
       const lastName = nameParts.slice(1).join(" ");
-
       console.log("First Name:", firstName);
       setFirstName(firstName);
-      console.log("state First Name:", usrFirstName);
       console.log("Last Name:", lastName);
       setLastName(lastName);
     } else {
-      // If the name contains only one part, consider it as the first name
       const firstName = nameParts[0];
       setFirstName(firstName);
       console.log("First Name:", firstName);
@@ -83,37 +79,41 @@ function CandidateLoginForm() {
 
       
     }
-    const currentuserSub = decoded.sub;
-    localStorage.setItem("userSub", currentuserSub);
-    setUserSub(currentuserSub);
-    console.log(currentuserSub);
     const userProfilePicUrl = decoded.picture;
-    console.log(decoded);
 
     try {
       let checkUserResponse = await axios.get(
-        `https://skillvault-backend.onrender.com/api/user/get_user?user_sub=${currentuserSub}`
+        `http://127.0.0.1:8000/api/user/get_user?email=${userEmail}`
       );
 
+      console.log(checkUserResponse)
+
       if (!checkUserResponse.data) {
-        // If the user doesn't exist, create a new one
         const response = await axios.post(
-          "https://skillvault-backend.onrender.com/api/user/create_google_user",
+          "http://127.0.0.1:8000/api/user/create_google_user",
           {
-            user_name: userEmail,
-            user_mail: userEmail,
-            profile_url: userProfilePicUrl,
-            user_sub: currentuserSub,
-            first_name: usrFirstName,
-            last_name: usrLastName,
-            country: "",
-            state: "",
-            city: "",
-            postal_code: "",
-            about: "",
-            address: ""
+              username: usrFirstName,
+              email: userEmail,
+              password: "",
+              first_name: usrFirstName,
+              last_name: usrLastName,
+              address: {
+                  first_line: "",
+                  country: "", 
+                  state: "",
+                  city: "",
+                  pincode: 0 
+              },
+              job_role: "",
+              company: "",
+              experience: 0, 
+              resume: "",
+              photo: userProfilePicUrl,
+              about_me: "",
+              skills: "", 
+              interview_scores: "" 
           }
-        );
+      );
 
         if (response.status === 200 || response.status === 201) {
           navigate("/homepage");
@@ -123,13 +123,12 @@ function CandidateLoginForm() {
       } else {
         navigate("/homepage");
         console.log("User already exists:", checkUserResponse.data);
-        // Perform any other actions you need
       }
     } catch (error) {
       console.error("Failed:", error.response ? error.response : error);
     }
 
-    console.log("Google login success, navigating to /homepage");
+    console.log("Google login success, navigating to homepage");
   };
 
   const handleGoogleFailure = (error) => {

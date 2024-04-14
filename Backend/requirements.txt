@@ -1,4 +1,10 @@
  
- fastapi uvicorn fastapi-cors  motor  pymongo
-
- 
+ fastapi
+ uvicorn 
+ fastapi-cors 
+ motor 
+ pymongo
+ bcrypt
+ dotenv
+ python-multipart
+ PyJWT

@@ -12,14 +12,14 @@ const ProgressSection = () => {
         status: "Scheduled",
       },
       {
-        id: 1,
+        id: 2,
         title: "Software Engineer Interview",
         company: "Acme Corporation",
         date: "2023-10-27",
         status: "Scheduled",
       },
       {
-        id: 1,
+        id: 3,
         title: "Software Engineer Interview",
         company: "Acme Corporation",
         date: "2023-10-27",
