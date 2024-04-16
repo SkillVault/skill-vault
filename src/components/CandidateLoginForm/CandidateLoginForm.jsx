@@ -30,7 +30,7 @@ function CandidateLoginForm() {
 
     try {
       console.log("started");
-      const response = await axios.post("http://localhost:8000/api/user/candidate_login", {
+      const response = await axios.post("https://skillvault-backend.onrender.com/api/user/candidate_login", {
         email: candidateEmail,
         password: password,
       });
@@ -84,7 +84,8 @@ function CandidateLoginForm() {
       
     }
     const currentuserSub = decoded.sub;
-    localStorage.setItem("userSub", currentuserSub);
+    const storedUserEmail = localStorage.getItem("userEmail");
+    localStorage.setItem("userEmail", userEmail);
     setUserSub(currentuserSub);
     console.log(currentuserSub);
     const userProfilePicUrl = decoded.picture;
@@ -92,7 +93,7 @@ function CandidateLoginForm() {
 
     try {
       let checkUserResponse = await axios.get(
-        `https://skillvault-backend.onrender.com/api/user/get_user?user_sub=${currentuserSub}`
+        `https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${userEmail}`
       );
 
       if (!checkUserResponse.data) {
@@ -100,7 +101,7 @@ function CandidateLoginForm() {
         const response = await axios.post(
           "https://skillvault-backend.onrender.com/api/user/create_google_user",
           {
-            user_name: userEmail,
+            user_name: userName,
             user_mail: userEmail,
             profile_url: userProfilePicUrl,
             user_sub: currentuserSub,

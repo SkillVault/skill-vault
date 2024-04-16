@@ -3,7 +3,7 @@ import axios from "axios";
 import "./HomeSlide.css";
 
 const HomeSlide = () => {
-  const storedUserSub = localStorage.getItem("userSub");
+  const storedUserEmail = localStorage.getItem("userEmail");
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
   const [lastName, setLastName] = useState("");
@@ -17,7 +17,7 @@ const HomeSlide = () => {
 
   const fetchUsrProfile = async () => {
     const response = await axios.get(
-      `http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`
+      `https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${storedUserEmail}`
     );
     const userData = response.data;
     setEmail(userData.user_mail);

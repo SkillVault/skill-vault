@@ -1,13 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./JobSearch.css";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import Dropdown from "react-bootstrap/Dropdown";
 import { MagnifyingGlass } from "phosphor-react";
-import JobCard from "../../components/jobcard/JobCard";
-
 
 const JobSearch = () => {
+  const [jobTitle, setjobTitle] = useState();
+
+  const [jobs, setJobs] = useState([]); // Initialize as an empty array
+  const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
+  const [filteredJobs, setFilteredJobs] = useState([]); // State to hold filtered jobs
+
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get(
+        `https://skillvault-backend.onrender.com/api/company/get_job`
+      );
+      console.log(response.data);
+      // If the API returns a single job object instead of an array, wrap it in an array
+      const jobsData = Array.isArray(response.data)
+        ? response.data
+        : [response.data];
+      setJobs(jobsData); // Update state with the fetched jobs array
+      console.log(jobs.length);
+      setFilteredJobs(jobsData);
+    } catch (error) {
+      console.error("Failed to fetch jobs:", error);
+    }
+  };
+
+  // Handler to update the search term
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Handler to perform the search
+  const handleSearch = () => {
+    if (!searchTerm) {
+      setFilteredJobs(jobs); // If the search term is empty, show all jobs
+    } else {
+      const filtered = jobs.filter((job) =>
+        job.job_title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredJobs(filtered);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
   return (
     <div className="main">
       <div className="sidebar">
@@ -18,7 +62,7 @@ const JobSearch = () => {
           <div className="comp-div"></div>
           <img src="./src/assets/logo.png" />
           <h3 className="comp-div-h3">SkillVault</h3>
-          <p className="comp-div-p">    
+          <p className="comp-div-p">
             We connect top talents with top companies
           </p>
         </div>
@@ -37,8 +81,12 @@ const JobSearch = () => {
             <div className="button-drop-down">
               <div className="search4">
                 <MagnifyingGlass size={22} />
-                <input placeholder="Search by Job Title"></input>
-                <button>Search</button>
+                <input
+                  placeholder="Search by Job Title"
+                  value={searchTerm}
+                  onChange={handleSearchChange} // Update the search term as you type
+                ></input>
+                <button onClick={handleSearch}>Search</button>
               </div>
               <div className="drop-down-container">
                 <Dropdown>
@@ -58,43 +106,26 @@ const JobSearch = () => {
               </div>
             </div>
           </div>
-          <div className="job">
-            <img src="./src/assets/logo.png" />
-            <div className="spec">
-              <h5>Web Designer</h5>
-              <p>hfbguf</p>
-              <button>Easy Apply</button>
-            </div>
-          </div>
-          <div className="job">
-            <img src="./src/assets/logo.png" />
-            <div className="spec">
-              <h5>Web Designer</h5>
-              <p>hfbguf</p>
-              <button>Easy Apply</button>
-            </div>
-          </div>
-          <div className="job">
-            <img src="./src/assets/logo.png" />
-            <div className="spec">
-              <h5>Web Designer</h5>
-              <p>hfbguf</p>
-              <button>Easy Apply</button>
-            </div>
-          </div>
-          <div className="job">
-            <img src="./src/assets/logo.png" />
-            <div className="spec">
-              <h5>Web Designer</h5>
-              <p>hfbguf</p>
-              <button>Easy Apply</button>
-            </div>
-          </div>
+
+          {filteredJobs.length > 0 ? (
+            filteredJobs.map((job, index) => (
+              <div key={index} className="job">
+                <img src="./src/assets/logo.png" alt="Company Logo" />
+                <div className="spec">
+                  <h5>{job.job_title}</h5>
+                  <p>{job.category}</p>
+                  {/* Other job details */}
+                  <button>Easy Apply</button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No jobs available.</p>
+          )}
         </div>
       </div>
     </div>
-    
-  )
-}
+  );
+};
 
 export default JobSearch;

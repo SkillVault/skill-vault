@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import "../ProfileForm/ProfileForm.css";
-import "./ProfileInfo.css";
-import axios from "axios";
+import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+const PublicProfile = () => {
 
-
-const ProfileInfo = ({ onEditClick }) => {
- 
+  const { userId } = useParams();
+  const encodedEmail = encodeURIComponent(userId);
+  console.log(encodedEmail)
   
+  console.log(`getting user id ${userId}`)
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -21,24 +21,41 @@ const ProfileInfo = ({ onEditClick }) => {
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
 
-  const storedUserEmail = localStorage.getItem("userEmail");
+
 
   const fetchUsrProfile = async () => {
-    const response = await axios.get(
-      `https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${storedUserEmail}`
-    );
-    const userData = response.data;
-    setEmail(userData.user_mail);
-    setUsername(userData.user_name);
-    setAboutMe(userData.about);
-    setFirstName(userData.first_name);
-    setLastName(userData.last_name);
-    setCountry(userData.country);
-    setAddress(userData.address);
-    setCity(userData.city);
-    setPostal(userData.postal_code);
-    setStatename(userData.state);
+    if (!userId) {
+      console.log("No userId available");
+      return;
+    }
+  
+    try {
+      const response = await axios.get(
+        `https://skillvault-backend.onrender.com/api/user/get_profile?user_name=${userId}`
+      );
+      console.log("API Response:", response); // Log the full response
+      const userData = response.data;
+  
+      if (!userData) {
+        console.error("No data returned from API");
+        return;
+      }
+  
+      setEmail(userData.user_mail);
+      setUsername(userData.user_name);
+      setAboutMe(userData.about);
+      setFirstName(userData.first_name);
+      setLastName(userData.last_name);
+      setCountry(userData.country);
+      setAddress(userData.address);
+      setCity(userData.city);
+      setPostal(userData.postal_code);
+      setStatename(userData.state);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   };
+  
 
   useEffect(() => {
     fetchUsrProfile();
@@ -110,13 +127,11 @@ const ProfileInfo = ({ onEditClick }) => {
               <p>{aboutMe}</p>
             </div>
           </section>
-          <div className="edit-button">
-            <button onClick={onEditClick}>Edit</button>
-          </div>
+         
         </form>
       </div>
     </div>
   );
 };
 
-export default ProfileInfo;
+export default PublicProfile;

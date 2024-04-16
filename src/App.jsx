@@ -14,6 +14,7 @@ import Skill from "./pages/skill/Skill";
 import CompLanding from "./pages/complanding/CompLanding";
 import AddJob from "./pages/addjob/AddJob";
 import JobEntry from "./pages/jobentry/JobEntry";
+import PublicProfile from "./pages/public_profile/PublicProfile";
 
 
 function App() {
@@ -46,8 +47,12 @@ function App() {
       element: <Homepage />,
     },
     {
-      path: "profilepage",
+      path: "profile",
       element: <ProfilePage />,
+    },
+    {
+      path: "public/:userId",
+      element: <PublicProfile />,
     },
     {
       path: "company/login",

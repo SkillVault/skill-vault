@@ -39,7 +39,8 @@ const JobEntry = () => {
     'category' : formData.category,
     'location' : formData.location,
     'openings' : formData.openings,
-    'salary' : formData.salary
+    'salary' : formData.salary,
+    'skillsRequired': formData.skillsRequired
   }
 
   const queryString = new URLSearchParams(params).toString();
@@ -48,7 +49,7 @@ const JobEntry = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.post(
-        `http://localhost:8000/api/company/add_job/?${queryString}`,params
+        `https://skillvault-backend.onrender.com/api/company/add_job/?${queryString}`,params
       );
     } catch (error) {
       console.error("Failed to add job:", error);

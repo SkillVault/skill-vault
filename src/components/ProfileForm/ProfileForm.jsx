@@ -4,7 +4,7 @@ import axios from "axios";
 
 const ProfileForm = ({ onFormSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const storedUserSub = localStorage.getItem("userSub");
+  const storedUserEmail = localStorage.getItem("userEmail");
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
   const [lastName, setLastName] = useState("");
@@ -18,7 +18,7 @@ const ProfileForm = ({ onFormSubmit }) => {
 
 
   const fetchUsrProfile = async ()=> {
-    const response = await axios.get(`http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`);
+    const response = await axios.get(`https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${storedUserEmail}`);
     const userData = response.data;
     setEmail(userData.user_mail);
     setUserName(userData.user_name);
@@ -39,7 +39,8 @@ const ProfileForm = ({ onFormSubmit }) => {
   }, []);
 
   const params = {
-    'user_sub': storedUserSub,
+    'user_mail': storedUserEmail,
+    'user_name':usrname,
     'first_name': firstName,
     'last_name': lastName,
     'country': country,
@@ -54,7 +55,7 @@ const ProfileForm = ({ onFormSubmit }) => {
 
   const UpdateUsrProfile = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `https://skillvault-backend.onrender.com/api/user/update_user/?${queryString}`,params
       );
       console.log("Update successful:", response.data);

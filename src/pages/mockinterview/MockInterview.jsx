@@ -29,14 +29,15 @@ const MockInterview = () => {
 
     const startRecording = async () => {
       try {
+       
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.start();
   
-        mediaRecorder.ondataavailable = (event) => {
+        mediaRecorder.con = (event) => {
           audioChunks.push(event.data);
         };
   
+        mediaRecorder.start();
         setIsRecording(true);
         startSpeechRecognition();
       } catch (error) {
@@ -45,21 +46,30 @@ const MockInterview = () => {
     };
   
     const stopRecording = () => {
-      if (mediaRecorder) {
-        setIsRecording(false);
-  
+      if (mediaRecorder && isRecording) {
         mediaRecorder.stop();
-  
-        setRecordStopped(true);
-      }
-      if (speechRecognition) {
         setIsRecording(false);
+        setRecordStopped(true);
+        setTranscript("");
+        audioChunks = []
+    
+       
+        // checkTextSimilarity(transcript);
+      }
+  
+      if (speechRecognition) {
         speechRecognition.stop();
+        setIsRecording(false)
+        setTranscript("");
+        audioChunks = []
+    
       }
     };
   
+  
 
   const startSpeechRecognition = () => {
+    speechRecognition.continuous = true;
     speechRecognition.start();
 
     speechRecognition.onresult = (event) => {
@@ -69,6 +79,7 @@ const MockInterview = () => {
         .join("");
       setTranscript((prev) => prev + " " + newTranscript);
     };
+    
 
     speechRecognition.onerror = (event) => {
       console.error("Speech recognition error", event.error);
@@ -79,7 +90,7 @@ const MockInterview = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `http://localhost:8000/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
+        `https://skillvault-backend.onrender.com/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
       );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
       setCurrentQnAns(response.data.Answer);
@@ -103,11 +114,15 @@ const MockInterview = () => {
   const totalQuestions = 40; // Total number of questions across all levels
 
   const handleNextQuestion = () => {
-    setIsRecording(false);
-    stopRecording();
 
-    // Reset transcript for the next question
+    setIsRecording(false);
+    startRecording()
+    stopRecording();
+    
+
+  
     setTranscript("");
+    audioChunks = []
 
     // Update question number and level based on the next question's index
     setQuestionNumber((prevQuestionNumber) => {
@@ -135,7 +150,7 @@ const MockInterview = () => {
   const checkTextSimilarity = async (transcript) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/text-similarity/check_answer",
+        "https://skillvault-backend.onrender.com/api/text-similarity/check_answer",
         {
           question: currentQuestion,
           answer: transcript,
@@ -150,6 +165,12 @@ const MockInterview = () => {
           console.log("Level = " + level);
         }
       }
+    
+      
+    setTranscript("");
+    audioChunks = []
+
+
       handleNextQuestion();
     } catch (error) {
       console.error("Failed to compute similarity:", error);
@@ -252,17 +273,19 @@ const MockInterview = () => {
         <div className="head">
           <div style={{ display: "flex", alignItems: "center" }}>
             <img
-              style={{ width: 30, height: 30 }}
-              src="./src/assets/aim.png"
+              style={{ width: 100, height: 100 }}
+              src="./src/assets/bluelogo.png"
               alt=""
             />
-            <h6>SkillVault</h6>
+            
           </div>
+          <h3>Skill Test : React</h3>
           <p style={{ margin: 0 }}>Your current level : {currentLevel}</p>
-          <h6>React</h6>
+          
         </div>
-
-        <h1>{currentQuestion || "Loading question..."}</h1>
+        <div className="question">
+          <h1>{currentQuestion || "Loading question..."}</h1>
+        </div>
 
         <div className="mock-main">
           <div className="mock">
@@ -293,7 +316,14 @@ const MockInterview = () => {
               />
             </button>
           </div>
-          {<p>Transcript: {transcript}</p>}
+          <div className="transcript_main">
+            <p>Transcript:</p>
+            <div className="transcript">
+              <div className="transcript_inside">
+                {transcript}
+              </div> 
+            </div>
+          </div>
         </div>
         <div className="video-div">
           <Webcam

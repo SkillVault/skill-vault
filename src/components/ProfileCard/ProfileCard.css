@@ -9,7 +9,8 @@
 
 .card {
   width: 400px;
-  height: 400px;
+  height: 450px;
+  padding: 30px;
   background-color: rgb(41, 39, 39);
   border-radius: 10px;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7);
@@ -51,12 +52,13 @@
 
 .card img {
   padding: 20px;
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   position: absolute;
-  right: 150px;
-  bottom: 350px;
-  border-radius: 50px;
+  right: 105px;
+ 
+  bottom: 370px;
+  border-radius: 100px;
 }
 
 .name {
