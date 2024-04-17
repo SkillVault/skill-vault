@@ -1,47 +1,43 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./HomeSlide.css";
+import { jwtDecode } from "jwt-decode";
 
 const HomeSlide = () => {
-  const storedUserEmail = localStorage.getItem("userEmail");
-  const [firstName, setFirstName] = useState("");
-  const [address, setAddress] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [aboutMe, setAboutMe] = useState();
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
   const [email, setEmail] = useState("");
-  const [usrname, setUserName] = useState("");
+  const [userName, setUserName] = useState("");
 
-  const fetchUsrProfile = async () => {
-    const response = await axios.get(
-      `https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${storedUserEmail}`
-    );
-    const userData = response.data;
-    setEmail(userData.user_mail);
-    setUserName(userData.user_name);
-    setAboutMe(userData.about);
-    setFirstName(userData.first_name);
-    setLastName(userData.last_name);
-    setCountry(userData.country);
-    setAddress(userData.address);
-    setCity(userData.city);
-    setPostalCode(userData.postal_code);
-    setState(userData.state);
+  useEffect(() => {
+    setEmail(decoded.email);
+  }, [decoded.email]);
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await axios.get(
+        `https://skillvault-backend.onrender.com/api/user/get_user?email=${email}`
+      );
+      const userData = response.data;
+      setUserName(userData.username);
+      console.log(userData)
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
   };
 
   useEffect(() => {
-    fetchUsrProfile();
-  }, []);
+    if (email) {
+      fetchUserProfile();
+    }
+  }, [email]);
 
   return (
     <div className="slide-container">
       <div className="slide-image-container">
         <img src="/src/assets/stars.jpg" alt="" />
         <div className="slide-message">
-          <h2 style={{ fontSize: "40px" }}>Welcome {email}</h2>
+          <h2 style={{ fontSize: "40px" }}>Welcome {userName}</h2>
           <p style={{ paddingTop: "10px" }}>
             Connect with Top Employers & Land Your Dream Job
           </p>

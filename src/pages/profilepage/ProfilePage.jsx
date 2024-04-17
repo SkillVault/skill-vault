@@ -20,18 +20,14 @@ const ProfilePage = () => {
     setIsEditing(!isEditing); // Exit editing mode
   };
 
-
-
   return (
     <div className="profile-container">
       <Dashboard />
       <ProfileSlide />
-      
-      
       {isEditing ? (
         <ProfileForm onFormSubmit={handleFormSubmit} /> // Pass onFormSubmit function as a prop
       ) : (
-        <ProfileInfo onEditClick={toggleEditing}z /> // Pass onEditClick function as a prop
+        <ProfileInfo onEditClick={toggleEditing} /> // Pass onEditClick function as a prop
       )}
       <ProfileCard />
     </div>

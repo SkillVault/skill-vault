@@ -30,7 +30,7 @@ function CandidateSignupForm() {
 
     try {
       const response = await axios.post(
-        "https://skillvault-backend.onrender.com/api/user/candidate_signup",
+        "http://localhost:8000/api/user/candidate_signup",
         {
           username: candidateName,
           email: candidateEmail,

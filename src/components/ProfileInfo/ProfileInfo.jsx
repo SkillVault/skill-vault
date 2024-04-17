@@ -25,18 +25,18 @@ const ProfileInfo = ({ onEditClick }) => {
 
   const fetchUsrProfile = async () => {
     const response = await axios.get(
-      `https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${storedUserEmail}`
+      `https://skillvault-backend.onrender.com/api/user/get_user?email=${storedUserEmail}`
     );
     const userData = response.data;
-    setEmail(userData.user_mail);
-    setUsername(userData.user_name);
-    setAboutMe(userData.about);
+    setEmail(userData.email);
+    setUsername(userData.username);
+    setAboutMe(userData.about_me);
     setFirstName(userData.first_name);
     setLastName(userData.last_name);
     setCountry(userData.country);
     setAddress(userData.address);
     setCity(userData.city);
-    setPostal(userData.postal_code);
+    setPostal(userData.pincode);
     setStatename(userData.state);
   };
 

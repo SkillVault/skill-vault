@@ -31,7 +31,7 @@ const PublicProfile = () => {
   
     try {
       const response = await axios.get(
-        `https://skillvault-backend.onrender.com/api/user/get_profile?user_name=${userId}`
+        `https://skillvault-backend.onrender.com/api/user/get_profile?username=${userId}`
       );
       console.log("API Response:", response); // Log the full response
       const userData = response.data;
@@ -41,15 +41,15 @@ const PublicProfile = () => {
         return;
       }
   
-      setEmail(userData.user_mail);
-      setUsername(userData.user_name);
-      setAboutMe(userData.about);
+      setEmail(userData.email);
+      setUsername(userData.username);
+      setAboutMe(userData.about_me);
       setFirstName(userData.first_name);
       setLastName(userData.last_name);
       setCountry(userData.country);
       setAddress(userData.address);
       setCity(userData.city);
-      setPostal(userData.postal_code);
+      setPostal(userData.pincode);
       setStatename(userData.state);
     } catch (error) {
       console.error("Error fetching user data:", error);

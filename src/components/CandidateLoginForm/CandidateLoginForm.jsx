@@ -6,9 +6,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 function CandidateLoginForm() {
-
   const [candidateEmail, setCandidateEmail] = useState("");
-  const [currentuserSub , setUserSub] = useState("");
   const [usrFirstName, setFirstName] = useState("");
   const [usrLastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -19,8 +17,7 @@ function CandidateLoginForm() {
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
-    setLoading(true); // Set loading state to true during login request
-
+    setLoading(true);
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(candidateEmail)) {
       setError("Invalid email format.");
@@ -30,11 +27,15 @@ function CandidateLoginForm() {
 
     try {
       console.log("started");
-      const response = await axios.post("https://skillvault-backend.onrender.com/api/user/candidate_login", {
-        email: candidateEmail,
-        password: password,
-      });
-      console.log("Login response:", response.data);
+      const response = await axios.post(
+        "https://skillvault-backend.onrender.com/api/user/candidate_login",
+        {
+          email: candidateEmail,
+          password: password,
+        }
+      );
+      const decoded = jwtDecode(response.data.access_token);
+      localStorage.setItem("token", response.data.access_token);
       navigate("/homepage");
     } catch (err) {
       console.error("Error logging in:", err.message);
@@ -45,8 +46,7 @@ function CandidateLoginForm() {
       } else {
         setError("Error logging in. Please try again later.");
       }
-    }
-       finally {
+    } finally {
       setLoading(false);
     }
   };
@@ -56,63 +56,47 @@ function CandidateLoginForm() {
 
     const { credential } = googleData;
     const decoded = jwtDecode(credential);
-
-    const userEmail = decoded.email;
-    const userName = decoded.name;
-    // Split the full name by space
-    const nameParts = userName.split(" ");
-
-    // If the name contains more than one part
-    if (nameParts.length > 1) {
-      // The first part is the first name
-      const firstName = nameParts[0];
-      // The rest of the parts joined by space are the last name
-      const lastName = nameParts.slice(1).join(" ");
-
-      console.log("First Name:", firstName);
-      setFirstName(firstName);
-      console.log("state First Name:", usrFirstName);
-      console.log("Last Name:", lastName);
-      setLastName(lastName);
-    } else {
-      // If the name contains only one part, consider it as the first name
-      const firstName = nameParts[0];
-      setFirstName(firstName);
-      console.log("First Name:", firstName);
-      console.log("state First Name:", usrFirstName);
-
-      
-    }
-    const currentuserSub = decoded.sub;
-    const storedUserEmail = localStorage.getItem("userEmail");
-    localStorage.setItem("userEmail", userEmail);
-    setUserSub(currentuserSub);
-    console.log(currentuserSub);
-    const userProfilePicUrl = decoded.picture;
-    console.log(decoded);
+    localStorage.setItem("token", credential);
 
     try {
       let checkUserResponse = await axios.get(
-        `https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${userEmail}`
+        `https://skillvault-backend.onrender.com/api/user/get_user?email=${decoded.email}`
       );
 
+      console.log(checkUserResponse);
+      let firstName = "";
+      let lastName = "";
       if (!checkUserResponse.data) {
-        // If the user doesn't exist, create a new one
+        const nameParts = decoded.name.split(" ");
+        if (nameParts.length > 1) {
+          firstName = nameParts[0];
+          lastName = nameParts.slice(1).join(" ");
+        } else {
+          firstName = nameParts[0];
+        }
         const response = await axios.post(
           "https://skillvault-backend.onrender.com/api/user/create_google_user",
           {
-            user_name: userName,
-            user_mail: userEmail,
-            profile_url: userProfilePicUrl,
-            user_sub: currentuserSub,
-            first_name: usrFirstName,
-            last_name: usrLastName,
-            country: "",
-            state: "",
-            city: "",
-            postal_code: "",
-            about: "",
-            address: ""
+            username: decoded.name,
+            email: decoded.email,
+            password: "",
+            first_name: firstName,
+            last_name: lastName,
+            address: {
+              first_line: "",
+              country: "",
+              state: "",
+              city: "",
+              pincode: 0,
+            },
+            job_role: "",
+            company: "",
+            experience: 0,
+            resume: "",
+            photo: decoded.picture,
+            about_me: "",
+            skills: "",
+            interview_scores: "",
           }
         );
 
@@ -124,13 +108,12 @@ function CandidateLoginForm() {
       } else {
         navigate("/homepage");
         console.log("User already exists:", checkUserResponse.data);
-        // Perform any other actions you need
       }
     } catch (error) {
       console.error("Failed:", error.response ? error.response : error);
     }
 
-    console.log("Google login success, navigating to /homepage");
+    console.log("Google login success, navigating to homepage");
   };
 
   const handleGoogleFailure = (error) => {

@@ -16,12 +16,12 @@ const ProfileCard = () => {
   const [job, setJob] = useState("Fresher");
 
   const fetchUsrProfile = async ()=> {
-    const response = await axios.get(`https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${storedUserEmail}`);
+    const response = await axios.get(`https://skillvault-backend.onrender.com/api/user/get_user?email=${storedUserEmail}`);
     const userData = response.data;
     console.log(userData);
-   setProfImg(userData.profile_url);
+   setProfImg(userData.photo);
    console.log(profImg)
-   setName(response.data.user_name)
+   setName(response.data.username)
    setAddress(response.data.address)
     
 

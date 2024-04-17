@@ -39,15 +39,15 @@ const ProfileForm = ({ onFormSubmit }) => {
   }, []);
 
   const params = {
-    'user_mail': storedUserEmail,
-    'user_name':usrname,
+    'email': storedUserEmail,
+    'username':usrname,
     'first_name': firstName,
     'last_name': lastName,
     'country': country,
     'state': state,
     'city': city,
-    'postal_code': postalCode,
-    'about': aboutMe,
+    'pincode': postalCode,
+    'about_me': aboutMe,
     'address': address,
   };
 
