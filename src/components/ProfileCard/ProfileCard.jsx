@@ -22,7 +22,7 @@ const ProfileCard = () => {
    setProfImg(userData.photo);
    console.log(profImg)
    setName(response.data.username)
-   setAddress(response.data.address)
+   setAddress(response.data.address.first_line)
     
 
   }

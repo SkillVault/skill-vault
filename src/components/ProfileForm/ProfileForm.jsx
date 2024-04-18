@@ -1,54 +1,76 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProfileForm.css";
 import axios from "axios";
+import { exp } from "@tensorflow/tfjs";
 
 const ProfileForm = ({ onFormSubmit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const storedUserEmail = localStorage.getItem("userEmail");
   const [firstName, setFirstName] = useState("");
   const [address, setAddress] = useState("");
-  const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [pincode, setPinCode] = useState("");
+  const [lastName, setLastName] = useState("");
   const [aboutMe, setAboutMe] = useState();
-  const [email,setEmail] = useState("");
-  const [usrname,setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [usrname, setUserName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [jobRole, setJobRole] = useState("");
+  const [company, setCompany] = useState("");
+  const [experience, setExperience] = useState(0); // Assuming experience is a number
+  const [resume, setResume] = useState("");
 
-
-  const fetchUsrProfile = async ()=> {
-    const response = await axios.get(`https://skillvault-backend.onrender.com/api/user/get_user?user_mail=${storedUserEmail}`);
+  const fetchUsrProfile = async () => {
+    const response = await axios.get(
+      `https://skillvault-backend.onrender.com/api/user/get_user?email=${storedUserEmail}`
+    );
     const userData = response.data;
-    setEmail(userData.user_mail);
-    setUserName(userData.user_name);
-    setAboutMe(userData.about);
+    setEmail(userData.email);
+    setUserName(userData.username);
+    setAboutMe(userData.about_me);
     setFirstName(userData.first_name);
     setLastName(userData.last_name);
-    setCountry(userData.country);
-    setAddress(userData.address);
-    setCity(userData.city);
-    setPostalCode(userData.postal_code);
-    setState(userData.state);
+    setAddress(userData.address.first_line || "");
+    setCountry(userData.address.country || "");
+    setState(userData.address.state || "");
+    setCity(userData.address.city || "");
+    setPinCode(userData.address.pincode || "");
+    setExperience(userData.experiance);
+    setPhoneNumber(userData.phone_number);
+    setResume(userData.resume);
+    setJobRole(userData.job_role);
+    setCompany(userData.company)
     
-
-  }
+    console.log(userData);
+  };
 
   useEffect(() => {
-    fetchUsrProfile()
+    fetchUsrProfile();
   }, []);
 
   const params = {
-    'email': storedUserEmail,
-    'username':usrname,
-    'first_name': firstName,
-    'last_name': lastName,
-    'country': country,
-    'state': state,
-    'city': city,
-    'pincode': postalCode,
-    'about_me': aboutMe,
-    'address': address,
+    email: storedUserEmail,
+    username: usrname,
+    first_name: firstName,
+    last_name: lastName,
+    about_me: aboutMe,
+    
+    address: {
+      first_line: address,
+      country: country,
+      state: state,
+      city: city,
+      pincode: pincode,
+
+    },
+    phone_number: phoneNumber,
+    job_role: jobRole,
+    experience: experience,
+    resume: resume,
+    company: company
+    
   };
 
   const queryString = new URLSearchParams(params).toString();
@@ -56,7 +78,8 @@ const ProfileForm = ({ onFormSubmit }) => {
   const UpdateUsrProfile = async () => {
     try {
       const response = await axios.put(
-        `https://skillvault-backend.onrender.com/api/user/update_user/?${queryString}`,params
+        `https://skillvault-backend.onrender.com/api/user/update_candidate/?${queryString}`,
+        params
       );
       console.log("Update successful:", response.data);
     } catch (error) {
@@ -90,7 +113,7 @@ const ProfileForm = ({ onFormSubmit }) => {
               <input
                 type="text"
                 name="username"
-                placeholder="Username123"
+                placeholder="username"
                 className="form-input"
                 value={usrname}
                 onChange={(e) => setUserName(e.target.value)}
@@ -102,7 +125,7 @@ const ProfileForm = ({ onFormSubmit }) => {
               <input
                 type="email"
                 name="email"
-                placeholder="example@xyz.com"
+                placeholder="email"
                 className="form-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -191,8 +214,8 @@ const ProfileForm = ({ onFormSubmit }) => {
                 placeholder="000000"
                 maxLength={6}
                 className="form-input"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
+                value={pincode}
+                onChange={(e) => setPinCode(e.target.value)}
               />
             </div>
           </section>

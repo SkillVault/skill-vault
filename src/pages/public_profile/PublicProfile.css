@@ -1,0 +1,250 @@
+.data-field1 span,.data-field1 p{
+    color: black;
+}
+
+.about-information-grid1 .data-field1 {
+    margin-left: 50px;
+    width: 100%;
+  
+}
+
+.edit-button1 {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.edit-button1 button {
+  background-color: rgb(135, 135, 255);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.edit-button1 button:hover {
+  background-color: rgb(76, 76, 150);
+}
+
+
+.cards1 {
+   
+  }
+  
+  .card1 {
+   
+  }
+  
+  
+  .outside1 {
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  
+  .inside1 {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inside1 p {
+    margin-top: 8px;
+    margin-left: 39px;
+    font-size: 13px;
+  }
+  
+  .i1 {
+    margin-left: 14px;
+  }
+  .i11 {
+    margin-left: 31px;
+  }
+  .i12 {
+    margin-left: 55px;
+  }
+  
+  .card1 img {
+    padding: 20px;
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    left: 100px;
+   
+  
+    border-radius: 100px;
+    
+  }
+  
+  .name1 {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .name1 h3 {
+    font-size: 25px;
+  }
+  
+  .address1 {
+    text-align: center;
+  }
+  
+  .job1 {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .button1 {
+    text-align: center;
+    margin-top: 25px;
+  }
+  
+  .button1 button {
+    background-color: rgb(135, 135, 255);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .form-outer-container1 {
+    background-color: rgb(43, 43, 43);
+    color: white;
+    
+    height: auto;
+    border-radius: 20px;
+    margin: 5%;
+    outline: none; /* Remove default outline */
+    box-shadow: 5px 5px 12px rgb(46, 58, 103);
+    margin-bottom: 10px;
+  }
+  
+  
+  
+  .form-inner-container1 {
+    background-color: white;
+    color: rgb(56, 67, 194);
+    border-radius: 20px;
+  }
+  
+  .user-information-grid1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    margin-left: 50px;
+  }
+  
+  .user-information-grid1 label {
+    grid-column: span 1;
+  }
+  
+  .user-information-grid1 .data-field:nth-of-type(1) {
+    grid-row: 1;
+  }
+  .user-information-grid1 .data-field:nth-of-type(2) {
+    grid-row: 1;
+  }
+  .user-information-grid1 .data-field:nth-of-type(3) {
+    grid-row: 2;
+  }
+  .user-information-grid1 .data-field:nth-of-type(4) {
+    grid-row: 2;
+  }
+  
+  .contact-information-grid1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    margin-left: 50px;
+  }
+  
+  
+  
+  .contact-information-grid1 label {
+    grid-column: span 1;
+  }
+  
+  .contact-information-grid1 .data-field1:nth-of-type(1) {
+    grid-row: 1;
+    
+  }
+  .contact-information-grid1 .data-field1:nth-of-type(2) {
+    grid-row: 2;
+  }
+  .contact-information-grid1 .data-field1:nth-of-type(3) {
+    grid-row: 2;
+  }
+  .contact-information-grid1 .data-field1:nth-of-type(4) {
+    grid-row: 3;
+  }
+  .contact-information-grid1.data-field1:nth-of-type(5) {
+    grid-row: 3;
+  }
+  
+  .about-information-grid1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .data-field1 {
+    margin: 10px;
+  }
+  
+  .data-field1 label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .data-field1 input,
+  .data-field1 textarea {
+    background-color: rgb(235, 242, 255);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  input:focus,
+  textarea:focus {
+    outline: none;
+    box-shadow: 5px 5px 5px rgb(86, 86, 86);
+  }
+  
+  .change-button {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 12px;
+  }
+  
+  .change-button input[type="submit"] {
+    background-color: rgb(135, 135, 255);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .change-button input[type="submit"]:hover {
+    background-color: rgb(76, 76, 150);
+  }
+  
+  h4 {
+    color: rgb(135, 135, 255);
+  }
+  
+  /* section line */
+  hr {
+    color: black;
+  }
+  
+  

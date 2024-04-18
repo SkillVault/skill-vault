@@ -1,5 +1,8 @@
 import React, { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "./PublicProfile.css";
+
+
 import axios from "axios";
 const PublicProfile = () => {
 
@@ -14,13 +17,16 @@ const PublicProfile = () => {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [country, setCountry] = useState("");
-  const [statename, setStatename] = useState("");
-  const [city, setCity] = useState("");
-  const [postal, setPostal] = useState("");
   const [aboutMe, setAboutMe] = useState(
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
-
+  const [profImg, setProfImg] = useState();
+ 
+  const [skill, setSkill] = useState(0);
+  const [experience, setExperience] = useState(0);
+  const [recommendation, setRecommendation] = useState(0);
+  const [name, setName] = useState("");
+  const [job, setJob] = useState("Fresher");
 
 
   const fetchUsrProfile = async () => {
@@ -41,16 +47,25 @@ const PublicProfile = () => {
         return;
       }
   
-      setEmail(userData.email);
-      setUsername(userData.username);
-      setAboutMe(userData.about_me);
-      setFirstName(userData.first_name);
-      setLastName(userData.last_name);
-      setCountry(userData.country);
-      setAddress(userData.address);
-      setCity(userData.city);
-      setPostal(userData.pincode);
-      setStatename(userData.state);
+    
+    console.log(userData)
+    setEmail(userData.email);
+    setUsername(userData.username);
+    setAboutMe(userData.about_me);
+    setFirstName(userData.first_name);
+    setLastName(userData.last_name);
+    setAddress({
+      first_line: userData.address.first_line || "",
+      country: userData.address.country || "",
+      state: userData.address.state || "",
+      city: userData.address.city || "",
+      pincode: userData.address.pincode || "", // Assuming pincode is a string
+    });
+    setName(userData.username),
+    setProfImg(userData.photo),
+    setJob(userData.job),
+    setRecommendation(userData.recommendation),
+    setSkill(userData.skills)
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -62,28 +77,65 @@ const PublicProfile = () => {
   }, []);
 
   return (
-    <div className="form-outer-container">
-      <h3 style={{ fontSize: "26px", paddingLeft: "17px" }}>MY ACCOUNT</h3>
-      <div className="form-inner-container">
+    <div className="form-outer-container1">
+       <div className='cards1'>
+          <div className='card1'>
+            <img src={profImg} alt="" />
+            <div className="name1">
+              <h3>{name}</h3>
+            </div>
+            <div className="address1">
+              <p>{address.first_line}</p>
+            </div>
+            <div className="job1">
+              <p>{job}</p>
+            </div>
+            <div className='outside1'>
+              <div className="inside1">
+                <div className='i1'>
+                  <p>{skill}</p> 
+                </div>
+                <p>Skills</p>
+              </div>
+              <div className="inside1">
+                <div className='i11'>
+                  <p>{experience}</p> 
+                </div>
+                <p>Experience</p>
+              </div>
+              <div className="inside">
+                <div className='i12'>
+                  <p>{recommendation}</p> 
+                </div> 
+                <p>Recommendations</p>
+              </div>
+            </div>
+            
+          
+          </div>
+        </div>
+
+     
+      <div className="form-inner-container1">
         <form action="" method="post">
           <h4>USER INFORMATION</h4>
-          <section className="user-information-grid">
-            <div className="data-field">
+          <section className="user-information-grid1">
+            <div className="data-field1">
               <label htmlFor="username">Username :</label>
               <br />
               <span>{username}</span>
             </div>
-            <div className="data-field">
+            <div className="data-field1">
               <label htmlFor="email">Email Address :</label>
               <br />
               <span>{email}</span>
             </div>
-            <div className="data-field">
+            <div className="data-field1">
               <label htmlFor="first-name">First Name :</label>
               <br />
               <span>{firstName}</span>
             </div>
-            <div className="data-field">
+            <div className="data-field1">
               <label htmlFor="last-name">Last Name :</label>
               <br />
               <span>{lastName}</span>
@@ -91,45 +143,47 @@ const PublicProfile = () => {
           </section>
           <hr />
           <h4>CONTACT INFORMATION</h4>
-          <section className="contact-information-grid">
-            <div className="data-field">
+          <section className="contact-information-grid1">
+            <div className="data-field1">
               <label htmlFor="1staddress">Address Line 1:</label>
               <br />
-              <span>{address}</span>
+              <span>{address.first_line}</span>
             </div>
-            <div className="data-field">
+            <div className="data-field1">
               <label htmlFor="country">Country :</label>
               <br />
-              <span>{country}</span>
+              <span>{address.country}</span>
             </div>
-            <div className="data-field">
+            <div className="data-field1">
               <label htmlFor="state">State :</label>
               <br />
-              <span>{statename}</span>
+              <span>{address.state}</span>
             </div>
-            <div className="data-field">
+            <div className="data-field1">
               <label htmlFor="city">City :</label>
               <br />
-              <span>{city}</span>
+              <span>{address.city}</span>
             </div>
-            <div className="data-field">
+            <div className="data-field1">
               <label htmlFor="postal-code">Postal Code :</label>
               <br />
-              <span>{postal}</span>
+              <span>{address.pincode}</span>
             </div>
           </section>
           <hr />
           <h4>ABOUT ME</h4>
-          <section className="about-information-grid">
-            <div className="data-field">
+          <section className="about-information-grid1">
+            <div className="data-field1">
               <label htmlFor="about-me">About Me:</label>
               <br />
               <p>{aboutMe}</p>
             </div>
           </section>
+
          
         </form>
       </div>
+     
     </div>
   );
 };

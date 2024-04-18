@@ -13,10 +13,6 @@ const ProfileInfo = ({ onEditClick }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
-  const [country, setCountry] = useState("");
-  const [statename, setStatename] = useState("");
-  const [city, setCity] = useState("");
-  const [postal, setPostal] = useState("");
   const [aboutMe, setAboutMe] = useState(
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
@@ -28,16 +24,19 @@ const ProfileInfo = ({ onEditClick }) => {
       `https://skillvault-backend.onrender.com/api/user/get_user?email=${storedUserEmail}`
     );
     const userData = response.data;
+    console.log(userData)
     setEmail(userData.email);
     setUsername(userData.username);
     setAboutMe(userData.about_me);
     setFirstName(userData.first_name);
     setLastName(userData.last_name);
-    setCountry(userData.country);
-    setAddress(userData.address);
-    setCity(userData.city);
-    setPostal(userData.pincode);
-    setStatename(userData.state);
+    setAddress({
+      first_line: userData.address.first_line || "",
+      country: userData.address.country || "",
+      state: userData.address.state || "",
+      city: userData.address.city || "",
+      pincode: userData.address.pincode || "", // Assuming pincode is a string
+    });
   };
 
   useEffect(() => {
@@ -78,27 +77,27 @@ const ProfileInfo = ({ onEditClick }) => {
             <div className="data-field">
               <label htmlFor="1staddress">Address Line 1:</label>
               <br />
-              <span>{address}</span>
+              <span>{address.first_line}</span>
             </div>
             <div className="data-field">
               <label htmlFor="country">Country :</label>
               <br />
-              <span>{country}</span>
+              <span>{address.country}</span>
             </div>
             <div className="data-field">
               <label htmlFor="state">State :</label>
               <br />
-              <span>{statename}</span>
+              <span>{address.state}</span>
             </div>
             <div className="data-field">
               <label htmlFor="city">City :</label>
               <br />
-              <span>{city}</span>
+              <span>{address.city}</span>
             </div>
             <div className="data-field">
               <label htmlFor="postal-code">Postal Code :</label>
               <br />
-              <span>{postal}</span>
+              <span>{address.pincode}</span>
             </div>
           </section>
           <hr />

@@ -15,6 +15,8 @@ function CandidateLoginForm() {
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
+    localStorage.setItem("userEmail",candidateEmail)
+
     event.preventDefault();
     setError("");
     setLoading(true);
@@ -26,6 +28,7 @@ function CandidateLoginForm() {
     }
 
     try {
+
       console.log("started");
       const response = await axios.post(
         "https://skillvault-backend.onrender.com/api/user/candidate_login",
@@ -57,6 +60,7 @@ function CandidateLoginForm() {
     const { credential } = googleData;
     const decoded = jwtDecode(credential);
     localStorage.setItem("token", credential);
+    localStorage.setItem("userEmail",decoded.email)
 
     try {
       let checkUserResponse = await axios.get(

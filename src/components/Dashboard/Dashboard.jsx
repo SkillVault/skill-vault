@@ -62,7 +62,9 @@ const Dashboard = () => {
             onClick={async ()  => {
               console.log("Logout clicked");
               try {
-                await googleLogout();
+
+                 googleLogout();
+                 localStorage.clear();
                 console.log("Logout successful");
               } catch (error) {
                 console.error("Logout failed:", error);
