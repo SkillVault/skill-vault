@@ -47,16 +47,7 @@ const Dashboard = () => {
             Profile
           </Link>
         </li>
-        <li className="dashboard-link">
-          <Link to="/candidate/settings">
-            <img
-              src="/src/assets/settings.png"
-              alt="settings-icon"
-              className="dash-icon"
-            />
-            Account Settings
-          </Link>
-        </li>
+        
         <li className="dashboard-link">
           <Link
             onClick={async ()  => {
