@@ -39,7 +39,9 @@ const JobEntry = () => {
     'category' : formData.category,
     'location' : formData.location,
     'openings' : formData.openings,
-    'salary' : formData.salary
+    'salary' : formData.salary,
+    'skills': formData.skillsRequired,
+    'skillsRequired': formData.skillsRequired
   }
 
   const queryString = new URLSearchParams(params).toString();
@@ -48,7 +50,7 @@ const JobEntry = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.post(
-        `http://localhost:8000/api/company/add_job/?${queryString}`,params
+        `http://127.0.0.1:8000/api/company/add_job/?${queryString}`,params
       );
     } catch (error) {
       console.error("Failed to add job:", error);

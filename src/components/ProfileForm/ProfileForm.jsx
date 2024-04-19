@@ -1,86 +1,75 @@
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./ProfileForm.css";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 const ProfileForm = ({ onFormSubmit }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const storedUserSub = localStorage.getItem("userSub");
-  const [firstName, setFirstName] = useState("");
-  const [address, setAddress] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [aboutMe, setAboutMe] = useState();
-  const [email,setEmail] = useState("");
-  const [usrname,setUserName] = useState("");
+  const [userData, setUserData] = useState({
+    username: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    address: {
+      first_line: "",
+      country: "",
+      state: "",
+      city: "",
+      postal_code: ""
+    },
+    phone_number: "",
+    company: "",
+    job_role: "",
+    experience: "",
+    about_me: ""
+  });
 
+  const [currentEmail, setCurrentEmail] = useState("");
 
-  const fetchUsrProfile = async ()=> {
-    const response = await axios.get(`http://localhost:8000/api/user/get_user?user_sub=${storedUserSub}`);
-    const userData = response.data;
-    setEmail(userData.user_mail);
-    setUserName(userData.user_name);
-    setAboutMe(userData.about);
-    setFirstName(userData.first_name);
-    setLastName(userData.last_name);
-    setCountry(userData.country);
-    setAddress(userData.address);
-    setCity(userData.city);
-    setPostalCode(userData.postal_code);
-    setState(userData.state);
-    
-
-  }
+  const token = localStorage.getItem("token");
+  const decodedToken = jwtDecode(token);
+  setCurrentEmail(decodedToken.email);
 
   useEffect(() => {
-    fetchUsrProfile()
-  }, []);
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/user/get_user?email=${currentEmail}`
+        );
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+    fetchUserProfile();
+  }, [currentEmail]);
 
-  const params = {
-    'user_sub': storedUserSub,
-    'first_name': firstName,
-    'last_name': lastName,
-    'country': country,
-    'state': state,
-    'city': city,
-    'postal_code': postalCode,
-    'about': aboutMe,
-    'address': address,
-  };
-
-  const queryString = new URLSearchParams(params).toString();
-
-  const UpdateUsrProfile = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.post(
-        `https://skillvault-backend.onrender.com/api/user/update_user/?${queryString}`,params
+        "http://127.0.0.1:8000/api/candidate/profile_update",
+        { email: currentEmail, candidate_data: userData }
       );
-      console.log("Update successful:", response.data);
+      console.log(response);
+      onFormSubmit();
     } catch (error) {
-      console.error("Update failed:", error);
+      console.error("Error:", error);
     }
   };
 
-  const handleAboutMeChange = (event) => {
-    setAboutMe(event.target.value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    await UpdateUsrProfile();
-    console.log(firstName);
-    console.log(address);
-    console.log("Form Submitted");
-    onFormSubmit();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [name]: value
+    }));
   };
 
   return (
     <div className="form-outer-container">
       <h3 style={{ fontSize: "26px", paddingLeft: "17px" }}>MY ACCOUNT</h3>
       <div className="form-inner-container">
-        <form action="" method="post">
+        <form action="" method="post" onSubmit={handleSubmit}>
           <h4>USER INFORMATION</h4>
           <section className="user-information-grid">
             <div className="data-field">
@@ -89,10 +78,11 @@ const ProfileForm = ({ onFormSubmit }) => {
               <input
                 type="text"
                 name="username"
+                value={userData.username}
                 placeholder="Username123"
                 className="form-input"
-                value={usrname}
-                onChange={(e) => setUserName(e.target.value)}
+                required
+                onChange={handleChange}
               />
             </div>
             <div className="data-field">
@@ -101,10 +91,11 @@ const ProfileForm = ({ onFormSubmit }) => {
               <input
                 type="email"
                 name="email"
+                value={userData.email}
                 placeholder="example@xyz.com"
                 className="form-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                required
+                onChange={handleChange}
               />
             </div>
             <div className="data-field">
@@ -112,37 +103,42 @@ const ProfileForm = ({ onFormSubmit }) => {
               <br />
               <input
                 type="text"
+                name="first_name"
+                value={userData.first_name}
                 placeholder="First Name"
                 className="form-input"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                required
+                onChange={handleChange}
               />
             </div>
             <div className="data-field">
               <label htmlFor="last-name">Last Name :</label>
               <br />
               <input
+                required
                 type="text"
+                name="last_name"
+                value={userData.last_name}
                 placeholder="Last Name"
                 className="form-input"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                onChange={handleChange}
               />
             </div>
           </section>
           <hr />
           <h4>CONTACT INFORMATION</h4>
           <section className="contact-information-grid">
-            <div className="data-field">
+            <div className="data-field address-field">
               <label htmlFor="1staddress"> Address Line 1:</label>
               <br />
               <input
                 type="text"
-                name="first address"
+                name="first_line"
+                value={userData.address.first_line}
                 placeholder="House No. , Street Name "
                 className="form-input"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                required
+                onChange={handleChange}
               />
             </div>
             <div className="data-field">
@@ -152,9 +148,10 @@ const ProfileForm = ({ onFormSubmit }) => {
                 type="text"
                 name="country"
                 placeholder="Country Name"
+                value={userData.address.country}
                 className="form-input"
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
+                required
+                onChange={handleChange}
               />
             </div>
             <div className="data-field">
@@ -163,10 +160,11 @@ const ProfileForm = ({ onFormSubmit }) => {
               <input
                 type="text"
                 name="state"
+                value={userData.address.state}
                 placeholder="State Name"
                 className="form-input"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
+                required
+                onChange={handleChange}
               />
             </div>
             <div className="data-field">
@@ -175,10 +173,11 @@ const ProfileForm = ({ onFormSubmit }) => {
               <input
                 type="text"
                 name="city"
+                value={userData.address.city}
                 placeholder="City Name"
                 className="form-input"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                required
+                onChange={handleChange}
               />
             </div>
             <div className="data-field">
@@ -186,12 +185,94 @@ const ProfileForm = ({ onFormSubmit }) => {
               <br />
               <input
                 type="number"
-                name="postal-code"
+                name="postal_code"
+                value={userData.address.postal_code}
                 placeholder="000000"
                 maxLength={6}
                 className="form-input"
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
+                required
+                onChange={handleChange}
+              />
+            </div>
+            <div className="data-field phone-field">
+              <label htmlFor="phone_number">Phone Number :</label>
+              <br />
+              <input
+                type="number"
+                name="phone_number"
+                value={userData.phone_number}
+                placeholder="9888000000"
+                maxLength={10}
+                className="form-input"
+                required
+                onChange={handleChange}
+              />
+            </div>
+          </section>
+          <hr />
+          <h4> PROFESSIONAL INFORMATION</h4>
+          <section className="user-information-grid">
+            <div className="data-field">
+              <label htmlFor="company_name">Company :</label>
+              <br />
+              <input
+                type="text"
+                name="company"
+                value={userData.company}
+                placeholder="Amazon"
+                className="form-input"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="data-field">
+              <label htmlFor="job_role">Job Role :</label>
+              <br />
+              <input
+                type="text"
+                name="job_role"
+                value={userData.job_role}
+                placeholder="DevOps Engineer"
+                className="form-input"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="data-field">
+              <label htmlFor="experience">Experience in Years :</label>
+              <br />
+              <input
+                type="number"
+                name="experience"
+                value={userData.experience}
+                placeholder="1"
+                className="form-input"
+                onChange={handleChange}
+              />
+            </div>
+          </section>
+          <hr />
+
+          <h4>UPLOADS</h4>
+          <section className="upload-information-grid">
+            <div className="data-field">
+              <label htmlFor="profile-photo">Profile Photo:</label>
+              <br />
+              <input
+                type="file"
+                name="profile_photo"
+                accept="image/*"
+                className="form-input"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="data-field">
+              <label htmlFor="resume">Resume:</label>
+              <br />
+              <input
+                type="file"
+                name="resume"
+                accept=".pdf,.doc,.docx"
+                className="form-input"
+                onChange={handleChange}
               />
             </div>
           </section>
@@ -199,21 +280,21 @@ const ProfileForm = ({ onFormSubmit }) => {
           <h4>ABOUT ME</h4>
           <section className="about-information-grid">
             <div className="data-field">
-              <label htmlFor="about-me">About Me: :</label>
+              <label htmlFor="about_me">About Me: :</label>
               <br />
               <textarea
-                name="about-me"
+                name="about_me"
                 cols="50"
                 rows="10"
+                value={userData.about_me}
                 placeholder="I am ......."
                 className="form-input"
-                value={aboutMe} // Bind the value of the textarea to the state
-                onChange={handleAboutMeChange} // Handle changes in the textarea
+                onChange={handleChange}
               ></textarea>
             </div>
           </section>
           <div className="change-button">
-            <input type="submit" value="Submit" onClick={handleSubmit} />
+            <input type="submit" value="Submit" />
           </div>
         </form>
       </div>

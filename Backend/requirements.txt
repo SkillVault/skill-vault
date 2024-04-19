@@ -1,10 +1,10 @@
- 
  fastapi
  uvicorn 
  fastapi-cors 
  motor 
  pymongo
  bcrypt
- dotenv
  python-multipart
  PyJWT
+ kor
+ langchain_together
