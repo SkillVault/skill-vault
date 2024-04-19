@@ -9,10 +9,14 @@ const ProfileInfo = ({ onEditClick }) => {
  
   
   const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState();
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
+  const [experiance, setExperiance] = useState();
+  const [skills, setSkills] = useState();
   const [aboutMe, setAboutMe] = useState(
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
@@ -30,6 +34,11 @@ const ProfileInfo = ({ onEditClick }) => {
     setAboutMe(userData.about_me);
     setFirstName(userData.first_name);
     setLastName(userData.last_name);
+    setPhone(userData.phone_number);
+    setCompany(userData.company);
+    setExperiance(userData.experience
+    );
+    setSkills(userData.skills)
     setAddress({
       first_line: userData.address.first_line || "",
       country: userData.address.country || "",
@@ -37,6 +46,7 @@ const ProfileInfo = ({ onEditClick }) => {
       city: userData.address.city || "",
       pincode: userData.address.pincode || "", // Assuming pincode is a string
     });
+    
   };
 
   useEffect(() => {
@@ -99,6 +109,25 @@ const ProfileInfo = ({ onEditClick }) => {
               <br />
               <span>{address.pincode}</span>
             </div>
+            <div className="data-field">
+              <label htmlFor="postal-code">Phone Number :</label>
+              <br />
+              <span>{phone}</span>
+            </div>
+          </section>
+          <hr />
+          <h4>PROFESSIONAL INFORMATION</h4>
+          <section className="contact-information-grid">
+            <div className="data-field">
+              <label htmlFor="1staddress">Experiance:</label>
+              <br />
+              <span>{experiance+" Years"}</span>
+            </div>
+            <div className="data-field">
+              <label htmlFor="country">Previous Work Experiance :</label>
+              <br />
+              <span>{company}</span>
+            </div>            
           </section>
           <hr />
           <h4>ABOUT ME</h4>

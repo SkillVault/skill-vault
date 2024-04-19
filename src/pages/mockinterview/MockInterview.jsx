@@ -4,8 +4,7 @@ import Webcam from "react-webcam";
 import axios from "axios";
 import * as tf from "@tensorflow/tfjs";
 
-
-import * as blazeface from "@tensorflow-models/blazeface"; 
+import * as blazeface from "@tensorflow-models/blazeface";
 import { FileX } from "phosphor-react";
 
 const MockInterview = () => {
@@ -19,54 +18,57 @@ const MockInterview = () => {
   const [timerActive, setTimerActive] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [score,setScore] = useState("")
-  const [headOrientation, setHeadOrientation] = useState("Head is facing forward");
+  const [score, setScore] = useState("");
+  const [optionA, setoptionA] = useState();
+  const [optionB, setoptionB] = useState();
+  const [optionC, setoptionC] = useState();
+  const [seletedAnswer, setseletedAnswer] = useState();
+  console.log(seletedAnswer);
+
+  const [headOrientation, setHeadOrientation] = useState(
+    "Head is facing forward"
+  );
   const [isStoped, setRecordStopped] = useState(false);
   let mediaRecorder;
   let audioChunks = [];
   let speechRecognition = new (window.SpeechRecognition ||
     window.webkitSpeechRecognition)();
 
-    const startRecording = async () => {
-      try {
-       
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-  
-        mediaRecorder.con = (event) => {
-          audioChunks.push(event.data);
-        };
-  
-        mediaRecorder.start();
-        setIsRecording(true);
-        startSpeechRecognition();
-      } catch (error) {
-        console.error("Error accessing microphone:", error);
-      }
-    };
-  
-    const stopRecording = () => {
-      if (mediaRecorder && isRecording) {
-        mediaRecorder.stop();
-        setIsRecording(false);
-        setRecordStopped(true);
-        setTranscript("");
-        audioChunks = []
-    
-       
-        // checkTextSimilarity(transcript);
-      }
-  
-      if (speechRecognition) {
-        speechRecognition.stop();
-        setIsRecording(false)
-        setTranscript("");
-        audioChunks = []
-    
-      }
-    };
-  
-  
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.con = (event) => {
+        audioChunks.push(event.data);
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+      startSpeechRecognition();
+    } catch (error) {
+      console.error("Error accessing microphone:", error);
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder && isRecording) {
+      mediaRecorder.stop();
+      setIsRecording(false);
+      setRecordStopped(true);
+      setTranscript("");
+      audioChunks = [];
+
+      // checkTextSimilarity(transcript);
+    }
+
+    if (speechRecognition) {
+      speechRecognition.stop();
+      setIsRecording(false);
+      setTranscript("");
+      audioChunks = [];
+    }
+  };
 
   const startSpeechRecognition = () => {
     speechRecognition.continuous = true;
@@ -79,7 +81,6 @@ const MockInterview = () => {
         .join("");
       setTranscript((prev) => prev + " " + newTranscript);
     };
-    
 
     speechRecognition.onerror = (event) => {
       console.error("Speech recognition error", event.error);
@@ -94,35 +95,31 @@ const MockInterview = () => {
       );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
       setCurrentQnAns(response.data.Answer);
+      setoptionA(response.data.optionA);
+      setoptionB(response.data.optionB);
+      setoptionC(response.data.optionC);
       setLevel(response.data.Level);
+      console.log(response.data)
     } catch (error) {
       console.error("Failed to fetch question:", error);
       setCurrentQuestion("Failed to load question.");
     }
   };
 
-
-
-  
-
-
   useEffect(() => {
     fetchQuestion();
   }, [currentLevel, questionNumber]);
 
   const questionsPerLevel = 8; // Number of questions per level
-  const totalQuestions = 40; // Total number of questions across all levels
+  const totalQuestions = 56; // Total number of questions across all levels
 
   const handleNextQuestion = () => {
-
     setIsRecording(false);
-    startRecording()
+    startRecording();
     stopRecording();
-    
 
-  
     setTranscript("");
-    audioChunks = []
+    audioChunks = [];
 
     // Update question number and level based on the next question's index
     setQuestionNumber((prevQuestionNumber) => {
@@ -165,11 +162,9 @@ const MockInterview = () => {
           console.log("Level = " + level);
         }
       }
-    
-      
-    setTranscript("");
-    audioChunks = []
 
+      setTranscript("");
+      audioChunks = [];
 
       handleNextQuestion();
     } catch (error) {
@@ -205,50 +200,51 @@ const MockInterview = () => {
     facingMode: "user",
   };
 
- 
   const detectPerson = async () => {
     if (webcamRef.current) {
       const video = webcamRef.current.video;
-  
+
       if (video && video.readyState === 4) {
         const model = await blazeface.load();
         const predictions = await model.estimateFaces(video, false);
-  
+
         if (predictions.length > 0) {
           const face = predictions[0]; // Assuming only one face is detected for simplicity
           const landmarks = face.landmarks;
-  
+
           // Calculate the average x position of landmarks on the left and right sides of the face
           const leftEye = landmarks[0];
           const rightEye = landmarks[1];
           const leftEar = landmarks[3];
           const rightEar = landmarks[4];
           const nose = landmarks[2];
-  
+
           // Horizontal movement - comparing the distance between ears and eyes
           const horizontalDistLeft = Math.abs(leftEye[0] - leftEar[0]);
           const horizontalDistRight = Math.abs(rightEye[0] - rightEar[0]);
-  
+
           // Vertical movement - comparing the vertical positions of eyes and nose
           const verticalDistUp = (leftEye[1] + rightEye[1]) / 2 - nose[1];
           const verticalDistDown = nose[1] - (leftEye[1] + rightEye[1]) / 2;
-  
+
           let message = "Head is facing forward";
-  
+
           if (horizontalDistLeft > horizontalDistRight) {
             message = "Head is turned to the right";
           } else if (horizontalDistRight > horizontalDistLeft) {
             message = "Head is turned to the left";
           }
-  
-          if (verticalDistUp > 20) { // Threshold for looking up
+
+          if (verticalDistUp > 20) {
+            // Threshold for looking up
             message = "Head is tilted up";
-          } else if (verticalDistDown > 20) { // Threshold for looking down
+          } else if (verticalDistDown > 20) {
+            // Threshold for looking down
             message = "Head is tilted down";
           }
-  
+
           console.log(message); // Or handle the message as needed in your UI
-  
+
           setIsPersonPresent(true);
         } else {
           setIsPersonPresent(false);
@@ -257,7 +253,6 @@ const MockInterview = () => {
       }
     }
   };
-  
 
   // Consider using a more specific effect dependency to control the detection frequency
   useEffect(() => {
@@ -277,53 +272,86 @@ const MockInterview = () => {
               src="./src/assets/bluelogo.png"
               alt=""
             />
-            
           </div>
           <h3>Skill Test : React</h3>
           <p style={{ margin: 0 }}>Your current level : {currentLevel}</p>
-          
         </div>
-        <div className="question">
-          <h1>{currentQuestion || "Loading question..."}</h1>
-        </div>
-
-        <div className="mock-main">
-          <div className="mock">
-            <img src="./src/assets/timer.png" alt="timer" id="timer" />
-            <h2>{formatTime(timeLeft)}</h2>
-          </div>
-           <div className="audio">
-            <button
-              id="audio-btn"
-              className={`${isRecording ? "recording-animation" : ""}`}
-              onClick={startRecording}
-            >
-              <img
-                src="./src/assets/mic.png"
-                alt="mic"
-                style={{ cursor: "pointer" }}
-              />
-            </button>
-
-            <button id="audio-btn" onClick={stopRecording}>
-              <img
-                src="./src/assets/stop.png"
-                alt="stop"
-                onClick={() => {
-                  stopRecording(), checkTextSimilarity(transcript);
-                }}
-                style={{ cursor: "pointer" }}
-              />
-            </button>
-          </div>
-          <div className="transcript_main">
-            <p>Transcript:</p>
-            <div className="transcript">
-              <div className="transcript_inside">
-                {transcript}
-              </div> 
+        {currentLevel > 5 ? (
+          <div className="multiple-choice">
+            <div className="question">
+              <pre><code>{currentQuestion || "Loading question..."}</code></pre>
+            </div>
+            <div  className="options">
+              <div className="options">
+                <div className="option-card">
+                  <input type="Radio" name="Optionn" value={optionA} onChange={(e)=>setseletedAnswer(e.target.value)} />
+                  <h6>{optionA}</h6>
+                </div>
+                <div className="option-card">
+                  <input type="Radio"  name="Optionn" value={optionB} onChange={(e)=>setseletedAnswer(e.target.value)} />
+                  <h6>{optionB}</h6>
+                </div>
+                <div className="option-card">
+                  <input type="Radio" name="Optionn" value={optionC} onChange={(e)=>setseletedAnswer(e.target.value)} />
+                  <h6>{optionC}</h6>
+                </div>
+                
+              </div>
             </div>
           </div>
+        ) : (
+          <div className="question">
+            <h1>{currentQuestion || "Loading question..."}</h1>
+          </div>
+        )}
+
+        <div className="mock-main">
+          {currentLevel > 5? (
+            <div></div>
+          ) : (
+            <div className="mock">
+              <img src="./src/assets/timer.png" alt="timer" id="timer" />
+              <h2>{formatTime(timeLeft)}</h2>
+            </div>
+          )}
+          {currentLevel > 5 ? (
+            <div></div>
+          ) : (
+            <div className="audio">
+              <button
+                id="audio-btn"
+                className={`${isRecording ? "recording-animation" : ""}`}
+                onClick={startRecording}
+              >
+                <img
+                  src="./src/assets/mic.png"
+                  alt="mic"
+                  style={{ cursor: "pointer" }}
+                />
+              </button>
+
+              <button id="audio-btn" onClick={stopRecording}>
+                <img
+                  src="./src/assets/stop.png"
+                  alt="stop"
+                  onClick={() => {
+                    stopRecording(), checkTextSimilarity(transcript);
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+              </button>
+            </div>
+          )}
+          {currentLevel > 5 ? (
+            <div></div>
+          ) : (
+            <div className="transcript_main">
+              <p>Transcript:</p>
+              <div className="transcript">
+                <div className="transcript_inside">{transcript}</div>
+              </div>
+            </div>
+          )}
         </div>
         <div className="video-div">
           <Webcam
@@ -335,14 +363,18 @@ const MockInterview = () => {
             width={400}
             videoConstraints={videoConstraints}
           />
-          <button id="nxt-btn" onClick={handleNextQuestion}>
+          {currentLevel > 5? ( <button style={{position:"absolute",top:"60"}} id="nxt-btn" onClick={handleNextQuestion}>Next Question</button>):(
+          <button id="nxt-btn"style= {{right:"300",top:"60"}} onClick={handleNextQuestion}>
             Next Question
-          </button>
-
-          
+          </button>)}
+          {currentLevel > 5?(
+          <div className="multiple-choice-timer">
+              <img src="./src/assets/timer.png" alt="timer" id="timer" />
+              <h2>{formatTime(timeLeft)}</h2>
+            </div>
+          ):(<div></div>)}
         </div>
       </div>
-    
     </div>
   );
 };

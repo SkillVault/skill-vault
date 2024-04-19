@@ -6,7 +6,7 @@ import axios from "axios";
 const ProfileCard = () => {
 
   const storedUserEmail = localStorage.getItem("userEmail");
-  const [profImg, setProfImg] = useState();
+  const [profImg, setProfImg] = useState("");
  
   const [skill, setSkill] = useState(0);
   const [experience, setExperience] = useState(0);
@@ -23,6 +23,8 @@ const ProfileCard = () => {
    console.log(profImg)
    setName(response.data.username)
    setAddress(response.data.address.first_line)
+   setJob(userData.job_role)
+   setExperience(userData.experience)
     
 
   }
@@ -45,7 +47,7 @@ const ProfileCard = () => {
   return (
         <div className='cards'>
           <div className='card'>
-            <img src={profImg} alt="" />
+            <img src={profImg??"https://img.freepik.com/premium-vector/people-profile-graphic_24911-21369.jpg?size=626&ext=jpg&ga=GA1.1.1806880798.1713429743&semt=ais"} alt="" />
             <div className='outside'>
               <div className="inside">
                 <div className='i'>
@@ -59,12 +61,7 @@ const ProfileCard = () => {
                 </div>
                 <p>Experience</p>
               </div>
-              <div className="inside">
-                <div className='i2'>
-                  <p>{recommendation}</p> 
-                </div> 
-                <p>Recommendations</p>
-              </div>
+              
             </div>
             <div className="name">
               <h3>{name}</h3>

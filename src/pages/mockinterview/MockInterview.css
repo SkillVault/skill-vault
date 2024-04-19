@@ -184,7 +184,7 @@ padding-left: 15px;
   border-radius: 15px;
   position: relative;
   top: 20px;
-  right:600px;
+  right:300px;
   background-color: #650fc8;
   color: white;
 }
@@ -207,3 +207,50 @@ padding-left: 15px;
 .recording-animation {
   animation: pulse 2s infinite;
 }
+
+.multiple-choice{
+
+  display: flex;
+  align-items: center;
+  gap: 100px;
+}
+
+.multiple-choice .question {
+
+  margin: 20px;
+  overflow: auto;
+  color: white;
+  height: 300px;
+  
+}
+
+.options h6 {
+  margin: 0px;
+  padding: 4px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.option-card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.multiple-choice-timer {
+  display: flex;
+  flex-direction: column;
+    align-items: center;
+
+}
+
+.option-card input[type='radio']:focus {
+  box-shadow: none;
+  background-color: black;
+}
+
+
+

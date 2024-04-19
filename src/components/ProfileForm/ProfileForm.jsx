@@ -218,8 +218,90 @@ const ProfileForm = ({ onFormSubmit }) => {
                 onChange={(e) => setPinCode(e.target.value)}
               />
             </div>
+            <div className="data-field phone-field">
+              <label htmlFor="phone_number">Phone Number :</label>
+              <br />
+              <input
+                type="number"
+                name="phone_number"
+                placeholder="9888000000"
+                maxLength={10}
+                className="form-input"
+                required
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+            </div>
+
           </section>
           <hr />
+          <h4> PROFESSIONAL INFORMATION</h4>
+          <section className="user-information-grid">
+            <div className="data-field">
+              <label htmlFor="company_name">Company :</label>
+              <br />
+              <input
+                type="text"
+                name="company_name"
+                value={company}
+                placeholder="Amazon"
+                className="form-input"
+                onChange={(e) => setCompany(e.target.value)}
+              />
+            </div>
+            <div className="data-field">
+              <label htmlFor="job_role">Job Role :</label>
+              <br />
+              <input
+                type="text"
+                name="job_role"
+                placeholder="DevOps Engineer"
+                className="form-input"
+                value={jobRole}
+                onChange={(e) => setJobRole(e.target.value)}
+              />
+            </div>
+            <div className="data-field">
+              <label htmlFor="experience">Experience in Years :</label>
+              <br />
+              <input
+                type="number"
+                name="experience"
+                placeholder="1"
+                className="form-input"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+              />
+            </div>
+          </section>
+          <hr />
+          <h4>UPLOADS</h4>
+          <section className="upload-information-grid">
+            <div className="data-field">
+              <label htmlFor="profile-photo">Profile Photo:</label>
+              <br />
+              <input
+                type="file"
+                name="profile-photo"
+                accept="image/*"
+                className="form-input"
+                onChange={(e) => setProfilePhoto(e.target.files[0])}
+              />
+            </div>
+            <div className="data-field">
+              <label htmlFor="resume">Resume:</label>
+              <br />
+              <input
+                type="file"
+                name="resume"
+                accept=".pdf,.doc,.docx"
+                className="form-input"
+                onChange={(e) => setResume(e.target.value)}
+              />
+            </div>
+          </section>
+          <hr />
+
+
           <h4>ABOUT ME</h4>
           <section className="about-information-grid">
             <div className="data-field">
