@@ -14,6 +14,7 @@ import Skill from "./pages/skill/Skill";
 import CompLanding from "./pages/complanding/CompLanding";
 import AddJob from "./pages/addjob/AddJob";
 import JobEntry from "./pages/jobentry/JobEntry";
+import Interviewstart from "./pages/interviewStart/Interviewstart";
 
 
 function App() {
@@ -61,6 +62,10 @@ function App() {
       element: <ContactPage />,
     },
     {
+      path: "interviewStart",
+      element: <Interviewstart/>
+    },
+    {
       path: "mockinterview",
       element: <MockInterview/>
     },
@@ -80,6 +85,7 @@ function App() {
       path: "jobentry",
       element: <JobEntry/>
     },
+
 
   
   ]);

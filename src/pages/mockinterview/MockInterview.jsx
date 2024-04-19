@@ -297,7 +297,7 @@ const MockInterview = () => {
           </div>
           <div className="transcript_main">
             <p>Transcript:</p>
-            <div className="transcript">
+            <div className="transcript"> 
               <div className="transcript_inside">
                 {transcript}
               </div> 
