@@ -15,6 +15,7 @@ import CompLanding from "./pages/complanding/CompLanding";
 import AddJob from "./pages/addjob/AddJob";
 import JobEntry from "./pages/jobentry/JobEntry";
 import Interviewstart from "./pages/interviewStart/Interviewstart";
+import Responses from "./pages/responses/Responses";
 
 
 function App() {
@@ -85,7 +86,10 @@ function App() {
       path: "jobentry",
       element: <JobEntry/>
     },
-
+    {
+      path: "responses",
+      element: <Responses/>
+    },
 
   
   ]);

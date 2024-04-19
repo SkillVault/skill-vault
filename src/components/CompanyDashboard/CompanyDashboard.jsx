@@ -30,7 +30,7 @@ const CompanyDashboard = () => {
           </Link>
         </li>
         <li className="cdashboard-link">
-          <Link to="/candidate/mock-interview">
+          <Link to="/responses">
             <img
               src="./src/assets/interview.png"
               alt="interview-icon"
