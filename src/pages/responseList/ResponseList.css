@@ -1,0 +1,42 @@
+.responselist{
+    margin-left: 40px;
+    margin-top: 30px;
+    margin-right: 20px;
+}
+.rlist{
+    height: 200px;
+    background-color: rgb(34, 34, 176);
+    margin-left: 280px ;
+    align-items: center;
+    border-radius: 15px;
+  }
+
+  .rlist h2{
+    width: 700px;
+    padding-top: 20px;
+    margin-left: 100px;
+    color: #fff;
+    
+  }
+
+
+  .rlist h1{
+    padding-top: 20px;
+    width: 500px;
+    margin-left: 100px;
+    color: #fff;
+    
+  }
+
+  .rlist1{
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-left: 300px;
+  }
+  .rlist1 p{
+    font-weight: bolder;
+  }
+
+  .rl_table{
+    color: #54249b;
+  }

@@ -2,10 +2,11 @@ import React from 'react'
 import "./Responses.css"
 import CompanyDashboard from '../../components/CompanyDashboard/CompanyDashboard';
 import { MagnifyingGlass } from "phosphor-react";
-
+import { useNavigate } from "react-router-dom";
 
 
 const Responses = () => {
+  const navigate = useNavigate();
   return (
     <div className='response'>
       <div className="sidebar">
@@ -26,7 +27,7 @@ const Responses = () => {
         <p>RESPONSES</p>
         <div className="data">
           <img src="./src/assets/blue_logo.png" />
-          <div className="name">
+          <div className="name"  onClick={()=> navigate("/responseList")}>
             <span className='sp'>Data Scientists</span>
             <span className='sp'>25 responses</span>
           </div>

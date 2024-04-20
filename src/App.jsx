@@ -16,6 +16,7 @@ import AddJob from "./pages/addjob/AddJob";
 import JobEntry from "./pages/jobentry/JobEntry";
 import Interviewstart from "./pages/interviewStart/Interviewstart";
 import Responses from "./pages/responses/Responses";
+import ResponseList from "./pages/responseList/ResponseList";
 
 
 function App() {
@@ -89,6 +90,10 @@ function App() {
     {
       path: "responses",
       element: <Responses/>
+    },
+    {
+      path: "responseList",
+      element: <ResponseList/>
     },
 
   

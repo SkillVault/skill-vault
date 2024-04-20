@@ -52,6 +52,16 @@
     width: 60px;
     height: 60px;
 }
+.data:hover{
+  background-color: rgb(78, 130, 220);
+}
+
+.sp{
+  padding-left:400px;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+}
 
   /* .name h5 {
     padding-left: 350px;
@@ -68,9 +78,4 @@
     font-weight: 700;
     color: white;
   } */
-  .sp{
-    padding-left:400px;
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-  }
+
