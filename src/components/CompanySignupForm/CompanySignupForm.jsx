@@ -72,7 +72,6 @@ function CompanySignupForm() {
         <label htmlFor="companyEmail">Company Email:</label>
         <input
           type="email"
-          id="companyEmail"
           value={companyEmail}
           onChange={(e) => setCompanyEmail(e.target.value)}
           placeholder="Your company email"
