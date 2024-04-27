@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./CompanyLoginForm.css"; 
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 function CompanyLoginForm() {
   const [companyEmail, setCompanyEmail] = useState("");
@@ -11,34 +11,46 @@ function CompanyLoginForm() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // const response = axios.get('/fetch_company')
-
-  const handleSubmit = async (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
     setLoading(true);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(companyEmail)) {
+      setError("Invalid email format.");
+      setLoading(false);
+      return;
+    }
 
-    // Simulate backend call (replace with actual API call)
     try {
-      // Your API call here
-
-      // Simulating API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      console.log("Company Email:", companyEmail);
-      console.log("Password:", password);
-
-      // Redirect to dashboard or handle success response
+      console.log("started");
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/company/company_login",
+        {
+          company_email: companyEmail,
+          password: password,
+        }
+      );
+      const decoded = jwtDecode(response.data.access_token);
+      localStorage.setItem("company_token", response.data.access_token);
+      navigate("/homepage");
     } catch (err) {
       console.error("Error logging in:", err.message);
-      setError("Error logging in. Please try again later.");
+      if (err.response && err.response.status === 404) {
+        setError("Incorrect email or user doesn't exist.");
+      } else if (err.response && err.response.status === 401) {
+        setError("Incorrect password.");
+      } else {
+        setError("Error logging in. Please try again later.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
+ 
   return (
-    <form className="company-login-form" onSubmit={handleSubmit}>
+    <form className="company-login-form">
       <h2>Login</h2>
       {error && <div className="error-message">{error}</div>}
       <div className="company-login-form-group">
@@ -68,11 +80,10 @@ function CompanyLoginForm() {
         id="company-loginform-button"
         className={loading ? "loading" : ""}
         disabled={loading}
-        onClick={()=>navigate("/complanding")}
+        onClick={handleLogin}
       >
         {loading ? "Logging In..." : "Login"}
       </button>
-     
     </form>
   );
 }
