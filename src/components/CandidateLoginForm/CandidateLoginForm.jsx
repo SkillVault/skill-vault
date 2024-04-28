@@ -34,7 +34,6 @@ function CandidateLoginForm() {
           password: password,
         }
       );
-      const decoded = jwtDecode(response.data.access_token);
       localStorage.setItem("token", response.data.access_token);
       navigate("/homepage");
     } catch (err) {

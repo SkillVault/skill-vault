@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CompanySignupFrom.css"; // Import CSS file for styling
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CompanySignupForm() {
   const [companyName, setCompanyName] = useState("");
@@ -10,7 +11,7 @@ function CompanySignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const navigate = useNavigate()
  
 
   const handleSubmit = async (event) => {
@@ -18,40 +19,44 @@ function CompanySignupForm() {
     setError("");
     setLoading(true);
 
-    // Perform data validation
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(companyEmail)) {
+      setError("Invalid email format.");
       setLoading(false);
       return;
     }
 
-    // Simulate backend call (replace with actual API call)
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      // Your API call here
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/company/signup",
+        {
+          company_name: companyName,
+          company_email: companyEmail,
+          company_website: companyWebsite,
+          password: password,
+        }
+      );
+      console.log("Signup response:", response.data);
+      window.location.reload();
 
-      // // Simulating API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const response = await axios.post("https://skillvault-backend.onrender.com/api/company_signup",{
-        "company_name": companyName,
-        "company_email": companyEmail,
-        "company_website": companyWebsite,
-        "password" : password
-        
-      }).then(value => {
-        console.log(response)
-      })
-
-      console.log("Company:", companyName, companyEmail, companyWebsite);
-
-      // Redirect to confirmation page or handle success response
     } catch (err) {
       console.error("Error signing up:", err.message);
-      setError("Error signing up. Please try again later.");
+      if (err.response && err.response.status === 500) {
+        setError("Internal server error. Please try again later.");
+      } else {
+        setError("Error signing up. Please try again later.");
+      }
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <form className="company-signup-form" onSubmit={handleSubmit}>
