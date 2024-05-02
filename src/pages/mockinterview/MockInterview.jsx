@@ -91,7 +91,7 @@ const MockInterview = () => {
     try {
       // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `https://skillvault-backend.onrender.com/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
+        `http://127.0.0.1:8000/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
       );
       setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
       setCurrentQnAns(response.data.Answer);
@@ -99,7 +99,7 @@ const MockInterview = () => {
       setoptionB(response.data.optionB);
       setoptionC(response.data.optionC);
       setLevel(response.data.Level);
-      console.log(response.data)
+      console.log(response.data);
     } catch (error) {
       console.error("Failed to fetch question:", error);
       setCurrentQuestion("Failed to load question.");
@@ -147,7 +147,7 @@ const MockInterview = () => {
   const checkTextSimilarity = async (transcript) => {
     try {
       const response = await axios.post(
-        "https://skillvault-backend.onrender.com/api/text-similarity/check_answer",
+        "http://127.0.0.1:8000/api/text-similarity/check_answer",
         {
           question: currentQuestion,
           answer: transcript,
@@ -279,23 +279,39 @@ const MockInterview = () => {
         {currentLevel > 5 ? (
           <div className="multiple-choice">
             <div className="question">
-              <pre><code>{currentQuestion || "Loading question..."}</code></pre>
+              <pre>
+                <code>{currentQuestion || "Loading question..."}</code>
+              </pre>
             </div>
-            <div  className="options">
+            <div className="options">
               <div className="options">
                 <div className="option-card">
-                  <input type="Radio" name="Optionn" value={optionA} onChange={(e)=>setseletedAnswer(e.target.value)} />
+                  <input
+                    type="Radio"
+                    name="Optionn"
+                    value={optionA}
+                    onChange={(e) => setseletedAnswer(e.target.value)}
+                  />
                   <h6>{optionA}</h6>
                 </div>
                 <div className="option-card">
-                  <input type="Radio"  name="Optionn" value={optionB} onChange={(e)=>setseletedAnswer(e.target.value)} />
+                  <input
+                    type="Radio"
+                    name="Optionn"
+                    value={optionB}
+                    onChange={(e) => setseletedAnswer(e.target.value)}
+                  />
                   <h6>{optionB}</h6>
                 </div>
                 <div className="option-card">
-                  <input type="Radio" name="Optionn" value={optionC} onChange={(e)=>setseletedAnswer(e.target.value)} />
+                  <input
+                    type="Radio"
+                    name="Optionn"
+                    value={optionC}
+                    onChange={(e) => setseletedAnswer(e.target.value)}
+                  />
                   <h6>{optionC}</h6>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -306,7 +322,7 @@ const MockInterview = () => {
         )}
 
         <div className="mock-main">
-          {currentLevel > 5? (
+          {currentLevel > 5 ? (
             <div></div>
           ) : (
             <div className="mock">
@@ -363,16 +379,31 @@ const MockInterview = () => {
             width={400}
             videoConstraints={videoConstraints}
           />
-          {currentLevel > 5? ( <button style={{position:"absolute",top:"60"}} id="nxt-btn" onClick={handleNextQuestion}>Next Question</button>):(
-          <button id="nxt-btn"style= {{right:"300",top:"60"}} onClick={handleNextQuestion}>
-            Next Question
-          </button>)}
-          {currentLevel > 5?(
-          <div className="multiple-choice-timer">
+          {currentLevel > 5 ? (
+            <button
+              style={{ position: "absolute", top: "60" }}
+              id="nxt-btn"
+              onClick={handleNextQuestion}
+            >
+              Next Question
+            </button>
+          ) : (
+            <button
+              id="nxt-btn"
+              style={{ right: "300", top: "60" }}
+              onClick={handleNextQuestion}
+            >
+              Next Question
+            </button>
+          )}
+          {currentLevel > 5 ? (
+            <div className="multiple-choice-timer">
               <img src="./src/assets/timer.png" alt="timer" id="timer" />
               <h2>{formatTime(timeLeft)}</h2>
             </div>
-          ):(<div></div>)}
+          ) : (
+            <div></div>
+          )}
         </div>
       </div>
     </div>

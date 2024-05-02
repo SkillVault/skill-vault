@@ -11,8 +11,6 @@ function CompanySignupForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
- 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
@@ -27,20 +25,20 @@ function CompanySignupForm() {
 
     // Simulate backend call (replace with actual API call)
     try {
-      // Your API call here
-
       // // Simulating API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const response = await axios.post("https://skillvault-backend.onrender.com/api/company_signup",{
-        "company_name": companyName,
-        "company_email": companyEmail,
-        "company_website": companyWebsite,
-        "password" : password
-        
-      }).then(value => {
-        console.log(response)
-      })
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/company/signup",
+        {
+          company_name: companyName,
+          company_email: companyEmail,
+          company_website: companyWebsite,
+          password: password,
+        }
+      );
+
+      console.log(response); // Corrected: Use 'response' instead of 'value'
 
       console.log("Company:", companyName, companyEmail, companyWebsite);
 
@@ -113,6 +111,7 @@ function CompanySignupForm() {
       </div>
       <button
         type="submit"
+        onClick={handleSubmit}
         id="company-signupform-button"
         className={loading ? "loading" : ""}
         disabled={loading}

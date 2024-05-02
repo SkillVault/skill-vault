@@ -16,11 +16,11 @@ const HomeSlide = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await axios.get(
-        `https://skillvault-backend.onrender.com/api/user/get_user?email=${email}`
+        `http://127.0.0.1:8000/api/user/get_user?email=${email}`
       );
       const userData = response.data;
       setUserName(userData.username);
-      console.log(userData)
+      console.log(userData);
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }

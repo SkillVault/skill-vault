@@ -3,12 +3,12 @@ import axios from "axios";
 import "./Notification.css";
 
 const Notification = () => {
-  const [notification, setNotification] = useState([]); 
- 
+  const [notification, setNotification] = useState([]);
+
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        `https://skillvault-backend.onrender.com/api/company/get_job`
+        `http://127.0.0.1:8000/api/company/get_job`
       );
       console.log(response.data);
       // If the API returns a single job object instead of an array, wrap it in an array
@@ -16,7 +16,7 @@ const Notification = () => {
         ? response.data
         : [response.data];
       setNotification(jobsData);
-      console.log(jobsData)
+      console.log(jobsData);
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
     }
@@ -27,15 +27,19 @@ const Notification = () => {
 
   return (
     <section className="notification-section">
-      <h2 style={{ fontFamily: "Verdana, sans-serif" }}>Latest Job Postings</h2>
+      <h2 style={{ fontFamily: "Verdana, sans-serif", color: "black" }}>
+        Latest Job Postings
+      </h2>
       {notification.length > 0 ? (
         <div className="notification-cards">
-          {notification.map((notification,index) => (
+          {notification.map((notification, index) => (
             <div className="notification-card" key={index}>
               <h4>{notification.job_title}</h4>
               <p>{notification.category}</p>
               <button
-                onClick={() => console.log(`Details for ${notification.job_title}`)}
+                onClick={() =>
+                  console.log(`Details for ${notification.job_title}`)
+                }
               >
                 More Details
               </button>

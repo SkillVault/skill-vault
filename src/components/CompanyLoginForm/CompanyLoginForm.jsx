@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./CompanyLoginForm.css"; 
+import "./CompanyLoginForm.css";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function CompanyLoginForm() {
   const [companyEmail, setCompanyEmail] = useState("");
@@ -18,17 +18,30 @@ function CompanyLoginForm() {
     setError("");
     setLoading(true);
 
-    // Simulate backend call (replace with actual API call)
     try {
-      // Your API call here
-
       // Simulating API call delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/company/login",
+        {
+          company_email: companyEmail,
+          password: password,
+        }
+      );
+
+      localStorage.setItem("companyEmail", companyEmail);
 
       console.log("Company Email:", companyEmail);
       console.log("Password:", password);
 
-      // Redirect to dashboard or handle success response
+      // Check if the login was successful
+      if (response.data) {
+        // Navigate to the landing page
+        navigate("/complanding");
+      } else {
+        setError("Invalid email or password. Please try again.");
+      }
     } catch (err) {
       console.error("Error logging in:", err.message);
       setError("Error logging in. Please try again later.");
@@ -68,11 +81,10 @@ function CompanyLoginForm() {
         id="company-loginform-button"
         className={loading ? "loading" : ""}
         disabled={loading}
-        onClick={()=>navigate("/complanding")}
+        onClick={handleSubmit}
       >
         {loading ? "Logging In..." : "Login"}
       </button>
-     
     </form>
   );
 }

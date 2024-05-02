@@ -4,10 +4,7 @@ import "./ProfileInfo.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-
 const ProfileInfo = ({ onEditClick }) => {
- 
-  
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState("");
@@ -25,10 +22,10 @@ const ProfileInfo = ({ onEditClick }) => {
 
   const fetchUsrProfile = async () => {
     const response = await axios.get(
-      `https://skillvault-backend.onrender.com/api/user/get_user?email=${storedUserEmail}`
+      `http://127.0.0.1:8000/api/user/get_user?email=${storedUserEmail}`
     );
     const userData = response.data;
-    console.log(userData)
+    console.log(userData);
     setEmail(userData.email);
     setUsername(userData.username);
     setAboutMe(userData.about_me);
@@ -36,9 +33,8 @@ const ProfileInfo = ({ onEditClick }) => {
     setLastName(userData.last_name);
     setPhone(userData.phone_number);
     setCompany(userData.company);
-    setExperiance(userData.experience
-    );
-    setSkills(userData.skills)
+    setExperiance(userData.experience);
+    setSkills(userData.skills);
     setAddress({
       first_line: userData.address.first_line || "",
       country: userData.address.country || "",
@@ -46,7 +42,6 @@ const ProfileInfo = ({ onEditClick }) => {
       city: userData.address.city || "",
       pincode: userData.address.pincode || "", // Assuming pincode is a string
     });
-    
   };
 
   useEffect(() => {
@@ -121,13 +116,13 @@ const ProfileInfo = ({ onEditClick }) => {
             <div className="data-field">
               <label htmlFor="1staddress">Experiance:</label>
               <br />
-              <span>{experiance+" Years"}</span>
+              <span>{experiance + " Years"}</span>
             </div>
             <div className="data-field">
               <label htmlFor="country">Previous Work Experiance :</label>
               <br />
               <span>{company}</span>
-            </div>            
+            </div>
           </section>
           <hr />
           <h4>ABOUT ME</h4>

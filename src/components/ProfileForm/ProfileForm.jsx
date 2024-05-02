@@ -24,7 +24,7 @@ const ProfileForm = ({ onFormSubmit }) => {
 
   const fetchUsrProfile = async () => {
     const response = await axios.get(
-      `https://skillvault-backend.onrender.com/api/user/get_user?email=${storedUserEmail}`
+      `http://127.0.0.1:8000/api/user/get_user?email=${storedUserEmail}`
     );
     const userData = response.data;
     setEmail(userData.email);
@@ -41,8 +41,8 @@ const ProfileForm = ({ onFormSubmit }) => {
     setPhoneNumber(userData.phone_number);
     setResume(userData.resume);
     setJobRole(userData.job_role);
-    setCompany(userData.company)
-    
+    setCompany(userData.company);
+
     console.log(userData);
   };
 
@@ -56,21 +56,19 @@ const ProfileForm = ({ onFormSubmit }) => {
     first_name: firstName,
     last_name: lastName,
     about_me: aboutMe,
-    
+
     address: {
       first_line: address,
       country: country,
       state: state,
       city: city,
       pincode: pincode,
-
     },
     phone_number: phoneNumber,
     job_role: jobRole,
     experience: experience,
     resume: resume,
-    company: company
-    
+    company: company,
   };
 
   const queryString = new URLSearchParams(params).toString();
@@ -78,7 +76,7 @@ const ProfileForm = ({ onFormSubmit }) => {
   const UpdateUsrProfile = async () => {
     try {
       const response = await axios.put(
-        `https://skillvault-backend.onrender.com/api/user/update_candidate/?${queryString}`,
+        `http://127.0.0.1:8000/api/user/update_candidate/?${queryString}`,
         params
       );
       console.log("Update successful:", response.data);
@@ -231,7 +229,6 @@ const ProfileForm = ({ onFormSubmit }) => {
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
-
           </section>
           <hr />
           <h4> PROFESSIONAL INFORMATION</h4>
@@ -300,7 +297,6 @@ const ProfileForm = ({ onFormSubmit }) => {
             </div>
           </section>
           <hr />
-
 
           <h4>ABOUT ME</h4>
           <section className="about-information-grid">

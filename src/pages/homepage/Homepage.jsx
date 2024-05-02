@@ -38,9 +38,7 @@ const Homepage = () => {
         <div className="notification-progress">
           <hr />
           <Notification />
-          <hr />
-          <ProgressSection />
-          <hr />
+         
         </div>
       </main>
     </div>

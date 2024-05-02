@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Dashboard from "../../components/Dashboard/Dashboard";
 import Dropdown from "react-bootstrap/Dropdown";
 import { MagnifyingGlass } from "phosphor-react";
+import JobDetailsCard from "../../components/JobItemCard/JobDetailsCard";
 
 const JobSearch = () => {
   const [jobTitle, setjobTitle] = useState();
@@ -16,7 +17,7 @@ const JobSearch = () => {
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
-        `https://skillvault-backend.onrender.com/api/company/get_job`
+        `http://127.0.0.1:8000/api/company/get_job`
       );
       console.log(response.data);
       // If the API returns a single job object instead of an array, wrap it in an array
@@ -106,22 +107,18 @@ const JobSearch = () => {
               </div>
             </div>
           </div>
-
-          {filteredJobs.length > 0 ? (
-            filteredJobs.map((job, index) => (
-              <div key={index} className="job">
-                <img src="./src/assets/logo.png" alt="Company Logo" />
-                <div className="spec">
-                  <h5>{job.job_title}</h5>
-                  <p>{job.category}</p>
-                  {/* Other job details */}
-                  <button>Easy Apply</button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No jobs available.</p>
-          )}
+          <div className="job-listings">
+            {filteredJobs.length > 0 ? (
+              filteredJobs.map((job) => (
+                <JobDetailsCard
+                  key={job.id} // Use a unique identifier from your job object, such as an ID
+                  job={job}
+                />
+              ))
+            ) : (
+              <p>No jobs available.</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

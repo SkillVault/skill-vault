@@ -1,0 +1,39 @@
+.main_top{
+    height: 100vh;
+    margin: 100px;
+}
+.top{
+    width: auto;
+    height: 150px;
+    background-color: #650fc8;
+    display: flex;
+    align-items: center;
+    gap: 500px;
+    padding: 50px;
+}
+h2{
+    color: white;
+    font-weight: 700;
+    font-size: 40px;
+}
+.top img{
+    width: 100px;
+    height: 100px;
+}
+
+.instruction{
+    height: auto;
+    width: auto;
+    background-color: white;
+   
+}
+.instruction button{
+    background-color: #54249b;
+    transition: box-shadow 0.2s ease-in-out;
+    color: #fff;
+    padding: 5px 10px;
+    margin-left: 650px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}

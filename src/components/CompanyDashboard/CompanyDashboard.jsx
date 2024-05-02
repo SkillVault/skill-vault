@@ -30,7 +30,7 @@ const CompanyDashboard = () => {
           </Link>
         </li>
         <li className="cdashboard-link">
-          <Link to="/candidate/mock-interview">
+          <Link to="/responses">
             <img
               src="./src/assets/interview.png"
               alt="interview-icon"
@@ -49,7 +49,7 @@ const CompanyDashboard = () => {
              User Profile
           </Link>
         </li> */}
-        <li className="cdashboard-link">
+        {/* <li className="cdashboard-link">
           <Link to="/candidate/settings">
             <img
               src="./src/assets/settings.png"
@@ -58,7 +58,7 @@ const CompanyDashboard = () => {
             />
             Account Settings
           </Link>
-        </li>
+        </li> */}
         <li className="cdashboard-link">
           <Link
             onClick={async () => {

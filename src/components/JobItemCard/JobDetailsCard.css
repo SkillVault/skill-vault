@@ -1,0 +1,48 @@
+.job-details-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* This will push the button to the bottom */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Add a minimum height if you want all cards to be the same height */
+  min-height: 300px;
+}
+
+.job-title {
+  margin-bottom: 0.5em;
+  /* Rest of your styles for .job-title */
+}
+
+.job-details {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Rest of your styles for .job-details */
+}
+
+/* This will remove default list styling */
+.job-details li {
+  margin-bottom: 10px;
+  /* Rest of your styles for .job-details li */
+}
+
+.apply-now-button {
+  padding: 20px 20px;
+  background-color: #6200ea; /* Example color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  /* Make the button full width */
+  width: 100%;
+  box-sizing: border-box;
+
+}
+
+.apply-now-button:hover {
+  background-color: #3700b3; /* Darker shade for hover effect */
+}

@@ -266,3 +266,12 @@
   transition: box-shadow 0.2s ease-in-out;
 
 }
+
+.job-listings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* This creates a responsive grid */
+  gap: 1rem; /* Adjust the gap as needed */
+  padding: 1rem;
+}
+
+/* Styles for JobDetailsCard are assumed to be defined in JobDetailsCard.css */

@@ -15,7 +15,7 @@ function CandidateLoginForm() {
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
-    localStorage.setItem("userEmail",candidateEmail)
+    localStorage.setItem("userEmail", candidateEmail);
 
     event.preventDefault();
     setError("");
@@ -28,10 +28,9 @@ function CandidateLoginForm() {
     }
 
     try {
-
       console.log("started");
       const response = await axios.post(
-        "https://skillvault-backend.onrender.com/api/user/candidate_login",
+        "http://127.0.0.1:8000/api/user/candidate_login",
         {
           email: candidateEmail,
           password: password,
@@ -60,11 +59,11 @@ function CandidateLoginForm() {
     const { credential } = googleData;
     const decoded = jwtDecode(credential);
     localStorage.setItem("token", credential);
-    localStorage.setItem("userEmail",decoded.email)
+    localStorage.setItem("userEmail", decoded.email);
 
     try {
       let checkUserResponse = await axios.get(
-        `https://skillvault-backend.onrender.com/api/user/get_user?email=${decoded.email}`
+        `http://127.0.0.1:8000/api/user/get_user?email=${decoded.email}`
       );
 
       console.log(checkUserResponse);
@@ -79,7 +78,7 @@ function CandidateLoginForm() {
           firstName = nameParts[0];
         }
         const response = await axios.post(
-          "https://skillvault-backend.onrender.com/api/user/create_google_user",
+          "http://127.0.0.1:8000/api/user/create_google_user",
           {
             username: decoded.name,
             email: decoded.email,
