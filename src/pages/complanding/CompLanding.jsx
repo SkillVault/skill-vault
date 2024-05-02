@@ -10,21 +10,19 @@ const CompLanding = () => {
   const [companyEmail, setCompanyEmail] = useState();
   const storedCompanyName = localStorage.getItem("companyName");
 
+ 
+
+  const [response, setResponseList] = useState([]);
+
   const [jobData, setjobData] = useState([
-    {
-      jobTitle: "Frontend Developer",
-      category: "Full Time",
-      opening: 14,
-      application: 3,
-      status: "Activate",
-    },
-    // Add more job data objects as needed
+   
   ]);
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/company/company_post?company_email=${storedCompanyName}`
       );
+
       console.log(response.data);
       // If the API returns a single job object instead of an array, wrap it in an array
       const jobsData = Array.isArray(response.data)
@@ -55,9 +53,29 @@ const CompLanding = () => {
     setWebsite(userData.company_website);
   };
 
+
   useEffect(() => {
     fetchUsrProfile();
   }, []);
+
+  const fetchResponse = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/company/responses`
+      );
+      setResponseList(response.data);
+    } catch (error) {
+      console.error("Error fetching response data:", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchResponse();
+  }, []);
+
+  const countResponsesByJobTitle = (jobTitle) => {
+    return response.filter((item) => item.job_title === jobTitle).length;
+  };
 
   return (
     <div className="CompLogin">
@@ -99,7 +117,7 @@ const CompLanding = () => {
                 <td>{job.job_title}</td>
                 <td>{job.category}</td>
                 <td>{job.openings}</td>
-                <td>{jobData.length}</td>
+                <td> {countResponsesByJobTitle(job.job_title)}</td>
                 <td></td>
               </tr>
             ))}

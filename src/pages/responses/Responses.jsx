@@ -28,9 +28,7 @@ const Responses = () => {
   const storedCompanyName = localStorage.getItem("companyName");
   console.log(storedCompanyName);
 
-
   const [response, setResponseList] = useState([]);
-
 
   const fetchResponse = async () => {
     try {
@@ -42,7 +40,7 @@ const Responses = () => {
       console.error("Error fetching response data:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchResponse();
   }, []);
@@ -68,6 +66,9 @@ const Responses = () => {
     fetchUsrProfile();
     fetchJobs();
   }, []);
+  const countResponsesByJobTitle = (jobTitle) => {
+    return response.filter((item) => item.job_title === jobTitle).length;
+  };
   const navigate = useNavigate();
   return (
     <div className="response">
@@ -87,22 +88,30 @@ const Responses = () => {
       </div>
       <div className="resp1">
         <p>RESPONSES</p>
-          {job.map((jobItem, index) => (
-            <div key={index}>
-                      <div className="data">
-
-              <div className="name" onClick={() => navigate("/responseList",{state : {jobTitle : jobItem.job_title}})}>
+        {job.map((jobItem, index) => (
+          <div key={index}>
+            <div className="data">
+              <div
+                className="name"
+                onClick={() =>
+                  navigate("/responseList", {
+                    state: { jobTitle: jobItem.job_title },
+                  })
+                }
+              >
                 <img src="./src/assets/blue_logo.png" />
                 <span className="sp">{jobItem.job_title}</span>
-                <span className="sp">{response.length} responses</span>
+                <span className="sp">
+                
+                  {countResponsesByJobTitle(jobItem.job_title)} responses
+                
+                </span>
               </div>
             </div>
-            </div>
-          ))}
-          <br />
-      
+          </div>
+        ))}
+        <br />
       </div>
-      
     </div>
   );
 };

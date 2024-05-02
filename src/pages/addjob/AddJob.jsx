@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const AddJob = () => {
     const navigate = useNavigate();
     const [job, setJob] = useState([]);
+    
     const storedCompanyName = localStorage.getItem("companyName");
     console.log(storedCompanyName)
 
@@ -49,6 +50,24 @@ const AddJob = () => {
   useEffect(() => {
     fetchJobs();
   }, []);
+
+  const deletePost = async (jobId) => {
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:8000/api/company/delete-job?job_id=${jobId}`
+      );
+      console.log(response.data);
+      // After deleting the job, you might want to refetch the updated job list
+      fetchJobs();
+    } catch (error) {
+      console.error("Failed to delete job:", error);
+    }
+  };
+  
+  
+  const countResponsesByJobTitle = (jobTitle) => {
+    return response.filter((item) => item.job_title === jobTitle).length;
+  };
 
     // const [jobData, setJobData] = useState([
     //     {
@@ -109,10 +128,10 @@ const AddJob = () => {
                                 <td>{jobs.job_title}</td>
                                 <td>{jobs.category}</td>
                                 <td>{jobs.openings}</td>
-                                <td>{response.length}</td>
+                                <td> {countResponsesByJobTitle(jobs.job_title)} responses</td>
                                 <td>
                                     {/* Directly place the Remove Job button here */}
-                                    <button className= "remove" onClick={() => removeJob(index)}>Remove Job</button>
+                                    <button className= "remove" onClick={() => deletePost(jobs.jobid)}>Remove Job</button>
                                 </td>
                             </tr>
                         ))}

@@ -11,18 +11,35 @@ const ResponseList = () => {
   const storedCompanyName = localStorage.getItem("companyName");
 
   const [response, setResponseList] = useState([]);
-
-
   const fetchResponse = async () => {
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/company/responses`
-      );
-      setResponseList(response.data);
+      let apiUrl = `http://127.0.0.1:8000/api/company/responses`;
+      const responses = await axios.get(apiUrl);
+  
+      // Log the response data and jobTitle variable
+      console.log("Response Data:", responses.data);
+      console.log("Job Title:", jobTitle);
+  
+      // Filter response based on job title
+      const filteredResponse = responses.data.filter(item => {
+        // Ensure the job title is compared correctly
+        return item.job_title === (jobTitle && jobTitle.jobTitle);
+      });
+  
+      // Log the filtered response
+      console.log("Filtered Response:", filteredResponse);
+  
+      setResponseList(filteredResponse);
     } catch (error) {
       console.error("Error fetching response data:", error);
     }
   };
+  
+  
+  
+  
+  
+  
   
   useEffect(() => {
     fetchResponse();
