@@ -42,9 +42,7 @@ function CompanySignupForm() {
           password: password,
         }
       );
-      console.log("Signup response:", response.data);
       window.location.reload();
-
     } catch (err) {
       console.error("Error signing up:", err.message);
       if (err.response && err.response.status === 500) {
@@ -59,6 +57,7 @@ function CompanySignupForm() {
 
 
   return (
+    <div>
     <form className="company-signup-form" onSubmit={handleSubmit}>
       <h2>Create Account</h2>
       {error && <div className="error-message">{error}</div>}
@@ -124,6 +123,7 @@ function CompanySignupForm() {
         {loading ? "Signing Up..." : "Sign Up"}
       </button>
     </form>
+    </div>
   );
 }
 

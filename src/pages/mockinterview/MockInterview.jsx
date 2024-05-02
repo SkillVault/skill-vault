@@ -1,27 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MockInterview.css";
 import Webcam from "react-webcam";
 import axios from "axios";
-import * as tf from "@tensorflow/tfjs";
-
-
 import * as blazeface from "@tensorflow-models/blazeface"; 
-import { FileX } from "phosphor-react";
+
 
 const MockInterview = () => {
   const webcamRef = useRef(null);
+  const [results, setResults] = useState([]);
   const [isPersonPresent, setIsPersonPresent] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState("");
-  const [currentQnAns, setCurrentQnAns] = useState("");
   const [currentLevel, setLevel] = useState(1);
+  const [checking,setChecking] = useState(false)
   const [questionNumber, setQuestionNumber] = useState(1);
-  const [timeLeft, setTimeLeft] = useState(80); // 80 seconds for 01:20
+  const [timeLeft, setTimeLeft] = useState(80);
   const [timerActive, setTimerActive] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [score,setScore] = useState("")
+  const [score,setScore] = useState(0)
   const [headOrientation, setHeadOrientation] = useState("Head is facing forward");
   const [isStoped, setRecordStopped] = useState(false);
+  const navigate = useNavigate()
+  const subject = "react";
   let mediaRecorder;
   let audioChunks = [];
   let speechRecognition = new (window.SpeechRecognition ||
@@ -63,7 +64,6 @@ const MockInterview = () => {
     speechRecognition.start();
 
     speechRecognition.onresult = (event) => {
-      // Update to accumulate results instead of replacing
       const newTranscript = Array.from(event.results)
         .map((result) => result[0].transcript)
         .join("");
@@ -77,13 +77,10 @@ const MockInterview = () => {
 
   const fetchQuestion = async () => {
     try {
-      // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `http://localhost:8000/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
+        `http://127.0.0.1:8000/api/questions/?subject=${subject}&Level=${currentLevel}`
       );
-      setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
-      setCurrentQnAns(response.data.Answer);
-      setLevel(response.data.Level);
+      setCurrentQuestion(response.data.Question);
     } catch (error) {
       console.error("Failed to fetch question:", error);
       setCurrentQuestion("Failed to load question.");
@@ -92,65 +89,61 @@ const MockInterview = () => {
 
 
 
-  
-
-
   useEffect(() => {
     fetchQuestion();
-  }, [currentLevel, questionNumber]);
+  }, [questionNumber]);
 
-  const questionsPerLevel = 8; // Number of questions per level
-  const totalQuestions = 40; // Total number of questions across all levels
+
 
   const handleNextQuestion = () => {
     setIsRecording(false);
     stopRecording();
-
-    // Reset transcript for the next question
     setTranscript("");
-
-    // Update question number and level based on the next question's index
+    setChecking(false)
     setQuestionNumber((prevQuestionNumber) => {
       const nextQuestionNumber = prevQuestionNumber + 1;
-
-      // If the next question number exceeds the total questions, handle accordingly
-      if (nextQuestionNumber > totalQuestions) {
-        // You might want to handle this case differently, e.g., show a completion message or restart
-        console.log("You have completed all questions.");
-        return prevQuestionNumber; // Keep the question number the same to avoid going over the limit
+      if (nextQuestionNumber <= 5 && score < 3) {
+        return nextQuestionNumber;
+      } else if (nextQuestionNumber <= 5 && score >= 2) {
+        setLevel((prevLevel) => prevLevel + 1);
+        setScore(0);
+        return 1;
+      } else {
+        navigate('/results', { state: { result: results } });
       }
-
-      // Calculate and update level every time the question number increments
-      const nextLevel = Math.ceil(nextQuestionNumber / questionsPerLevel);
-      setLevel(nextLevel);
-
-      return nextQuestionNumber;
     });
-
-    // Reset time for the next question and restart timer
     setTimeLeft(80);
     setTimerActive(true);
   };
 
+  useEffect(() => {
+    if (results.length > 0) {
+      handleNextQuestion();
+    }
+  }, [results]);
+
   const checkTextSimilarity = async (transcript) => {
     try {
+      setChecking(true)
       const response = await axios.post(
-        "http://localhost:8000/api/text-similarity/check_answer",
+        `http://127.0.0.1:8000/api/text-similarity/check_answer?subject=${subject}`,
         {
           question: currentQuestion,
           answer: transcript,
         }
       );
       console.log(response.data);
-      if (response.data) {
-        setScore((score) => score + 1);
-        console.log("Score = " + score);
-        if (score === 1) {
-          setLevel((level) => level++);
-          console.log("Level = " + level);
-        }
+      const formattedResponse = {
+        question: currentQuestion,
+        result: response.data.result,
+        correct_answer: response.data.correct_answer,
+      };
+      
+      if (response.data.result) {
+        setScore((prevScore) => prevScore + 1);
       }
-      handleNextQuestion();
+      setResults((prevResults) => [...prevResults, formattedResponse]);
+      
     } catch (error) {
       console.error("Failed to compute similarity:", error);
     }
@@ -165,8 +158,8 @@ const MockInterview = () => {
       }, 1000);
     } else if (timeLeft === 0) {
       setTimerActive(false);
-      // Handle what happens when the timer reaches 0
       console.log("Time's up!");
+      handleNextQuestion();
     }
 
     return () => clearInterval(interval);
@@ -188,45 +181,35 @@ const MockInterview = () => {
   const detectPerson = async () => {
     if (webcamRef.current) {
       const video = webcamRef.current.video;
-  
       if (video && video.readyState === 4) {
         const model = await blazeface.load();
         const predictions = await model.estimateFaces(video, false);
-  
         if (predictions.length > 0) {
-          const face = predictions[0]; // Assuming only one face is detected for simplicity
+          const face = predictions[0];
           const landmarks = face.landmarks;
-  
-          // Calculate the average x position of landmarks on the left and right sides of the face
           const leftEye = landmarks[0];
           const rightEye = landmarks[1];
           const leftEar = landmarks[3];
           const rightEar = landmarks[4];
           const nose = landmarks[2];
-  
-          // Horizontal movement - comparing the distance between ears and eyes
           const horizontalDistLeft = Math.abs(leftEye[0] - leftEar[0]);
           const horizontalDistRight = Math.abs(rightEye[0] - rightEar[0]);
-  
-          // Vertical movement - comparing the vertical positions of eyes and nose
           const verticalDistUp = (leftEye[1] + rightEye[1]) / 2 - nose[1];
           const verticalDistDown = nose[1] - (leftEye[1] + rightEye[1]) / 2;
-  
           let message = "Head is facing forward";
-  
           if (horizontalDistLeft > horizontalDistRight) {
             message = "Head is turned to the right";
           } else if (horizontalDistRight > horizontalDistLeft) {
             message = "Head is turned to the left";
           }
   
-          if (verticalDistUp > 20) { // Threshold for looking up
+          if (verticalDistUp > 20) {
             message = "Head is tilted up";
-          } else if (verticalDistDown > 20) { // Threshold for looking down
+          } else if (verticalDistDown > 20) {
             message = "Head is tilted down";
           }
   
-          console.log(message); // Or handle the message as needed in your UI
+          console.log(message);
   
           setIsPersonPresent(true);
         } else {
@@ -236,13 +219,11 @@ const MockInterview = () => {
       }
     }
   };
-  
 
-  // Consider using a more specific effect dependency to control the detection frequency
   useEffect(() => {
     const interval = setInterval(() => {
       detectPerson();
-    }, 3000); // check every 5 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -286,6 +267,7 @@ const MockInterview = () => {
               <img
                 src="./src/assets/stop.png"
                 alt="stop"
+                disabled={checking}
                 onClick={() => {
                   stopRecording(), checkTextSimilarity(transcript);
                 }}

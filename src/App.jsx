@@ -15,6 +15,7 @@ import CompLanding from "./pages/complanding/CompLanding";
 import AddJob from "./pages/addjob/AddJob";
 import JobEntry from "./pages/jobentry/JobEntry";
 import PublicProfile from "./pages/publicprofile/PublicProfile";
+import InterviewResult from "./pages/results/interviewResult";
 
 
 function App() {
@@ -85,6 +86,10 @@ function App() {
     {
       path: "public/:username/:id",
       element: <PublicProfile/>
+    },
+    {
+      path: "results",
+      element: <InterviewResult/>
     },
   
   ]);
