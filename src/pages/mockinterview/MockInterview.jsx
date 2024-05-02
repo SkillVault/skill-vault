@@ -3,6 +3,7 @@ import "./MockInterview.css";
 import Webcam from "react-webcam";
 import axios from "axios";
 import * as tf from "@tensorflow/tfjs";
+import { Microphone, Stop } from "phosphor-react";
 
 import * as blazeface from "@tensorflow-models/blazeface";
 import { FileX } from "phosphor-react";
@@ -24,7 +25,7 @@ const MockInterview = () => {
   const [optionA, setoptionA] = useState();
   const [optionB, setoptionB] = useState();
   const [optionC, setoptionC] = useState();
-  const [checking,setChecking] = useState(false);
+  const [checking, setChecking] = useState(false);
   const [seletedAnswer, setseletedAnswer] = useState();
   const navigate = useNavigate();
   const subject = "react";
@@ -183,6 +184,9 @@ const MockInterview = () => {
     facingMode: "user",
   };
 
+  const [isPersonDetected, setIsPersonDetected] = useState(true);
+
+  // Modify detectPerson function to update isPersonDetected state
   const detectPerson = async () => {
     if (webcamRef.current) {
       const video = webcamRef.current.video;
@@ -192,46 +196,13 @@ const MockInterview = () => {
         const predictions = await model.estimateFaces(video, false);
 
         if (predictions.length > 0) {
-          const face = predictions[0]; // Assuming only one face is detected for simplicity
-          const landmarks = face.landmarks;
-
-          // Calculate the average x position of landmarks on the left and right sides of the face
-          const leftEye = landmarks[0];
-          const rightEye = landmarks[1];
-          const leftEar = landmarks[3];
-          const rightEar = landmarks[4];
-          const nose = landmarks[2];
-
-          // Horizontal movement - comparing the distance between ears and eyes
-          const horizontalDistLeft = Math.abs(leftEye[0] - leftEar[0]);
-          const horizontalDistRight = Math.abs(rightEye[0] - rightEar[0]);
-
-          // Vertical movement - comparing the vertical positions of eyes and nose
-          const verticalDistUp = (leftEye[1] + rightEye[1]) / 2 - nose[1];
-          const verticalDistDown = nose[1] - (leftEye[1] + rightEye[1]) / 2;
-
-          let message = "Head is facing forward";
-
-          if (horizontalDistLeft > horizontalDistRight) {
-            message = "Head is turned to the right";
-          } else if (horizontalDistRight > horizontalDistLeft) {
-            message = "Head is turned to the left";
-          }
-
-          if (verticalDistUp > 20) {
-            // Threshold for looking up
-            message = "Head is tilted up";
-          } else if (verticalDistDown > 20) {
-            // Threshold for looking down
-            message = "Head is tilted down";
-          }
-
-          console.log(message); // Or handle the message as needed in your UI
-
-          setIsPersonPresent(true);
+          setIsPersonDetected(true);
+          // Other code...
         } else {
-          setIsPersonPresent(false);
+          setIsPersonDetected(false);
           console.log("No person detected");
+          // Add logic to automatically remove overlay after 3 seconds
+          setTimeout(() => setIsPersonDetected(true), 3000);
         }
       }
     }
@@ -247,148 +218,143 @@ const MockInterview = () => {
   }, []);
   return (
     <div className="mock-screen">
-      <div className="mock-container">
-        <div className="head">
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img
-              style={{ width: 100, height: 100 }}
-              src="./src/assets/bluelogo.png"
-              alt=""
-            />
-          </div>
-          <h3>Skill Test : React</h3>
-          <p style={{ margin: 0 }}>Your current level : {currentLevel}</p>
-        </div>
-        {currentLevel > 5 ? (
-          <div className="multiple-choice">
-            <div className="question">
-              <pre>
-                <code>{currentQuestion || "Loading question..."}</code>
-              </pre>
+      {isPersonDetected ? (
+        <div className="mock-container">
+          <div className="head">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                style={{ width: 100, height: 100 }}
+                src="./src/assets/bluelogo.png"
+                alt=""
+              />
             </div>
-            <div className="options">
+            <h3>Skill Test : React</h3>
+            <p style={{ margin: 0 }}>Your current level : {currentLevel}</p>
+          </div>
+          {currentLevel > 5 ? (
+            <div className="multiple-choice">
+              <div className="question">
+                <pre>
+                  <code>{currentQuestion || "Loading question..."}</code>
+                </pre>
+              </div>
               <div className="options">
-                <div className="option-card">
-                  <input
-                    type="Radio"
-                    name="Optionn"
-                    value={optionA}
-                    onChange={(e) => setseletedAnswer(e.target.value)}
-                  />
-                  <h6>{optionA}</h6>
-                </div>
-                <div className="option-card">
-                  <input
-                    type="Radio"
-                    name="Optionn"
-                    value={optionB}
-                    onChange={(e) => setseletedAnswer(e.target.value)}
-                  />
-                  <h6>{optionB}</h6>
-                </div>
-                <div className="option-card">
-                  <input
-                    type="Radio"
-                    name="Optionn"
-                    value={optionC}
-                    onChange={(e) => setseletedAnswer(e.target.value)}
-                  />
-                  <h6>{optionC}</h6>
+                <div className="options">
+                  <div className="option-card">
+                    <input
+                      type="Radio"
+                      name="Optionn"
+                      value={optionA}
+                      onChange={(e) => setseletedAnswer(e.target.value)}
+                    />
+                    <h6>{optionA}</h6>
+                  </div>
+                  <div className="option-card">
+                    <input
+                      type="Radio"
+                      name="Optionn"
+                      value={optionB}
+                      onChange={(e) => setseletedAnswer(e.target.value)}
+                    />
+                    <h6>{optionB}</h6>
+                  </div>
+                  <div className="option-card">
+                    <input
+                      type="Radio"
+                      name="Optionn"
+                      value={optionC}
+                      onChange={(e) => setseletedAnswer(e.target.value)}
+                    />
+                    <h6>{optionC}</h6>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="question">
-            <h1>{currentQuestion || "Loading question..."}</h1>
-          </div>
-        )}
-
-        <div className="mock-main">
-          {currentLevel > 5 ? (
-            <div></div>
           ) : (
-            <div className="mock">
-              <img src="./src/assets/timer.png" alt="timer" id="timer" />
-              <h2>{formatTime(timeLeft)}</h2>
+            <div className="question">
+              <h1>{currentQuestion || "Loading question..."}</h1>
             </div>
           )}
-          {currentLevel > 5 ? (
-            <div></div>
-          ) : (
-            <div className="audio">
+
+          <div className="mock-main">
+            {currentLevel > 5 ? (
+              <div></div>
+            ) : (
+              <div className="mock">
+                <img src="./src/assets/timer.png" alt="timer" id="timer" />
+                <h2>{formatTime(timeLeft)}</h2>
+              </div>
+            )}
+            {currentLevel > 5 ? (
+              <div></div>
+            ) : (
+              <div className="audio">
+                <button
+                  id="audio-btn"
+                  className={`${isRecording ? "recording-animation" : ""}`}
+                  onClick={startRecording}
+                >
+                  < Microphone size={32} />
+                </button>
+
+                <button id="audio-btn" onClick={stopRecording}>
+                  <Stop size={32} />
+                </button>
+              </div>
+            )}
+            {currentLevel > 5 ? (
+              <div></div>
+            ) : (
+              <div className="transcript_main">
+                <p>Transcript:</p>
+                <div className="transcript">
+                  <div className="transcript_inside">{transcript}</div>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="video-div">
+            <Webcam
+              ref={webcamRef}
+              audio={false}
+              height={300}
+              id="video-player"
+              screenshotFormat="image/jpeg"
+              width={400}
+              videoConstraints={videoConstraints}
+            />
+            {currentLevel > 5 ? (
               <button
-                id="audio-btn"
-                className={`${isRecording ? "recording-animation" : ""}`}
-                onClick={startRecording}
+                style={{ position: "absolute", top: "60" }}
+                id="nxt-btn"
+                onClick={handleNextQuestion}
               >
-                <img
-                  src="./src/assets/mic.png"
-                  alt="mic"
-                  style={{ cursor: "pointer" }}
-                />
+                Next Question
               </button>
-
-              <button id="audio-btn" onClick={stopRecording}>
-                <img
-                  src="./src/assets/stop.png"
-                  alt="stop"
-                  onClick={() => {
-                    stopRecording(), checkTextSimilarity(transcript);
-                  }}
-                  style={{ cursor: "pointer" }}
-                />
+            ) : (
+              <button
+                id="nxt-btn"
+                style={{ right: "300", top: "60" }}
+                onClick={handleNextQuestion}
+              >
+                Next Question
               </button>
-            </div>
-          )}
-          {currentLevel > 5 ? (
-            <div></div>
-          ) : (
-            <div className="transcript_main">
-              <p>Transcript:</p>
-              <div className="transcript">
-                <div className="transcript_inside">{transcript}</div>
+            )}
+            {currentLevel > 5 ? (
+              <div className="multiple-choice-timer">
+                <img src="./src/assets/timer.png" alt="timer" id="timer" />
+                <h2>{formatTime(timeLeft)}</h2>
               </div>
-            </div>
-          )}
+            ) : (
+              <div></div>
+            )}
+          </div>
         </div>
-        <div className="video-div">
-          <Webcam
-            ref={webcamRef}
-            audio={false}
-            height={300}
-            id="video-player"
-            screenshotFormat="image/jpeg"
-            width={400}
-            videoConstraints={videoConstraints}
-          />
-          {currentLevel > 5 ? (
-            <button
-              style={{ position: "absolute", top: "60" }}
-              id="nxt-btn"
-              onClick={handleNextQuestion}
-            >
-              Next Question
-            </button>
-          ) : (
-            <button
-              id="nxt-btn"
-              style={{ right: "300", top: "60" }}
-              onClick={handleNextQuestion}
-            >
-              Next Question
-            </button>
-          )}
-          {currentLevel > 5 ? (
-            <div className="multiple-choice-timer">
-              <img src="./src/assets/timer.png" alt="timer" id="timer" />
-              <h2>{formatTime(timeLeft)}</h2>
-            </div>
-          ) : (
-            <div></div>
-          )}
+      ) : (
+        <div className="overlay">
+          <h1>Person Not Detected ... </h1>
         </div>
-      </div>
+      )}
     </div>
   );
 };

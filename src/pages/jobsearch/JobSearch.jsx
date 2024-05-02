@@ -32,22 +32,27 @@ const JobSearch = () => {
     }
   };
 
-  // Handler to update the search term
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+ // Handler to perform the search
+const handleSearch = () => {
+  const filtered = jobs.filter((job) =>
+    job.job_title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  setFilteredJobs(filtered);
+};
 
-  // Handler to perform the search
-  const handleSearch = () => {
-    if (!searchTerm) {
-      setFilteredJobs(jobs); // If the search term is empty, show all jobs
-    } else {
-      const filtered = jobs.filter((job) =>
-        job.job_title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredJobs(filtered);
-    }
-  };
+// Handler to update the search term
+const handleSearchChange = (event) => {
+  const searchTermValue = event.target.value;
+  setSearchTerm(searchTermValue);
+
+  // Update filtered jobs immediately when the search term changes
+  if (!searchTermValue || searchTermValue.trim() === "") {
+    setFilteredJobs(jobs); // If the search term is empty or contains only whitespace, show all jobs
+  } else {
+    handleSearch(); // Perform the search with the updated search term
+  }
+};
+
 
   useEffect(() => {
     fetchJobs();

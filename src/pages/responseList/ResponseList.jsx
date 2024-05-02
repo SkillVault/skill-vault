@@ -11,36 +11,48 @@ const ResponseList = () => {
   const storedCompanyName = localStorage.getItem("companyName");
 
   const [response, setResponseList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
+  const [filteredResponse, setFilteredResponse] = useState([]); // State to hold filtered responses
+
   const fetchResponse = async () => {
     try {
       let apiUrl = `http://127.0.0.1:8000/api/company/responses`;
       const responses = await axios.get(apiUrl);
-  
+
       // Log the response data and jobTitle variable
       console.log("Response Data:", responses.data);
       console.log("Job Title:", jobTitle);
-  
+
       // Filter response based on job title
-      const filteredResponse = responses.data.filter(item => {
+      const filteredResponseByTitle = responses.data.filter((item) => {
         // Ensure the job title is compared correctly
         return item.job_title === (jobTitle && jobTitle.jobTitle);
       });
-  
-      // Log the filtered response
-      console.log("Filtered Response:", filteredResponse);
-  
-      setResponseList(filteredResponse);
+
+      // Log the filtered response by title
+      console.log("Filtered Response by Title:", filteredResponseByTitle);
+
+      setResponseList(filteredResponseByTitle);
+      setFilteredResponse(filteredResponseByTitle); // Initialize filteredResponse with all responses
     } catch (error) {
       console.error("Error fetching response data:", error);
     }
   };
-  
-  
-  
-  
-  
-  
-  
+
+  // Handler to update the search term
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Handler to perform the search
+  const handleSearch = () => {
+    const searchTermLowerCase = searchTerm.toLowerCase();
+    const filtered = response.filter((item) =>
+      item.userName.toLowerCase().includes(searchTermLowerCase)
+    );
+    setFilteredResponse(filtered);
+  };
+
   useEffect(() => {
     fetchResponse();
   }, []);
@@ -53,8 +65,12 @@ const ResponseList = () => {
       <div className="heading">
         <div className="search">
           <MagnifyingGlass size={22} />
-          <input placeholder="Search Responses"></input>
-          <button>Search</button>
+          <input
+            placeholder="Search Responses by Name"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          ></input>
+          <button onClick={handleSearch}>Search</button>
         </div>
       </div>
       <div className="rlist">
@@ -72,7 +88,7 @@ const ResponseList = () => {
               </tr>
             </thead>
             <tbody>
-              {response.map((response, index) => (
+              {filteredResponse.map((response, index) => (
                 <tr key={index}>
                   <td className="name">{response.userName}</td>
                   <td className="profile">

@@ -50,6 +50,13 @@ const JobDetailsCard = ({ job }) => {
     fetchUsrProfile();
   }, []);
 
+  const isJobOpen = () => {
+    const closingDate = new Date(job.closingDate);
+    const currentDate = new Date();
+    return closingDate > currentDate;
+  };
+
+
   const params = {
     userName: usrname,
     link: `http://localhost:5173/public/${usrname}`,
@@ -101,15 +108,20 @@ const JobDetailsCard = ({ job }) => {
           <strong>Closing Date:</strong> {job.closingDate}
         </li>
       </ul>
-      <button
-        onClick={applyJob}
-        style={{ margin: "0px" }}
-        className="apply-now-button"
-      >
-        Apply Now
-      </button>
+      {isJobOpen() ? (
+        <button
+          onClick={applyJob}
+          style={{ margin: "0px" }}
+          className="apply-now-button"
+        >
+          Apply Now
+        </button>
+      ) : (
+        <h6 style={{ color: "red",textAlign:"left",padding:"0px" }}>Closed</h6>
+      )}
     </div>
   );
+    
 };
 
 export default JobDetailsCard;

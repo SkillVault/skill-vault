@@ -10,30 +10,24 @@ const CompLanding = () => {
   const [companyEmail, setCompanyEmail] = useState();
   const storedCompanyName = localStorage.getItem("companyName");
 
- 
-
   const [response, setResponseList] = useState([]);
+  const [jobData, setJobData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // State to hold the search term
 
-  const [jobData, setjobData] = useState([
-   
-  ]);
   const fetchJobs = async () => {
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/company/company_post?company_email=${storedCompanyName}`
       );
-
-      console.log(response.data);
-      // If the API returns a single job object instead of an array, wrap it in an array
       const jobsData = Array.isArray(response.data)
         ? response.data
         : [response.data];
-      setjobData(jobsData);
-      console.log(jobsData);
+      setJobData(jobsData);
     } catch (error) {
       console.error("Failed to fetch jobs:", error);
     }
   };
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -45,14 +39,11 @@ const CompLanding = () => {
       `http://127.0.0.1:8000/api/company/profile?email=${storedCompanyEmail}`
     );
     const userData = response.data;
-    console.log(userData);
     setCompanyEmail(userData.company_email);
     setCompanyName(userData.company_name);
-    localStorage.setItem("companyName",userData.company_name);
-    console.log(userData.company_name);
+    localStorage.setItem("companyName", userData.company_name);
     setWebsite(userData.company_website);
   };
-
 
   useEffect(() => {
     fetchUsrProfile();
@@ -68,7 +59,7 @@ const CompLanding = () => {
       console.error("Error fetching response data:", error);
     }
   };
-  
+
   useEffect(() => {
     fetchResponse();
   }, []);
@@ -76,6 +67,11 @@ const CompLanding = () => {
   const countResponsesByJobTitle = (jobTitle) => {
     return response.filter((item) => item.job_title === jobTitle).length;
   };
+
+  // Filter job list based on the search term
+  const filteredJobData = jobData.filter((job) =>
+    job.job_title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="CompLogin">
@@ -86,7 +82,11 @@ const CompLanding = () => {
       <div className="heading">
         <div className="search">
           <MagnifyingGlass size={22} />
-          <input placeholder="Search by Job Title"></input>
+          <input
+            placeholder="Search by Job Title"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)} // Update search term as user types
+          />
           <button>Search</button>
         </div>
       </div>
@@ -112,7 +112,7 @@ const CompLanding = () => {
             </tr>
           </thead>
           <tbody>
-            {jobData.map((job, index) => (
+            {filteredJobData.map((job, index) => (
               <tr key={index}>
                 <td>{job.job_title}</td>
                 <td>{job.category}</td>
