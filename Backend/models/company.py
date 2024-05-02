@@ -7,7 +7,21 @@ class CompanysignUp(BaseModel):
     company_website : str
     password : str
     
+class CompanyDetails(BaseModel):
+    company_name: str
+    company_email: str
+    company_website: str
 
+class AddJob(BaseModel):
+    job_title : str
+    skills: str
+    category : str
+    location : str
+    openings : str
+    salary : str
+    companyname: str
+    website: str
+    companyemail: str
 
 class AddJob(BaseModel):
     job_title : str
@@ -19,8 +33,20 @@ class AddJob(BaseModel):
     
 class GetJob(BaseModel):
     job_title : Optional[str] = None
+    jobid: Optional[str] = None
     category : Optional[str] = None
     location : Optional[str] = None
     skills: Optional[str] = None
     openings : Optional[str] = None
     salary : Optional[str] = None
+    companyname: str
+    website: str
+    
+    
+
+class Responses(BaseModel):
+    userName: str
+    job_title : str
+    link: str
+    companyName: str
+    jobid: str

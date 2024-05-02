@@ -49,3 +49,11 @@ class GoogleUser(BaseUser):
 class Login(BaseModel):
     email: str
     password: str
+    
+    
+class ApplyJob(BaseModel):
+    userName: str
+    job_title : str
+    link: str
+    companyName: str
+    jobid:str

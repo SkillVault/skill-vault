@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from models.user import Candidate, GoogleUser, Login,UpdateUser
+from models.user import Candidate, GoogleUser, Login,UpdateUser,ApplyJob
 from database.candidate_data import login, signup, fetchUserDetails, checkUserExist, updateUserDetails
 from dotenv import load_dotenv
 import os
@@ -9,11 +9,12 @@ import bcrypt
 from datetime import datetime, timedelta
 import jwt
 
-load_dotenv()  # Load environment variables from .env file
+load_dotenv()
 MONGODB_URI = os.getenv("MONGODB_URI")
 client = AsyncIOMotorClient(MONGODB_URI)
 db = client.skillvault
 collection = db.candidates
+collection1 = db.appliedjobs
 
 router = APIRouter()
 
@@ -86,6 +87,16 @@ async def fetch_google_user(email: str):
     else: 
         return False
 
+@router.get("/get_profile")
+async def fetchProfile(username:str):
+    # Attempt to find the user in the database
+    existing_user = await collection.find_one({"username": username})
+    
+    if existing_user:
+        candidate_dict = dict(existing_user)
+        candidate_dict.pop('_id', None)
+        return candidate_dict
+
 @router.put("/update_candidate", response_model=dict)
 async def update_google_user(email: str, user_data: UpdateUser):
     existing_user = await checkUserExist(email)
@@ -94,4 +105,10 @@ async def update_google_user(email: str, user_data: UpdateUser):
         return result
     else:
         return {"ERROR": "user not found"}
+
+
+@router.post('/apply_job',response_model=ApplyJob)
+async def applyJob(applyJob:ApplyJob):
+    await collection1.insert_one(applyJob.dict())
+    return applyJob
 

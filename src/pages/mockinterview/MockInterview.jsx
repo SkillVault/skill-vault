@@ -109,7 +109,7 @@ const MockInterview = () => {
         setScore(0);
         return 1;
       } else {
-        navigate('/results', { state: { result: results } });
+        navigate('/results', { state: { result: results, level:currentLevel } });
       }
     });
     setTimeLeft(80);
@@ -124,6 +124,7 @@ const MockInterview = () => {
 
   const checkTextSimilarity = async (transcript) => {
     try {
+      
       setChecking(true)
       const response = await axios.post(
         `http://127.0.0.1:8000/api/text-similarity/check_answer?subject=${subject}`,
@@ -220,6 +221,12 @@ const MockInterview = () => {
     }
   };
 
+  const questionSkip= () =>{
+    setTranscript("I dont know")
+    checkTextSimilarity();
+    handleNextQuestion();
+  }  
+
   useEffect(() => {
     const interval = setInterval(() => {
       detectPerson();
@@ -287,7 +294,7 @@ const MockInterview = () => {
             width={400}
             videoConstraints={videoConstraints}
           />
-          <button id="nxt-btn" onClick={handleNextQuestion}>
+          <button id="nxt-btn" onClick={questionSkip}>
             Next Question
           </button>
 

@@ -4,17 +4,14 @@ import "./InterviewResult.css";
 
 const InterviewResult = () => {
   const location = useLocation();
-  const { result } = location.state || {};
+  const { result,level } = location.state;
   const navigate = useNavigate();
-  if (!result) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="result-outer-container">
       <div className="interview-result-container">
         <div className="header-image">
-          <p className="header-text">INTERVIEW RESULT</p>
+        <p className="header-text">Congratulations! You have achieved Level {level - 1}</p>
         </div>
         <div className="interview-result-card">
           {result.map((question, index) => (
