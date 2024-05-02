@@ -20,6 +20,7 @@ const JobDetailsCard = ({ job }) => {
   const [company, setCompany] = useState("");
   const [experience, setExperience] = useState(0); // Assuming experience is a number
   const [resume, setResume] = useState("");
+  const [skills, setSkills] = useState();
 
   const fetchUsrProfile = async () => {
     const response = await axios.get(
@@ -33,7 +34,7 @@ const JobDetailsCard = ({ job }) => {
     setFirstName(userData.first_name);
     setLastName(userData.last_name);
     setPhone(userData.phone_number);
-    setCompany(userData.company);
+    setcompanyDate(userData.companyDate);
     setExperiance(userData.experience);
     setSkills(userData.skills);
     setAddress({
@@ -85,6 +86,9 @@ const JobDetailsCard = ({ job }) => {
           <strong>Category:</strong> {job.category}
         </li>
         <li>
+          <strong>Skills:</strong> {job.skills}
+        </li>
+        <li>
           <strong>Location:</strong> {job.location}
         </li>
         <li>
@@ -92,6 +96,9 @@ const JobDetailsCard = ({ job }) => {
         </li>
         <li>
           <strong>Salary:</strong> {job.salary}
+        </li>
+        <li>
+          <strong>Closing Date:</strong> {job.closingDate}
         </li>
       </ul>
       <button

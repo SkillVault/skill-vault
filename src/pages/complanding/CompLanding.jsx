@@ -8,6 +8,8 @@ const CompLanding = () => {
   const [companyName, setCompanyName] = useState();
   const [website, setWebsite] = useState();
   const [companyEmail, setCompanyEmail] = useState();
+  const storedCompanyName = localStorage.getItem("companyName");
+
   const [jobData, setjobData] = useState([
     {
       jobTitle: "Frontend Developer",
@@ -18,6 +20,25 @@ const CompLanding = () => {
     },
     // Add more job data objects as needed
   ]);
+  const fetchJobs = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/company/company_post?company_email=${storedCompanyName}`
+      );
+      console.log(response.data);
+      // If the API returns a single job object instead of an array, wrap it in an array
+      const jobsData = Array.isArray(response.data)
+        ? response.data
+        : [response.data];
+      setjobData(jobsData);
+      console.log(jobsData);
+    } catch (error) {
+      console.error("Failed to fetch jobs:", error);
+    }
+  };
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
   const storedCompanyEmail = localStorage.getItem("companyEmail");
 
@@ -69,17 +90,17 @@ const CompLanding = () => {
               <th>Category</th>
               <th>Opening</th>
               <th>Applications</th>
-              <th>Status</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {jobData.map((job, index) => (
               <tr key={index}>
-                <td>{job.jobTitle}</td>
+                <td>{job.job_title}</td>
                 <td>{job.category}</td>
-                <td>{job.opening}</td>
-                <td>{job.application}</td>
-                <td>{job.status}</td>
+                <td>{job.openings}</td>
+                <td>{jobData.length}</td>
+                <td></td>
               </tr>
             ))}
           </tbody>

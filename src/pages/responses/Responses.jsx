@@ -4,6 +4,7 @@ import axios from "axios";
 import CompanyDashboard from "../../components/CompanyDashboard/CompanyDashboard";
 import { MagnifyingGlass } from "phosphor-react";
 import { useNavigate } from "react-router-dom";
+import ResponseList from "../responseList/ResponseList";
 
 const Responses = () => {
   const [companyName, setCompanyName] = useState();
@@ -26,6 +27,25 @@ const Responses = () => {
   console.log(job.job_title);
   const storedCompanyName = localStorage.getItem("companyName");
   console.log(storedCompanyName);
+
+
+  const [response, setResponseList] = useState([]);
+
+
+  const fetchResponse = async () => {
+    try {
+      const response = await axios.get(
+        `http://127.0.0.1:8000/api/company/responses`
+      );
+      setResponseList(response.data);
+    } catch (error) {
+      console.error("Error fetching response data:", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchResponse();
+  }, []);
 
   const fetchJobs = async () => {
     try {
@@ -63,7 +83,7 @@ const Responses = () => {
       </div>
       <div className="resp">
         <h2>Welcome to Skill Vault </h2>
-        <h1>{companyName}</h1>
+        <h1>{storedCompanyName}</h1>
       </div>
       <div className="resp1">
         <p>RESPONSES</p>
@@ -71,10 +91,10 @@ const Responses = () => {
             <div key={index}>
                       <div className="data">
 
-              <div className="name" onClick={() => navigate("/responseList")}>
+              <div className="name" onClick={() => navigate("/responseList",{state : {jobTitle : jobItem.job_title}})}>
                 <img src="./src/assets/blue_logo.png" />
                 <span className="sp">{jobItem.job_title}</span>
-                <span className="sp">0 responses</span>
+                <span className="sp">{response.length} responses</span>
               </div>
             </div>
             </div>
@@ -82,6 +102,7 @@ const Responses = () => {
           <br />
       
       </div>
+      
     </div>
   );
 };

@@ -17,6 +17,7 @@ const JobEntry = () => {
     location: "",
     openings: "",
     salary: "",
+    closingDate: "",
   });
 
   const handleInputChange = (e) => {
@@ -62,9 +63,9 @@ const JobEntry = () => {
     companyname: companyName, // This seems to be missing
     website: website, // This seems to be missing
     companyemail: companyEmail, // This seems to be missing
- 
+    closingDate: formData.closingDate,
   };
-  
+
   const queryString = new URLSearchParams(params).toString();
 
   const addJob = async () => {
@@ -182,6 +183,19 @@ const JobEntry = () => {
                     name="salary"
                     className="salary"
                     value={formData.salary}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </label>
+              </div>
+              <div className="card5">
+                <label>
+                  Closing Date:
+                  <input
+                    type="date"
+                    name="closingDate"
+                    className="closingDate"
+                    value={formData.closingDate}
                     onChange={handleInputChange}
                     required
                   />

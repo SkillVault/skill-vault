@@ -6,9 +6,11 @@ import * as tf from "@tensorflow/tfjs";
 
 import * as blazeface from "@tensorflow-models/blazeface";
 import { FileX } from "phosphor-react";
+import { useNavigate } from "react-router-dom";
 
 const MockInterview = () => {
   const webcamRef = useRef(null);
+  const [results, setResults] = useState([]);
   const [isPersonPresent, setIsPersonPresent] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState("");
   const [currentQnAns, setCurrentQnAns] = useState("");
@@ -22,8 +24,10 @@ const MockInterview = () => {
   const [optionA, setoptionA] = useState();
   const [optionB, setoptionB] = useState();
   const [optionC, setoptionC] = useState();
+  const [checking,setChecking] = useState(false);
   const [seletedAnswer, setseletedAnswer] = useState();
-  console.log(seletedAnswer);
+  const navigate = useNavigate();
+  const subject = "react";
 
   const [headOrientation, setHeadOrientation] = useState(
     "Head is facing forward"
@@ -38,12 +42,12 @@ const MockInterview = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.start();
 
-      mediaRecorder.con = (event) => {
+      mediaRecorder.ondataavailable = (event) => {
         audioChunks.push(event.data);
       };
 
-      mediaRecorder.start();
       setIsRecording(true);
       startSpeechRecognition();
     } catch (error) {
@@ -52,30 +56,23 @@ const MockInterview = () => {
   };
 
   const stopRecording = () => {
-    if (mediaRecorder && isRecording) {
+    if (mediaRecorder) {
+      setIsRecording(false);
+
       mediaRecorder.stop();
-      setIsRecording(false);
+
       setRecordStopped(true);
-      setTranscript("");
-      audioChunks = [];
-
-      // checkTextSimilarity(transcript);
     }
-
     if (speechRecognition) {
-      speechRecognition.stop();
       setIsRecording(false);
-      setTranscript("");
-      audioChunks = [];
+      speechRecognition.stop();
     }
   };
 
   const startSpeechRecognition = () => {
-    speechRecognition.continuous = true;
     speechRecognition.start();
 
     speechRecognition.onresult = (event) => {
-      // Update to accumulate results instead of replacing
       const newTranscript = Array.from(event.results)
         .map((result) => result[0].transcript)
         .join("");
@@ -89,17 +86,10 @@ const MockInterview = () => {
 
   const fetchQuestion = async () => {
     try {
-      // Make sure to use backticks here for the template literal
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/questions/?Level=${currentLevel}&QNo=${questionNumber}`
+        `http://127.0.0.1:8000/api/questions/?subject=${subject}&Level=${currentLevel}`
       );
-      setCurrentQuestion(response.data.Question); // Assuming the backend sends an object with a Question property
-      setCurrentQnAns(response.data.Answer);
-      setoptionA(response.data.optionA);
-      setoptionB(response.data.optionB);
-      setoptionC(response.data.optionC);
-      setLevel(response.data.Level);
-      console.log(response.data);
+      setCurrentQuestion(response.data.Question);
     } catch (error) {
       console.error("Failed to fetch question:", error);
       setCurrentQuestion("Failed to load question.");
@@ -108,65 +98,58 @@ const MockInterview = () => {
 
   useEffect(() => {
     fetchQuestion();
-  }, [currentLevel, questionNumber]);
-
-  const questionsPerLevel = 8; // Number of questions per level
-  const totalQuestions = 56; // Total number of questions across all levels
+  }, [questionNumber]);
 
   const handleNextQuestion = () => {
     setIsRecording(false);
-    startRecording();
     stopRecording();
-
     setTranscript("");
-    audioChunks = [];
-
-    // Update question number and level based on the next question's index
+    setChecking(false);
     setQuestionNumber((prevQuestionNumber) => {
       const nextQuestionNumber = prevQuestionNumber + 1;
-
-      // If the next question number exceeds the total questions, handle accordingly
-      if (nextQuestionNumber > totalQuestions) {
-        // You might want to handle this case differently, e.g., show a completion message or restart
-        console.log("You have completed all questions.");
-        return prevQuestionNumber; // Keep the question number the same to avoid going over the limit
+      if (nextQuestionNumber <= 5 && score < 3) {
+        return nextQuestionNumber;
+      } else if (nextQuestionNumber <= 5 && score >= 2) {
+        setLevel((prevLevel) => prevLevel + 1);
+        setScore(0);
+        return 1;
+      } else {
+        navigate("/results", {
+          state: { result: results, level: currentLevel },
+        });
       }
-
-      // Calculate and update level every time the question number increments
-      const nextLevel = Math.ceil(nextQuestionNumber / questionsPerLevel);
-      setLevel(nextLevel);
-
-      return nextQuestionNumber;
     });
-
-    // Reset time for the next question and restart timer
     setTimeLeft(80);
     setTimerActive(true);
   };
 
+  useEffect(() => {
+    if (results.length > 0) {
+      handleNextQuestion();
+    }
+  }, [results]);
+
   const checkTextSimilarity = async (transcript) => {
     try {
+      setChecking(true);
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/text-similarity/check_answer",
+        `http://127.0.0.1:8000/api/text-similarity/check_answer?subject=${subject}`,
         {
           question: currentQuestion,
           answer: transcript,
         }
       );
       console.log(response.data);
-      if (response.data) {
-        setScore((score) => score + 1);
-        console.log("Score = " + score);
-        if (score === 1) {
-          setLevel((level) => level++);
-          console.log("Level = " + level);
-        }
+      const formattedResponse = {
+        question: currentQuestion,
+        result: response.data.result,
+        correct_answer: response.data.correct_answer,
+      };
+
+      if (response.data.result) {
+        setScore((prevScore) => prevScore + 1);
       }
-
-      setTranscript("");
-      audioChunks = [];
-
-      handleNextQuestion();
+      setResults((prevResults) => [...prevResults, formattedResponse]);
     } catch (error) {
       console.error("Failed to compute similarity:", error);
     }
@@ -181,8 +164,8 @@ const MockInterview = () => {
       }, 1000);
     } else if (timeLeft === 0) {
       setTimerActive(false);
-      // Handle what happens when the timer reaches 0
       console.log("Time's up!");
+      handleNextQuestion();
     }
 
     return () => clearInterval(interval);

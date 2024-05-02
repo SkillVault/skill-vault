@@ -19,6 +19,7 @@ import PublicProfile from "./pages/public_profile/PublicProfile";
 import Interviewstart from "./pages/interviewStart/Interviewstart";
 import Responses from "./pages/responses/Responses";
 import ResponseList from "./pages/responseList/ResponseList";
+import InterviewResult from "./pages/results/InterviewResult";
 
 function App() {
   const router = createBrowserRouter([
@@ -97,6 +98,10 @@ function App() {
       path: "jobentry",
       element: <JobEntry />,
     },
+    {
+      path: "results",
+      element: <InterviewResult />
+    }
   ]);
   return (
     <>

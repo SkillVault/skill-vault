@@ -89,22 +89,7 @@ const JobSearch = () => {
                 ></input>
                 <button onClick={handleSearch}>Search</button>
               </div>
-              <div className="drop-down-container">
-                <Dropdown>
-                  <Dropdown.Toggle variant="success" id="dropdown">
-                    Job Sector
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
+           
             </div>
           </div>
           <div className="job-listings">

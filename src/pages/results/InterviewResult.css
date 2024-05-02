@@ -1,0 +1,94 @@
+.result-outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #b4c6ff; /* Light gray background */
+  height: 100%;
+}
+
+.header-image {
+  height: 200px; /* Adjust the height of the header image */
+  background-image: url("src/assets/result_img.jpg"); /* Replace "path/to/your/image.jpg" with the path to your image */
+  background-size: cover;
+  background-position: center;
+}
+
+.header-text {
+  position: relative;
+  top: 50%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.859);
+}
+
+.interview-result-container {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.question-container {
+  display: block;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.question {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333333;
+}
+
+.result-correct,
+.result-incorrect {
+  font-size: 16px;
+}
+
+.result-correct {
+  color: #4caf50; /* Green color for correct result */
+}
+
+.result-incorrect {
+  color: #f44336; /* Red color for incorrect result */
+}
+
+.checkmark,
+.crossmark {
+  font-size: 20px; /* Increased icon size */
+  margin-right: 8px; /* Adjusted margin for better alignment */
+}
+
+.correct-answer {
+  font-weight: bold;
+  margin-top: 5px;
+  color: #333333; /* Dark gray text color */
+}
+
+/* Hover effect for questions */
+.question-container:hover {
+  background-color: #f9f9f9; /* Light gray background on hover */
+}
+
+.result-continue {
+  width: 100px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 40%;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(93, 68, 205);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.result-continue:hover{
+  background-color: rgb(43, 26, 118);
+}

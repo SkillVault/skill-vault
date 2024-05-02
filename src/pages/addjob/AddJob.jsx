@@ -11,6 +11,24 @@ const AddJob = () => {
     const storedCompanyName = localStorage.getItem("companyName");
     console.log(storedCompanyName)
 
+    const [response, setResponseList] = useState([]);
+  
+  
+    const fetchResponse = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/company/responses`
+        );
+        setResponseList(response.data);
+      } catch (error) {
+        console.error("Error fetching response data:", error);
+      }
+    };
+    
+    useEffect(() => {
+      fetchResponse();
+    }, []);
+
 
   const fetchJobs = async () => {
     try {
@@ -82,7 +100,7 @@ const AddJob = () => {
                             <th>Category</th>
                             <th>Opening</th>
                             <th>Applications</th>
-                            <th>Status</th> {/* Keep the column title as "Status" */}
+                            <th></th> {/* Keep the column title as "Status" */}
                         </tr>
                     </thead>
                     <tbody>
@@ -91,7 +109,7 @@ const AddJob = () => {
                                 <td>{jobs.job_title}</td>
                                 <td>{jobs.category}</td>
                                 <td>{jobs.openings}</td>
-                                {/* <td>{jobs.application}</td> */}
+                                <td>{response.length}</td>
                                 <td>
                                     {/* Directly place the Remove Job button here */}
                                     <button className= "remove" onClick={() => removeJob(index)}>Remove Job</button>
