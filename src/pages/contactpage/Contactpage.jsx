@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
 import LandingNavbar from "../../components/LandingNav/LandingNav";
+import emailjs from '@emailjs/browser';
 import "./Contactpage.css";
 
 const ContactPage = () => {
@@ -7,6 +8,23 @@ const ContactPage = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const form = useRef();
+
+  const sendEmail = (e) => {
+      e.preventDefault();
+  
+      emailjs.sendForm('service_qiwl3ls', 'template_3eygnxl', form.current, '9wNrPPUlzm4R-Mnc8')
+        .then((result) => {
+
+            console.log(result.text);
+            e.target.reset();
+            alert('Email Sent !')
+           
+        }, (error) => {
+            console.log(error.text);
+        });
+    };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,14 +67,14 @@ const ContactPage = () => {
               Thanks for contacting us! We'll get back to you soon.
             </p>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form ref={form} onSubmit={sendEmail}>
               <div className="form-group">
                 <label htmlFor="name">Name:</label>
                 <input
                   type="text"
                   id="name"
-                  name="name"
-                  value={name}
+                 
+                  name='from_name' 
                   onChange={handleInputChange}
                   required
                 />
@@ -66,8 +84,8 @@ const ContactPage = () => {
                 <input
                   type="email"
                   id="email"
-                  name="email"
-                  value={email}
+                  name='your_email'
+                 
                   onChange={handleInputChange}
                   required
                 />
@@ -77,7 +95,6 @@ const ContactPage = () => {
                 <textarea
                   id="message"
                   name="message"
-                  value={message}
                   onChange={handleInputChange}
                   required
                 />

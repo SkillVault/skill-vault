@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Change import
+
 import axios from "axios";
 import "./Notification.css";
 
 const Notification = () => {
+  const navigate = useNavigate();
+
   const [notification, setNotification] = useState([]);
 
   const fetchJobs = async () => {
@@ -37,8 +41,8 @@ const Notification = () => {
               <h4>{notification.job_title}</h4>
               <p>{notification.category}</p>
               <button
-                onClick={() =>
-                  console.log(`Details for ${notification.job_title}`)
+                onClick={() => navigate("/jobsearch")
+                  
                 }
               >
                 More Details

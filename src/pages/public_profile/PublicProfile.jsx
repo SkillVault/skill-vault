@@ -15,6 +15,9 @@ const PublicProfile = () => {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [country, setCountry] = useState("");
+  const [skillLevel, setSkillLevel] = useState({});
+  const [experiance, setExperiance] = useState();
+
   const [aboutMe, setAboutMe] = useState(
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
@@ -24,6 +27,7 @@ const PublicProfile = () => {
   const [experience, setExperience] = useState(0);
   const [recommendation, setRecommendation] = useState(0);
   const [name, setName] = useState("");
+  const [company, setCompany] = useState("NA");
   const [job, setJob] = useState("Fresher");
 
   const fetchUsrProfile = async () => {
@@ -61,7 +65,11 @@ const PublicProfile = () => {
         setProfImg(userData.photo),
         setJob(userData.job),
         setRecommendation(userData.recommendation),
-        setSkill(userData.skills);
+        setSkillLevel({
+          react: userData.skills.react || "",
+        });
+        setCompany(userData.company);
+        setExperiance(userData.experience);
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -86,23 +94,19 @@ const PublicProfile = () => {
             <p>{job}</p>
           </div>
           <div className="outside1">
-            <div className="inside1">
-              <div className="i1">
-                <p>{skill}</p>
-              </div>
-              <p>Skills</p>
-            </div>
+      
+            
             <div className="inside1">
               <div className="i11">
-                <p>{experience}</p>
+                <p></p>
               </div>
-              <p>Experience</p>
+              <p></p>
             </div>
             <div className="inside">
               <div className="i12">
-                <p>{recommendation}</p>
+                <p></p>
               </div>
-              <p>Recommendations</p>
+              <p></p>
             </div>
           </div>
         </div>
@@ -162,6 +166,33 @@ const PublicProfile = () => {
               <span>{address.pincode}</span>
             </div>
           </section>
+          <h4>PROFESSIONAL INFORMATION</h4>
+          <section className="contact-information-grid">
+            <div className="data-field">
+              <label htmlFor="1staddress">Experiance:</label>
+              <br />
+              <span>{experiance + " Years"}</span>
+            </div>
+            <div className="data-field">
+              <label htmlFor="country">Previous Work Experiance :</label>
+              <br />
+              {company === "" ? (
+                <span>Not Applicable</span>
+              ) : (
+                <span>{company}</span>
+              )}
+            </div>
+            <div className="data-field">
+              <label htmlFor="country">Skills :</label>
+              <br />
+              {Object.keys(skillLevel).map((skill, index) => (
+                <span key={index}>{`${skill.toUpperCase()}: ${
+                  skillLevel[skill]
+                }`}</span>
+              ))}
+            </div>
+          </section>
+          <hr />
           <hr />
           <h4>ABOUT ME</h4>
           <section className="about-information-grid1">

@@ -21,7 +21,7 @@ const MockInterview = () => {
   const [timerActive, setTimerActive] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
-  const [score, setScore] = useState("");
+  const [score, setScore] = useState(0);
   const [optionA, setoptionA] = useState();
   const [optionB, setoptionB] = useState();
   const [optionC, setoptionC] = useState();
@@ -29,6 +29,8 @@ const MockInterview = () => {
   const [seletedAnswer, setseletedAnswer] = useState();
   const navigate = useNavigate();
   const subject = "react";
+  const storedUserEmail = localStorage.getItem("userEmail");
+
 
   const [headOrientation, setHeadOrientation] = useState(
     "Head is facing forward"
@@ -85,12 +87,37 @@ const MockInterview = () => {
     };
   };
 
+  const setSkill = async () => {
+    try {
+      const response = await axios.put(
+        `http://127.0.0.1:8000/api/user/skill_update?email=${storedUserEmail}`,
+        {
+          [subject]: `Level ${currentLevel}`
+        }
+      );
+     
+
+      console.log(response.data)
+    } catch (error) {
+      console.error("Failed to fetch question:", error);
+      setCurrentQuestion("Failed to load question.");
+    }
+  };
+
+
+
   const fetchQuestion = async () => {
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/api/questions/?subject=${subject}&Level=${currentLevel}`
       );
       setCurrentQuestion(response.data.Question);
+      setoptionA(response.data.optionA)
+      setoptionB(response.data.optionB)
+      setoptionC(response.data.optionC)
+
+
+      console.log(response.data)
     } catch (error) {
       console.error("Failed to fetch question:", error);
       setCurrentQuestion("Failed to load question.");
@@ -106,6 +133,7 @@ const MockInterview = () => {
     stopRecording();
     setTranscript("");
     setChecking(false);
+    console.log(score)
     setQuestionNumber((prevQuestionNumber) => {
       const nextQuestionNumber = prevQuestionNumber + 1;
       if (nextQuestionNumber <= 5 && score < 3) {
@@ -115,6 +143,7 @@ const MockInterview = () => {
         setScore(0);
         return 1;
       } else {
+        setSkill();
         navigate("/results", {
           state: { result: results, level: currentLevel },
         });
@@ -130,9 +159,10 @@ const MockInterview = () => {
     }
   }, [results]);
 
-  const checkTextSimilarity = async (transcript) => {
+  const checkTextSimilarity = async (transcript = "I dont know") => {
     try {
       setChecking(true);
+
       const response = await axios.post(
         `http://127.0.0.1:8000/api/text-similarity/check_answer?subject=${subject}`,
         {
@@ -207,7 +237,9 @@ const MockInterview = () => {
       }
     }
   };
-
+  const questionSkip = () => {
+    checkTextSimilarity();
+  };
   // Consider using a more specific effect dependency to control the detection frequency
   useEffect(() => {
     const interval = setInterval(() => {
@@ -291,13 +323,20 @@ const MockInterview = () => {
               <div className="audio">
                 <button
                   id="audio-btn"
+                  disabled={checking}
                   className={`${isRecording ? "recording-animation" : ""}`}
                   onClick={startRecording}
                 >
-                  < Microphone size={32} />
+                  <Microphone size={32} />
                 </button>
 
-                <button id="audio-btn" onClick={stopRecording}>
+                <button
+                  id="audio-btn"
+                  disabled={checking}
+                  onClick={() => {
+                    stopRecording(), checkTextSimilarity(transcript);
+                  }}
+                >
                   <Stop size={32} />
                 </button>
               </div>
@@ -326,6 +365,7 @@ const MockInterview = () => {
             {currentLevel > 5 ? (
               <button
                 style={{ position: "absolute", top: "60" }}
+                disabled={checking}
                 id="nxt-btn"
                 onClick={handleNextQuestion}
               >
@@ -334,8 +374,9 @@ const MockInterview = () => {
             ) : (
               <button
                 id="nxt-btn"
+                disabled={checking}
                 style={{ right: "300", top: "60" }}
-                onClick={handleNextQuestion}
+                onClick={questionSkip}
               >
                 Next Question
               </button>

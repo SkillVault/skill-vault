@@ -20,6 +20,7 @@ import Interviewstart from "./pages/interviewStart/Interviewstart";
 import Responses from "./pages/responses/Responses";
 import ResponseList from "./pages/responseList/ResponseList";
 import InterviewResult from "./pages/results/InterviewResult";
+import AboutPage from "./pages/aboutpage";
 
 function App() {
   const router = createBrowserRouter([
@@ -101,6 +102,10 @@ function App() {
     {
       path: "results",
       element: <InterviewResult />
+    },
+    {
+      path: "about",
+      element: <AboutPage />
     }
   ]);
   return (

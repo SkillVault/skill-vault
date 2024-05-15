@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./ProfileCard.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProfileCard = () => {
   const storedUserEmail = localStorage.getItem("userEmail");
   const [profImg, setProfImg] = useState("");
-
   const [skill, setSkill] = useState(0);
   const [experience, setExperience] = useState(0);
   const [recommendation, setRecommendation] = useState(0);
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [job, setJob] = useState("Fresher");
+  const navigate = useNavigate()
 
   const fetchUsrProfile = async () => {
     const response = await axios.get(
@@ -54,18 +55,8 @@ const ProfileCard = () => {
           alt=""
         />
         <div className="outside">
-          <div className="inside">
-            <div className="i">
-              <p>{skill}</p>
-            </div>
-            <p>Skills</p>
-          </div>
-          <div className="inside">
-            <div className="i1">
-              <p>{experience}</p>
-            </div>
-            <p>Experience</p>
-          </div>
+      
+       
         </div>
         <div className="name">
           <h3>{name}</h3>
@@ -87,7 +78,7 @@ const ProfileCard = () => {
           </p>
         </div>
         <div className="button">
-          <button>Show Resume</button>
+          <button onClick={() =>{navigate(`/public/${name}`)}}>Show Resume</button>
         </div>
         {/* <button onClick={shareProfile}>Share Profile</button> */}
       </div>

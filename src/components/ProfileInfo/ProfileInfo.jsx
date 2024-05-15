@@ -8,15 +8,15 @@ const ProfileInfo = ({ onEditClick }) => {
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState();
   const [email, setEmail] = useState("");
-  const [company, setCompany] = useState();
+  const [company, setCompany] = useState("NA");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [experiance, setExperiance] = useState();
-  const [skills, setSkills] = useState();
   const [aboutMe, setAboutMe] = useState(
     " Hello! My name is [Your Name] and I am passionate about [Your Passion or Interest].I enjoy [What you enjoy doing] and I am always eager to [What you like to learn or achieve]."
   );
+  const [skillLevel, setSkillLevel] = useState({});
 
   const storedUserEmail = localStorage.getItem("userEmail");
 
@@ -25,7 +25,7 @@ const ProfileInfo = ({ onEditClick }) => {
       `http://127.0.0.1:8000/api/user/get_user?email=${storedUserEmail}`
     );
     const userData = response.data;
-    console.log(userData);
+    console.log(skillLevel);
     setEmail(userData.email);
     setUsername(userData.username);
     setAboutMe(userData.about_me);
@@ -34,7 +34,9 @@ const ProfileInfo = ({ onEditClick }) => {
     setPhone(userData.phone_number);
     setCompany(userData.company);
     setExperiance(userData.experience);
-    setSkills(userData.skills);
+    setSkillLevel({
+      react: userData.skills.react || "",
+    });
     setAddress({
       first_line: userData.address.first_line || "",
       country: userData.address.country || "",
@@ -121,7 +123,20 @@ const ProfileInfo = ({ onEditClick }) => {
             <div className="data-field">
               <label htmlFor="country">Previous Work Experiance :</label>
               <br />
-              <span>{company}</span>
+              {company === "" ? (
+                <span>Not Applicable</span>
+              ) : (
+                <span>{company}</span>
+              )}
+            </div>
+            <div className="data-field">
+              <label htmlFor="country">Skills :</label>
+              <br />
+              {Object.keys(skillLevel).map((skill, index) => (
+                <span key={index}>{`${skill.toUpperCase()}: ${
+                  skillLevel[skill]
+                }`}</span>
+              ))}
             </div>
           </section>
           <hr />

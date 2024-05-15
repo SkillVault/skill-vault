@@ -271,32 +271,7 @@ const ProfileForm = ({ onFormSubmit }) => {
             </div>
           </section>
           <hr />
-          <h4>UPLOADS</h4>
-          <section className="upload-information-grid">
-            <div className="data-field">
-              <label htmlFor="profile-photo">Profile Photo:</label>
-              <br />
-              <input
-                type="file"
-                name="profile-photo"
-                accept="image/*"
-                className="form-input"
-                onChange={(e) => setProfilePhoto(e.target.files[0])}
-              />
-            </div>
-            <div className="data-field">
-              <label htmlFor="resume">Resume:</label>
-              <br />
-              <input
-                type="file"
-                name="resume"
-                accept=".pdf,.doc,.docx"
-                className="form-input"
-                onChange={(e) => setResume(e.target.value)}
-              />
-            </div>
-          </section>
-          <hr />
+         
 
           <h4>ABOUT ME</h4>
           <section className="about-information-grid">
